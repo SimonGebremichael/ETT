@@ -1,0 +1,84 @@
+#profile{
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 4;
+    /* transition: opacity 0.5s ease-in-out; */
+}
+#proBG{
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    position: absolute;
+    opacity: 0.7;
+    filter: blur(4);
+    animation: slideInLeft 0.2s;
+
+}
+#proBG:hover{
+    cursor: pointer;
+}
+
+#ProfileSideAcc, #ProfileColours {
+    width: 100%;
+    height: 20%;
+    background-color: #222;
+    color: white;
+    animation: slideInLeft 0.5s;
+}
+
+#ProfileColours{
+    display: none;
+}
+#colourHeader{
+    padding: 10px;
+    height: 70%;
+}
+#colourBtn{
+    padding: 10px;
+    border: 1px solid #333;
+    background-color: #222;
+    color: white;
+}
+#colourBtn:hover{
+    background-color: #333;
+    cursor: pointer;
+}
+
+#prfileSlide{
+    width: 20%;
+    height: 100%;
+    position: absolute;
+    background-color: #333;
+    border-right: 2px solid black;
+    animation: slideInLeft 0.4s;
+}
+#profileOptions{
+    border-collapse: collapse;
+    background-color: #333;
+    width: 100%;
+    text-align: left;
+}
+
+#profileOptions td{
+    padding-left: 30px;
+    border-bottom: 2px solid #222;
+}
+
+#profileOptions tr:hover {
+    cursor: pointer;
+    background-color: rgb(77, 77, 80);
+}
+#ProfileColours table td{
+    transition: margin 0.5s ease-in-out;
+}
+#ProfileColours table td:hover{
+    padding-left: 50px;
+    text-decoration: underline;
+}
+#proimg{
+    opacity: 0.6;
+    width: 40px;
+    height: 40px;
+}
