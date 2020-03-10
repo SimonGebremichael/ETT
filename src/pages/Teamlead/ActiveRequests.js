@@ -21,6 +21,9 @@ export default function ActiveRequests() {
                     <Request />
                     <Request />
                     <Request />
+                    <Request />
+                    <Request />
+                    <Request />
                 </div>
             </div>
     )

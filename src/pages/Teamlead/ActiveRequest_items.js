@@ -13,7 +13,8 @@ export default function ActiveRequest_items() {
                                     <label>anna.j@gmail.com</label>
                                     <button id="offsiteActivity">Active</button><br /><br />15 days<br />
                                     <button id="requestActivity">Feb.17.20</button>
-                                    <button id="requestActivity">Mar.3.20</button>
+                                    <button id="requestActivity">Mar.3.20</button><br /><br />
+                                    <button id="viewCalendarActivity">View on calendar</button>
                                 </td>
                                 <td valign="top" rowspan="2" id="requestDes">
                                     <div id="requestMemo">Memo:</div>

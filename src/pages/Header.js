@@ -2,6 +2,7 @@ import React from 'react'
 import head from '../styles/main.css';
 import teamlead from '../styles/teamlead.css';
 import profile from '../styles/profile.css';
+import animate from '../styles/animate.css';
 import logo from '../imgs/logo.png';
 
 export default function Header() {
