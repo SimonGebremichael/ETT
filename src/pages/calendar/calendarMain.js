@@ -4,15 +4,14 @@ import css from './styles/calendar.css'
 import arrow from './styles/arrow.css'
 import Side from './calenarSide'
 import Calendar from './calendarContent'
+import PopUp from './calendarDetails'
 
 export default function calendarMain() {
-    return ( <
-        >
-        <
-        Side / >
-        <
-        Calendar / >
-        <
-        />
+    return (
+        <>
+            <PopUp />
+            <Side />
+            <Calendar />
+        </>
     )
 }

@@ -16,17 +16,19 @@ html{
 
 header{
     padding: 10px;
-    height: 50px;
     border-bottom: 1px solid black;
     background-color: white;
 }
 
 header ul{    
     list-style-type: none;
+    right: 0px;
+    width: 70%;
+    margin-left: 60%;
 }
 
 header ul li {
-    float: right;
+    display: inline-block;
     list-style-type: none;
     margin: 15px;
     text-decoration: none;
@@ -40,10 +42,10 @@ header ul li:hover {
 }
 
 #left{
-    float: left;
+    display: inline-block;
 }
 #right{
-    float: right;
+    display: inline-block;
 }
 
 #logo{
@@ -66,6 +68,7 @@ header ul li:hover {
     height: 100%;
     float: left;
     background-color: #2F93F2;
+    
 }
 
 
@@ -81,4 +84,5 @@ footer{
     background-color: black;
     bottom: 0px;
     position: absolute;
+    z-index: 5;
 }

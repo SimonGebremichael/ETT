@@ -71,6 +71,7 @@ table {
     overflow-x: hidden;
 }
 #offSiteData {
+    background-color: lightgrey;
     border-collapse: collapse;
     border: 1px solid black;
 }
@@ -86,10 +87,9 @@ table {
 }
 
 #OffsiteSatus {
-    background-color: lightgrey;
     padding: 0px;
     margin-top: 15px;
-    animation: slideInRight 1s;
+    animation: fadeIn 1s;
 }
 
 #OffsiteImg {
