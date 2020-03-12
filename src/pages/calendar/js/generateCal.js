@@ -1,5 +1,7 @@
 var mon = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 var colours = ["-", "lightblue", "-", "lightgreen", "pink", "-", "lightgreen", "-"];
+var weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday", "Saturday"];
+
 var today = new Date();
 var dd = String(today.getDate()).padStart(2);
 var mm = String(today.getMonth() + 1).padStart(2);
@@ -14,27 +16,31 @@ function start() {
     let dayText;
     let res1;
     let res2;
-    let br;
     let selectedDate;
 
     
     const currentDate = new Date()
     document.getElementById("dateTitle").innerHTML = dd + " " + mon[mm - 1] + ", " + yyyy;
+    document.getElementById("sideDatePrint").innerHTML = weekday[today.getDay()] + ", " + mon[mm-1];
+
+    // console.log(weekday[getDaysInMonth(2, yyyy)-1]);
+    // console.log(weekday[getDaysInMonth(3, yyyy)-1]);
+    // console.log(weekday[getDaysInMonth(4, yyyy)-1]);
+    // console.log(weekday[getDaysInMonth(12, yyyy)-1]);
 
     for (var i = 1; i <= 31; i++) {
         para = document.createElement("div");
         para.className = "day";
         para.id = "d" + i;
-        para.title = dd + " " + mon[mm - 1] + ", " + yyyy;
+        para.padding = "5px";
+        para.title = i + " " + mon[mm - 1] + ", " + yyyy;
 
-        br = document.createElement("div");
+        var br = document.createElement("BR");
         para.appendChild(br);
-
 
         dayText = document.createElement("label");
         dayText.textContent = i;
         para.appendChild(dayText);
-
 
         var press = colours[Math.floor((Math.random() * 6) + 1)];
         if (press != "-") {
@@ -56,13 +62,15 @@ function start() {
         box.appendChild(para);
 
         if (i < currentDate.getDate()) {
-            para.setAttribute('style', 'color:#D2D2D2;')
+            para.style.opacity = "0.4";
+
+        }else if(i == currentDate.getDate()){
+            dayText.style.backgroundColor = "#2F93F2";
+            dayText.style.padding = "5px 7px 5px 5px";
+            dayText.style.color = "white";
+            dayText.style.borderRadius = "10px";
         }
     }
-
-
-   
-
 
     addEvent();
     document.getElementById("popBg").addEventListener("click", function () {
@@ -70,13 +78,15 @@ function start() {
         document.getElementsByClassName("Calendar")[0].style.filter = "blur(0)";
         document.getElementById("sideCal").style.filter = "blur(0)";
     });
+
+
+
 }
 
 function addEvent() {
     var temp = document.getElementsByClassName("day");
     for (var i = 0; i <= 17; i++) {
         temp[i].addEventListener("click", function () {
-
             document.getElementById("popupDisplay").style.display = "block";
             document.getElementsByClassName("Calendar")[0].style.filter = "blur(2px)";
             document.getElementById("sideCal").style.filter = "blur(2px)";
@@ -84,5 +94,10 @@ function addEvent() {
             console.log(temp[i].title);
         }, false)
     }
+
 }
+
+var getDaysInMonth = function(month,year) {
+    return new Date(year, month, 0).getDate();
+   };
 

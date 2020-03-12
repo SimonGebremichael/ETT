@@ -21,9 +21,9 @@ function start(){
   }
 
   function showProfile(){
-    document.getElementById("upcomming").style.filter = "blur(3px)";
-    document.getElementById("mainFeed").style.filter = "blur(3px)";
-    document.getElementById("sideBar").style.filter = "blur(3px)";
+    document.getElementById("upcomming").style.filter = "blur(2px)";
+    document.getElementById("mainFeed").style.filter = "blur(2px)";
+    document.getElementById("sideBar").style.filter = "blur(2pxs)";
     document.getElementById("profile").style.display = "block";
   }
 }

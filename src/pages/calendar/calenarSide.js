@@ -7,7 +7,10 @@ export default function calenarSide() {
         <div id="sideCal" >
 
             <div id='sideInfo' >
-                <h2 > Offsite Status: </h2>
+                <dive id="sideDate">
+                    <h2 id="sideDatePrint"></h2>
+                </dive>
+
             </div>
 
 
