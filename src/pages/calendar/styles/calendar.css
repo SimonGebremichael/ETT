@@ -75,14 +75,12 @@ header i:hover {
     padding: 5px;
     transition: all 0.3s ease-in-out;
 }
-.day:hover{
-    opacity: 1;
-}
 
 .day:hover {
     background-color: darkgrey;
     cursor: pointer;
     color: white;
+    opacity: 1;
 }
 
 .reserve{
@@ -100,7 +98,6 @@ header i:hover {
 #sideCal {
     float: left;
     width: 20%;
-    color: #222;
     height: 90%;
     padding: 10px;
 }
@@ -112,9 +109,14 @@ header i:hover {
     padding: 10px;
     text-align: center;
     width: 100%;
-    
+    color: grey;
 }
-
+#calNav1, #calNav2{
+    display: block;
+}
+#calNav1:hover, #calNav2:hover{
+    cursor: pointer;
+}
 
 /* ----------------------------------------------------------------------------------------------- */
 #popupDisplay{

@@ -1,34 +1,36 @@
 var mon = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 var colours = ["-", "lightblue", "-", "lightgreen", "pink", "-", "lightgreen", "-"];
-var weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday", "Saturday"];
+var weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
 var today = new Date();
-var dd = String(today.getDate()).padStart(2);
-var mm = String(today.getMonth() + 1).padStart(2);
-var yyyy = today.getFullYear();
+var dd = String(today.getDate()).padStart(2),
+    mm = String(today.getMonth() + 1).padStart(2),
+    yyyy = today.getFullYear();
+const currentDate = new Date();
+var change = false;
+
+
 
 window.onload = start;
 function start() {
+    const box = document.getElementById("date-section");
+    box.innerHTML = "";
 
-    const box = document.getElementById("date-section")
-
+    var Starting_dayOfTheWeek = new Date(yyyy + "-" + mm + "-01").getDay();
     let para;
     let dayText;
     let res1;
     let res2;
-    let selectedDate;
 
-    
-    const currentDate = new Date()
     document.getElementById("dateTitle").innerHTML = dd + " " + mon[mm - 1] + ", " + yyyy;
-    document.getElementById("sideDatePrint").innerHTML = weekday[today.getDay()] + ", " + mon[mm-1];
+    document.getElementById("sideDatePrint").innerHTML = "Today: " + weekday[today.getDay()] + ", " + mon[mm - 1] + getDaysInMonth(mm, yyyy);
 
-    // console.log(weekday[getDaysInMonth(2, yyyy)-1]);
-    // console.log(weekday[getDaysInMonth(3, yyyy)-1]);
-    // console.log(weekday[getDaysInMonth(4, yyyy)-1]);
-    // console.log(weekday[getDaysInMonth(12, yyyy)-1]);
+    for (var i = 0; i < Starting_dayOfTheWeek; i++) {
+        var emptyFeild = document.createElement("div");
+        box.appendChild(emptyFeild);
+    }
 
-    for (var i = 1; i <= 31; i++) {
+    for (var i = 1; i <= getDaysInMonth(mm, yyyy); i++) {
         para = document.createElement("div");
         para.className = "day";
         para.id = "d" + i;
@@ -58,13 +60,12 @@ function start() {
             para.appendChild(res2);
         }
 
-
         box.appendChild(para);
 
         if (i < currentDate.getDate()) {
             para.style.opacity = "0.4";
 
-        }else if(i == currentDate.getDate()){
+        } else if (i == currentDate.getDate()) {
             dayText.style.backgroundColor = "#2F93F2";
             dayText.style.padding = "5px 7px 5px 5px";
             dayText.style.color = "white";
@@ -79,8 +80,32 @@ function start() {
         document.getElementById("sideCal").style.filter = "blur(0)";
     });
 
+    document.getElementById("calNav1").addEventListener("click", function () {
+        mm--;
+        if (!change) {
+            today = new Date(2020, mm, 0);
+            console.log(today);
+            change = true;
+            start();
+        }
+    });
+    document.getElementById("calNav1").addEventListener("mouseup", function () {change = false;});
 
 
+
+
+
+    document.getElementById("calNav2").addEventListener("click", function () {
+        mm++;
+        if (!change) {
+            today = new Date(2020, mm, 0);
+            console.log(today);
+            change = true;
+            start();
+        }
+    });
+
+    document.getElementById("calNav2").addEventListener("mouseup", function () {change = false;});
 }
 
 function addEvent() {
@@ -94,10 +119,13 @@ function addEvent() {
             console.log(temp[i].title);
         }, false)
     }
-
 }
 
-var getDaysInMonth = function(month,year) {
+var getDaysInMonth = function (month, year) {
     return new Date(year, month, 0).getDate();
-   };
+};
 
+function readyCal() {
+
+
+}

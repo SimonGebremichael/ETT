@@ -2,11 +2,11 @@ import React from 'react'
 
 export default function calendarContent() {
     return (
-        <div class="Calendar">
+        <div class="Calendar"  onload="readyCal()">
             <header>
-                <i class="fas fa-caret-left"></i>
+                <button class="fas fa-caret-left" id="calNav1"></button>
                 <h1 id="dateTitle"></h1>
-                <i class="fas fa-caret-right"></i><br />
+                <button class="fas fa-caret-right" id="calNav2"></button><br />
             </header>
             <main id="date-section">
                 <h2>Sun</h2>
