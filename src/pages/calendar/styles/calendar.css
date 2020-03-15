@@ -97,7 +97,7 @@ header i:hover {
 
 #sideCal {
     float: left;
-    width: 20%;
+    width: 30%;
     height: 90%;
     padding: 10px;
 }
@@ -116,6 +116,43 @@ header i:hover {
 }
 #calNav1:hover, #calNav2:hover{
     cursor: pointer;
+}
+
+#calendarType{
+    padding: 5px;
+    margin: 0px;
+    font-size: 13px;
+    color: white;
+}
+
+#cal_stat_Data{
+    background-color: white;
+    border-collapse: collapse;
+    border: 1px solid black;
+    width: 100%;
+}
+
+#cal_stat_status {
+    padding: 0px;
+    margin-top: 15px;
+    animation: fadeIn 1s;
+    border-radius: 10px;
+}
+
+#cal_stat_Activity {
+    border-radius: 5px;
+    padding: 5px;
+    text-align: center;
+    border: none;
+    background-color: #333;
+    /* border: 1px solid lightsalmon; */
+    color: white;
+}
+
+#cal_stat_type{
+    float: right; 
+    margin-top: 5px;
+    color: black;
 }
 
 /* ----------------------------------------------------------------------------------------------- */

@@ -1,5 +1,5 @@
 import React from 'react'
-import Status from '../Teamlead/Offsite_status'
+import CalStatus from './calendarStatus'
 
 export default function calenarSide() {
     return (
@@ -8,16 +8,17 @@ export default function calenarSide() {
 
             <div id='sideInfo' >
                 <dive id="sideDate">
-                    <h2 id="sideDatePrint"></h2>
+                    <h4 id="sideDatePrint"></h4>
                 </dive>
 
             </div>
 
 
             <div id="offSiteDisplay" >
-                <Status />
-                <Status />
-                <Status />
+                <CalStatus />
+                <CalStatus />
+                <CalStatus />
+                <CalStatus />
             </div>
         </div>
     )
