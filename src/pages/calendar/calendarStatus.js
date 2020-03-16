@@ -16,7 +16,7 @@ export default function Offsite_status() {
                 <tr>
                     <td id="calendarType" class="cal_stat_details" colspan="2">
                         <div id="offsiteLeft">
-                            <button id="cal_stat_Activity">Feb.17.20</button>&nbsp;&nbsp;
+                            <button id="cal_stat_Activity">Feb.17.20</button>&nbsp;&nbsp;&nbsp;&nbsp;
                             <button id="cal_stat_Activity">Feb.2.29</button>
                         </div>
                         <div id="cal_stat_type">Remote</div>

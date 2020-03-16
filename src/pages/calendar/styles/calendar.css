@@ -152,12 +152,12 @@ header i:hover {
 }
 
 #cal_stat_Activity {
-    border-radius: 5px;
+    border-radius: 3px;
     padding: 5px;
     text-align: center;
     border: none;
-    background-color: #333;
-    /* border: 1px solid lightsalmon; */
+    border: 1px solid #333;
+    background-color: #9C9FA2;
     color: white;
 }
 
@@ -190,7 +190,6 @@ header i:hover {
     height: 400px;
     padding-right: 10px;
     overflow-x: hidden;
-    background-color: #474848;
 }
 
 #sideDatePrint{

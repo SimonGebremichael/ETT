@@ -15,7 +15,7 @@ var change = false,
 
 var d = document;
 
-window.onload = prntCal;
+// window.onload = prntCal;
 function prntCal() {
 
     //reset cal
