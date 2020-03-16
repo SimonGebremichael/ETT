@@ -8,7 +8,6 @@ body {
 
 .Calendar {
     background: #FEFFFF;
-    /* box-shadow: 0 5px 15px #474848; */
     width: 60%;
     padding: 15px 15px;
     float: right;
@@ -20,7 +19,12 @@ body {
     grid-template-columns: 1fr 5fr 1fr;
 }
 
-.Calendar main {
+.Calendar #date-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.Calendar #date-section2 {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
@@ -97,7 +101,7 @@ header i:hover {
 
 #sideCal {
     float: left;
-    width: 30%;
+    width: 22%;
     height: 90%;
     padding: 10px;
 }
@@ -105,12 +109,20 @@ header i:hover {
     width: 100%;
     background-color: white;
 }
+
+#sideInfo:hover{
+    background-color: darksalmon;
+    color: white !important;
+    cursor: pointer;
+}
+
 #sideDate{
     padding: 10px;
     text-align: center;
     width: 100%;
     color: grey;
 }
+
 #calNav1, #calNav2{
     display: block;
 }
@@ -153,6 +165,36 @@ header i:hover {
     float: right; 
     margin-top: 5px;
     color: black;
+}
+#cal_side_btns{
+    width: 100%;
+}
+.cal_side_actions{
+    display: inline-block;
+    width: 32%;
+    padding: 10px;
+    border: 1px solid white;
+    color: white;
+    font-size: 15px;
+    border-radius: 10px;
+    background: none;
+}
+
+.cal_side_actions:hover{
+    background-color: darksalmon;
+    cursor: pointer;
+}
+
+#cal_side_Display{
+    overflow-y: auto;
+    height: 400px;
+    padding-right: 10px;
+    overflow-x: hidden;
+    background-color: #474848;
+}
+
+#sideDatePrint{
+    color: darkgrey;
 }
 
 /* ----------------------------------------------------------------------------------------------- */
