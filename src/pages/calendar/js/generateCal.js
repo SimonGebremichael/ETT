@@ -1,4 +1,3 @@
-import cal from './generateStatus'
 var mon = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
     colours = ["-", "lightblue", "-", "lightgreen", "pink", "-", "lightgreen", "-"],
     weekday = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
@@ -14,28 +13,25 @@ var change = false,
     listened = false;
 
 var d = document;
-
-// window.onload = prntCal;
+window.onload = prntCal;
 function prntCal() {
 
-    //reset cal
-    const box = d.getElementById("date-section2");
+    //reset cal 
+    const box = document.getElementById("date-section2");
     box.innerHTML = "";
 
 
-    var Starting_dayOfTheWeek = new Date(yyyy, mm-1, 0).getDay();
+    var Starting_dayOfTheWeek = new Date(yyyy, mm - 1, 0).getDay();
     let para;
     let dayText;
     let res1;
     let res2;
 
     d.getElementById("dateTitle").innerHTML = mon[mm - 1] + ", " + yyyy;
-
-    d.getElementById("dateTitle").innerHTML += "--" + weekday[Starting_dayOfTheWeek] + ": " + Starting_dayOfTheWeek;
     for (var i = 0; i < Starting_dayOfTheWeek + 1; i++) {
         if (Starting_dayOfTheWeek != 6) {
             var emptyFeild = d.createElement("div");
-            box.appendChild(emptyFeild); 
+            box.appendChild(emptyFeild);
         }
     }
 
@@ -154,12 +150,14 @@ function init() {
 
     d.getElementById("sideDatePrint").innerHTML = weekday[currentDate.getDay()] + ", " + dd + " " + mon[currentDate.getMonth()];
 
-    d.getElementById("sideInfo").addEventListener("click", function(){
+    d.getElementById("sideInfo").addEventListener("click", function () {
         yyyy = currentDate.getFullYear();
         mm = currentDate.getMonth()
         dd = 0;
         prntCal();
     });
+
+
 }
 
 var colours2 = ["lightblue", "lightgreen", "pink", "yellow"];
@@ -170,4 +168,3 @@ function printStatusOfmonths() {
         elem[i].style.backgroundColor = colours2[(Math.floor(Math.random() * 4) + 1) - 1];
     }
 }
-

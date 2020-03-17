@@ -1,8 +1,15 @@
 import React from 'react'
-import head from '../styles/main.css';
+
 
 export default function Footer() {
+    const style ={
+        color: "white",
+        margin: "15px 15px 15px 15px",
+        fontSize: "15px"
+    }
     return (
-        <footer></footer>
+        <footer>
+            <div style={style}>Powered by Google Calender</div>
+        </footer>
     )
 }

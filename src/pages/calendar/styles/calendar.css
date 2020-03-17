@@ -15,8 +15,7 @@ body {
 }
 
 .Calendar header {
-    display: grid;
-    grid-template-columns: 1fr 5fr 1fr;
+    text-align: center;
 }
 
 .Calendar #date-section {
@@ -123,8 +122,9 @@ header i:hover {
     color: grey;
 }
 
-#calNav1, #calNav2{
-    display: block;
+#calNav1, #calNav2, #dateTitle{
+    display: inline-block;
+
 }
 #calNav1:hover, #calNav2:hover{
     cursor: pointer;

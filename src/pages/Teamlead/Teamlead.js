@@ -3,8 +3,6 @@ import Offsite from './Offsite'
 import ActiveRequests from './ActiveRequests'
 import Upcomming from './Upcomming'
 import Profile from '../Profile'
-import Navigation from './js/nav'
-import $ from 'jquery'
 
 export default function Teamlead() {
     return (
@@ -13,7 +11,6 @@ export default function Teamlead() {
             <Offsite />
             <ActiveRequests />
             <Upcomming />
-            
         </div>
     )
 }

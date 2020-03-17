@@ -19,7 +19,6 @@ export default function Offsite() {
                     </tr>
                 </table>
             </div>
-
             <div id="sideOffsite">
                 <h3>Currently Offsite:</h3>
                 <div id="offsiteDisplay">

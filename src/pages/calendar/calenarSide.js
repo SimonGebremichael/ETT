@@ -1,10 +1,10 @@
 import React from 'react'
 import CalStatus from './calendarStatus'
+import stausGenerating from './js/generateStatus'
 
 export default function calenarSide() {
     return (
         <>
-
         <div id="sideCal" >
             <div id='sideInfo' >
                 <dive id="sideDate">

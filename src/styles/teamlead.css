@@ -5,6 +5,7 @@
     margin-top: 3%;
     bottom: 0px; 
     position: relative;
+    min-width: 300px;
 }
 
 #sideBar {
