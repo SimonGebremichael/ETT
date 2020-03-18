@@ -1,7 +1,22 @@
-import React from 'react'
-// import pro from '';
+import React, { Component } from 'react'
+export default class states extends React.Component {
 
-export default function Offsite_status() {
+    constructor(props) {
+        super(props);
+    }
+
+    componentDidMount() {
+        var colours2 = ["lightblue", "lightgreen", "pink", "salmon"];
+        var elem = document.getElementsByClassName("cal_stat_details");
+        for (var i = 0; i <= 3; i++)
+            elem[i].style.backgroundColor = colours2[(Math.floor(Math.random() * 4) + 1) - 1];
+
+    }
+    render() {
+        return (<Offsite_status />)
+    }
+}
+function Offsite_status() {
     return (
         <div id="cal_stat_status">
             <table id="cal_stat_Data">

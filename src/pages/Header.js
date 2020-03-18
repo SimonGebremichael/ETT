@@ -7,14 +7,21 @@ import logo from '../imgs/logo.png';
 import { Link } from 'react-router-dom';
 
 export default function Header() {
+    const lleft = {
+        float: "left"
+    }
+    const rright = {
+        float: "right"
+    }
+
     return (
         <header id="header">
 
-            <div id="left">
+            <div style={lleft}>
                 <img src={logo} id="logo" />
             </div>
 
-            <div id="right">
+            <div style={rright}>
                 <ul id="options">
                     <Link to='/dashboard'>
                         <li>Home</li>

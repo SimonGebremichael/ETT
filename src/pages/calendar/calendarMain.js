@@ -5,7 +5,6 @@ import Side from './calenarSide'
 import Calendar from './calendarContent'
 import PopUp from './calendarDetails'
 
-
  function calendarMain() {
     return (
         <>
