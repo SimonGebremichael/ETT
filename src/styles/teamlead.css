@@ -6,6 +6,7 @@
     bottom: 0px; 
     position: relative;
     min-width: 300px;
+    max-width: 600px;
 }
 
 #sideBar {
@@ -145,7 +146,8 @@ table {
 
 #offsiteRight{
     float: right; 
-    margin-top: 5px;
+    margin-top: 9px;
+    margin-right: 5px;
 }
 
 
@@ -194,6 +196,11 @@ table {
     letter-spacing: 3px;
 }
 
+#PendingAmt{
+    margin-left: 4%;
+    margin-top: 4%;
+    color: white;
+}
 
 #displayRequests{
     clear: both;
@@ -202,7 +209,6 @@ table {
     margin-top: 4%;
     overflow-y: auto;
     overflow-x: hidden;
-    /* padding-bottom: 100px; */
 }
 
 #requests{
@@ -210,7 +216,6 @@ table {
     height: 190px;
     margin-top: 3%;
     animation: slideInRight 1s;
-    /* animation: slideInRight 1s; */
 }
 
 #requesteData{
@@ -219,12 +224,16 @@ table {
     border-collapse: collapse;
     background-color: lightgrey;
 }
-#requestType{
-    text-align: center;
-    margin: 0px;
+
+#requestType {
     font-size: 13px;
     background-color: darkgray;
     color: white;
+}
+#requestType label{
+    float: right;
+    margin-right: 20px;
+    margin-top: 10px;
 }
 
 #RequestTime{
@@ -282,12 +291,13 @@ table {
 }
 
 #requestActivity {
-    background-color: darkgray;
-    border-radius: 10px;
-    padding: 5px;
+    padding: 3px;
     text-align: center;
     margin-top: 5px;
     border: none;
+    border: 1px solid white;
+    color: white;
+    background: none;
 }
 
 
@@ -324,6 +334,7 @@ table {
     padding: 5px;
     margin-left: 20px;
     background-color:#222;
+    border: none;
 }
 
 #upcommingTime{
@@ -348,20 +359,10 @@ table {
 
 
 #upcommingType {
-    padding: 5px;
+    padding: 3px;
     margin: 0px;
     font-size: 13px;
     background-color: salmon;
-    color: white;
-}
-
-#upCommingActivity {
-    background-color: darksalmon;
-    border-radius: 5px;
-    padding: 5px;
-    text-align: center;
-    border: none;
-    border: 1px solid lightsalmon;
     color: white;
 }
 

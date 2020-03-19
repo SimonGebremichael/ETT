@@ -7,7 +7,10 @@ export default function calendarDetails() {
             <div id="popBg"></div>
             <div id="calDetails">
                 <h1 id="popDate"></h1><br /><br />
-                <h4>Events:</h4><br />
+                <h2>Details:</h2><br />
+                <hr color="grey"/><br /><br />
+                <h3>3 Results:</h3><br />
+
                 <div id="displayEvents">
                     <Status />
                     <Status />

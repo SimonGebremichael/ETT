@@ -42,8 +42,8 @@ function CalenarSide() {
 
                 <div id="cal_side_btns">
                     <button class="cal_side_actions">Create Request</button>&nbsp;
-                    <button class="cal_side_actions">Create Request</button>&nbsp;
-                    <button class="cal_side_actions">Create Request</button>
+                    <button class="cal_side_actions">Export Calendar</button>&nbsp;
+                    <button class="cal_side_actions">Analytics</button>
                 </div>
             </div>
         </>

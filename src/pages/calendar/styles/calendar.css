@@ -11,7 +11,7 @@ body {
     width: 60%;
     padding: 15px 15px;
     float: right;
-    height: 80%;
+    height: 89%;
 }
 
 .Calendar header {
@@ -74,7 +74,7 @@ header i:hover {
 }
 
 .day {
-    height: 70px;
+    height: 80px;
     padding: 5px;
     transition: all 0.3s ease-in-out;
 }
@@ -94,6 +94,7 @@ header i:hover {
 
 #dateTitle{
     color: darkgrey;
+    margin-top: 10px;
 }
 
 /* ----------------------------------------------------------------------------------- */
@@ -170,13 +171,14 @@ header i:hover {
     width: 100%;
 }
 .cal_side_actions{
-    display: inline-block;
+    float: left;
     width: 32%;
-    padding: 10px;
+    height: 50px;
+    padding: 6px;
     border: 1px solid white;
     color: white;
     font-size: 15px;
-    border-radius: 10px;
+    border-radius: 6px;
     background: none;
 }
 
@@ -199,7 +201,7 @@ header i:hover {
 /* ----------------------------------------------------------------------------------------------- */
 #popupDisplay{
     width: 100%;
-    height: 100%;
+    height: 90%;
     display: none;
     animation: fadeIn 0.6s;
     position: absolute;
@@ -213,6 +215,7 @@ header i:hover {
     background-color: white;
     position: absolute;
     padding: 50px;
+    border-radius: 13px;
 }
 #calDetails h4{
     color: #333;
@@ -221,7 +224,7 @@ header i:hover {
 
 #popBg{
     width: 100%;
-    height: 90%;
+    height: 100%;
     opacity: 0.6;
     background-color: black;
     position: absolute;
@@ -230,6 +233,7 @@ header i:hover {
     color: #333;
 }
 #displayEvents{
-    height: 500px;
+    height: 200px;
     overflow-y: auto;
+    width: 50%;
 }

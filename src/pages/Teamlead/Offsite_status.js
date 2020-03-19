@@ -15,9 +15,9 @@ export default function Offsite_status() {
                 <tr>
                     <td id="upcommingType" colspan="2">
                         <div id="offsiteLeft">
-                            <button id="upCommingActivity">Feb.17.20</button>
-                            <button id="upCommingActivity">Feb.2.29</button>
-                            <button id="viewCalendarActivity">View on calendar</button>
+                            <button id="requestActivity">Feb.17.20</button>&nbsp;&nbsp;
+                            <button id="requestActivity">Feb.2.29</button>&nbsp;&nbsp;
+                            <button id="requestActivity">View on calendar</button>
                         </div>
                         <div id="offsiteRight">Remote</div>
                     </td>

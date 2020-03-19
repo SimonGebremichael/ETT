@@ -15,7 +15,7 @@ export default function ActiveRequests() {
                         <input type="button" id="allBtn" class="acctionBtn" value="All" />
                     </div>
                 </div><br />
-
+                <h3 id="PendingAmt">5 Pending:</h3>
                 <div id="displayRequests">
                     <Request />
                     <Request />

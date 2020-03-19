@@ -1,18 +1,17 @@
 import React from 'react'
 import css from './styles/calendar.css'
-import arrow from './styles/arrow.css'
 import Side from './calenarSide'
 import Calendar from './calendarContent'
-import PopUp from './calendarDetails'
+import Details from './calendarDetails'
 
  function calendarMain() {
     return (
         <>
-            <PopUp />
+            <Details />
             <Side />
             <Calendar />
         </>
     )
-}
+} 
 
 export default calendarMain;

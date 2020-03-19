@@ -26,13 +26,13 @@ export default class Socki extends React.Component {
         if (true) { prntCal(); } //one time fire
 
         function prntCal() {
+
             //reset cal 
             const box = document.getElementById("date-section2");
             box.innerHTML = "";
 
-
             var Starting_dayOfTheWeek = new Date(yyyy, mm - 1, 0).getDay();
-            let para;
+            let temp;
             let dayText;
             let res1;
             let res2;
@@ -46,26 +46,25 @@ export default class Socki extends React.Component {
             }
 
             for (var i = 1; i <= new Date(yyyy, mm, 0).getDate(); i++) {
-                para = document.createElement("div");
-                para.className = "day";
-                para.id = "d" + i;
-                para.padding = "5px";
-                para.style.animation = "slideInLeft 0." + i + "s";
-                para.title = i + " " + mon[mm - 1] + ", " + yyyy;
+                temp = document.createElement("div");
+                temp.className = "day";
+                temp.id = i + " " + mon[mm - 1] + ", " + yyyy;
+                temp.padding = "5px";
+                temp.style.animation = "slideInLeft 0." + i + "s";
 
                 var br = document.createElement("BR");
-                para.appendChild(br);
+                temp.appendChild(br);
 
                 dayText = document.createElement("label");
                 dayText.textContent = i;
-                para.appendChild(dayText);
+                temp.appendChild(dayText);
 
                 var press = colours[Math.floor((Math.random() * 6) + 1)];
                 if (press != "-") {
                     res1 = document.createElement("div");
                     res1.className = "reserve";
                     res1.setAttribute('style', "background-color: " + press);
-                    para.appendChild(res1);
+                    temp.appendChild(res1);
                 }
 
                 var press2 = colours[Math.floor((Math.random() * 6) + 1)];
@@ -73,15 +72,15 @@ export default class Socki extends React.Component {
                     res2 = document.createElement("div");
                     res2.className = "reserve";
                     res2.setAttribute('style', "background-color: " + press2);
-                    para.appendChild(res2);
+                    temp.appendChild(res2);
                 }
 
-                box.appendChild(para);
+                box.appendChild(temp);
 
                 //current day marker on calendar
                 if (currentDate.getMonth() == mm - 1 && currentDate.getFullYear() == yyyy) {
                     if (i < currentDate.getDate()) {
-                        para.style.opacity = "0.4";
+                        temp.style.opacity = "0.4";
 
                     } else if (i == currentDate.getDate()) {
                         dayText.style.backgroundColor = "#2F93F2";
@@ -101,18 +100,19 @@ export default class Socki extends React.Component {
             if (!listened) {
                 init();
                 listened = true;
+            }else{
+                addEvent();
             }
         }
 
         function addEvent() {
             var temp = d.getElementsByClassName("day");
-            for (var i = 0; i <= 17; i++) {
+            for (var i = 0; i < temp.length; i++) {
                 temp[i].addEventListener("click", function () {
                     document.getElementById("popupDisplay").style.display = "block";
                     document.getElementsByClassName("Calendar")[0].style.filter = "blur(2px)";
                     document.getElementById("sideCal").style.filter = "blur(2px)";
-                    document.getElementById("popDate").innerHTML = temp[i].title;
-                    console.log(temp[i].title);
+                    document.getElementById("popDate").innerHTML = this.id;
                 }, false)
             }
         }
@@ -149,8 +149,6 @@ export default class Socki extends React.Component {
                 }
             });
             document.getElementById("calNav2").addEventListener("mouseup", function () { change2 = false; });
-
-  
         }
     }
     render() {

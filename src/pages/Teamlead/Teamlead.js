@@ -36,11 +36,11 @@ export default class team extends React.Component {
     }
 
     render() {
-        return (<Teamlead />)
+        return (<Teamleader />)
     }
 }
 
-function Teamlead() {
+function Teamleader() {
     return (
         <div id="content">
             <Profile />

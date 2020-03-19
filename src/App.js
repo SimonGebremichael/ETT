@@ -4,28 +4,47 @@ import Footer from './pages/Footer';
 import Teamlead from './pages/Teamlead/Teamlead';
 import Calendar from './pages/calendar/calendarMain';
 import Home from './pages/HomePage/Mainpage';
+import Header_login from './pages/LogIn_Header';
 import { BrowserRouter as Router, Switch, Route  } from 'react-router-dom';
 
 function App() {
 
-  var meme = () => {
-    return(<Teamlead />)
+  var team = () => {
+    return(
+      <>
+      <Header />
+      <Teamlead />
+      </>
+    )
   }
 
-  var meme2 = () => {
-    return(<Calendar />)
+  var cali = () => {
+    return(
+      <>
+      <Header />
+      <Calendar />
+      </>
+    )
+  }
+
+  var homeBound = () => {
+    return(
+      <>
+      <Header_login />
+      <Home />
+      </>
+    )
   }
   
   return (
     <>
       <Router>
-        <Header />
         <Switch>
-          <Route  path='/' exact component={Home} />
-          <Route  path='/dashboard' component={meme} />
-          <Route  path='/calendar' component={meme2} />
+          <Route  path='/' exact component={homeBound} />
+          <Route  path='/dashboard' component={team} />
+          <Route  path='/calendar' component={cali} />
         </Switch>
-        <Footer />
+        {/* <Footer /> */}
       </Router>
     </>
   );
