@@ -1,0 +1,33 @@
+#expo_container{
+    float: left;
+    width: 20%;
+}
+#expo_container2{
+    width: 100%;
+    background-color: white;
+    padding-bottom: 50px;
+}
+#expo_header{
+    padding: 25px;
+    border-bottom: 1px solid black;
+}
+
+#expo_form{
+    padding-left: 25px;
+}
+
+#expo_btns{
+    width: 100%;
+}
+#expo_export{
+    margin-top: 10px;
+    background-color: white;
+    color: black;
+    float: right;
+    border: none;
+    padding: 10px;
+}
+#expo_export:hover{
+    background-color: rgb(224, 219, 219);
+    cursor: pointer;
+}

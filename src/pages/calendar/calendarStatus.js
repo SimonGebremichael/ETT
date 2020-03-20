@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import profile from './imgs/profile.png';
 export default class states extends React.Component {
 
     constructor(props) {
@@ -6,10 +7,7 @@ export default class states extends React.Component {
     }
 
     componentDidMount() {
-        var colours2 = ["lightblue", "lightgreen", "pink", "salmon"];
-        var elem = document.getElementsByClassName("cal_stat_details");
-        for (var i = 0; i <= 3; i++)
-            elem[i].style.backgroundColor = colours2[(Math.floor(Math.random() * 4) + 1) - 1];
+        
 
     }
     render() {
@@ -21,7 +19,7 @@ function Offsite_status() {
         <div id="cal_stat_status">
             <table id="cal_stat_Data">
                 <tr>
-                    <td id="offImg"><img src='' id="OffsiteImg" /></td>
+                    <td id="offImg"><img src={profile} id="cal_stat_profile" /></td>
                     <td id="offInfo">
                         <label>Anna jamson</label><br />
                         <label>anna.j@gmail.com</label><br />
@@ -34,7 +32,7 @@ function Offsite_status() {
                             <button id="cal_stat_Activity">Feb.17.20</button>&nbsp;&nbsp;&nbsp;&nbsp;
                             <button id="cal_stat_Activity">Feb.2.29</button>
                         </div>
-                        <div id="cal_stat_type">Remote</div>
+                        <div id="cal_stat_type" class="cal_stat_type_value">Remote</div>
                     </td>
                 </tr>
             </table>

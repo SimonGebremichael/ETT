@@ -29,7 +29,9 @@ export default function Header() {
                     <Link to='/calendar'>
                         <li>Public Calendar</li>
                     </Link>
-                    <li>Export Calendar</li>
+                    <Link to='/export'>
+                        <li>Export Calendar</li>
+                    </Link>
                     <li>Analysis</li>
                     <li>Create Request</li>
                     <Link to='/'>

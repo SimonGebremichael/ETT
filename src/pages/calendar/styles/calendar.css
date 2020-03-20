@@ -9,9 +9,8 @@ body {
 .Calendar {
     background: #FEFFFF;
     width: 60%;
-    padding: 15px 15px;
     float: right;
-    height: 89%;
+    height: 93%;
 }
 
 .Calendar header {
@@ -24,6 +23,7 @@ body {
 }
 
 .Calendar #date-section2 {
+    margin: 10px;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
@@ -74,7 +74,7 @@ header i:hover {
 }
 
 .day {
-    height: 80px;
+    height: 75px;
     padding: 5px;
     transition: all 0.3s ease-in-out;
 }
@@ -101,8 +101,6 @@ header i:hover {
 
 #sideCal {
     float: left;
-    width: 22%;
-    height: 90%;
     padding: 10px;
 }
 #sideInfo{
@@ -156,9 +154,8 @@ header i:hover {
     border-radius: 3px;
     padding: 5px;
     text-align: center;
-    border: none;
-    border: 1px solid #333;
-    background-color: #9C9FA2;
+    border: 1px solid white;
+    background: none;
     color: white;
 }
 
@@ -168,42 +165,44 @@ header i:hover {
     color: black;
 }
 #cal_side_btns{
+    display: grid;
+    grid-template-columns: 25% 25% 25%;
     width: 100%;
+    background-color: tomato;
 }
 .cal_side_actions{
-    float: left;
-    width: 32%;
-    height: 50px;
-    padding: 6px;
-    border: 1px solid white;
-    color: white;
-    font-size: 15px;
-    border-radius: 6px;
-    background: none;
+ 
 }
 
-.cal_side_actions:hover{
-    background-color: darksalmon;
-    cursor: pointer;
-}
 
 #cal_side_Display{
+    display: grid;
     overflow-y: auto;
-    height: 400px;
-    padding-right: 10px;
     overflow-x: hidden;
+    height: 450px;
+    grid-template-columns: 250px  250px;
 }
 
 #sideDatePrint{
     color: darkgrey;
 }
 
+#displayFor{
+    color: white;
+}
+
+#cal_stat_profile {
+    width: 75%;
+    margin-top: 5%;
+    margin-left: 15%;
+}
+
 /* ----------------------------------------------------------------------------------------------- */
 #popupDisplay{
     width: 100%;
-    height: 90%;
+    height: 93%;
     display: none;
-    animation: fadeIn 0.6s;
+    animation: slideInLeft 0.6s;
     position: absolute;
     z-index: 4;
 }

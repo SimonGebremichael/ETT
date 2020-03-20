@@ -7,10 +7,8 @@ export default class Socki extends React.Component {
     }
 
     componentDidMount() {
-
         var mon = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-            colours = ["-", "lightblue", "-", "lightgreen", "pink", "-", "lightgreen", "-"],
-            weekday = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+            colours = ["-", "lightblue", "-", "lightgreen", "pink", "-", "lightgreen", "-"];
 
         var today = new Date(),
             dd = String(today.getDate()).padStart(2),
@@ -91,16 +89,12 @@ export default class Socki extends React.Component {
                 }
             }
 
-            document.getElementById("popBg").addEventListener("click", function () {
-                document.getElementById("popupDisplay").style.display = "none";
-                document.getElementsByClassName("Calendar")[0].style.filter = "blur(0)";
-                document.getElementById("sideCal").style.filter = "blur(0)";
-            });
+
 
             if (!listened) {
                 init();
                 listened = true;
-            }else{
+            } else {
                 addEvent();
             }
         }
@@ -108,10 +102,15 @@ export default class Socki extends React.Component {
         function addEvent() {
             var temp = d.getElementsByClassName("day");
             for (var i = 0; i < temp.length; i++) {
+
                 temp[i].addEventListener("click", function () {
                     document.getElementById("popupDisplay").style.display = "block";
                     document.getElementsByClassName("Calendar")[0].style.filter = "blur(2px)";
-                    document.getElementById("sideCal").style.filter = "blur(2px)";
+                    try {
+                        document.getElementById("sideCal").style.filter = "blur(2px)";
+                    } catch (e) { 
+                        document.getElementById("expo_container").style.filter = "blur(2px)";
+                    }
                     document.getElementById("popDate").innerHTML = this.id;
                 }, false)
             }
