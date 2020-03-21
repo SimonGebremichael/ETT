@@ -11,12 +11,16 @@ export default class team extends React.Component {
         document.getElementById("popBg").addEventListener("click", function () {
             document.getElementById("popupDisplay").style.display = "none";
             document.getElementsByClassName("Calendar")[0].style.filter = "blur(0)";
-            document.getElementById("sideCal").style.filter = "blur(0)";
+            try {
+                document.getElementById("sideCal").style.filter = "blur(0)";
+            } catch (e) {
+                document.getElementById("expo_container").style.filter = "blur(0)";
+            }
         });
-    }
 
-    render(){
-        return(
+    }
+    render() {
+        return (
             <CalendarDetail />
         )
     }
@@ -28,7 +32,7 @@ function CalendarDetail() {
             <div id="calDetails">
                 <h1 id="popDate"></h1><br /><br />
                 <h2>Details:</h2><br />
-                <hr color="grey"/><br /><br />
+                <hr color="grey" /><br /><br />
                 <h3>3 Results:</h3><br />
 
                 <div id="displayEvents">

@@ -3,6 +3,7 @@
     width: 20%;
 }
 #expo_container2{
+    display: block;
     width: 100%;
     background-color: white;
     padding-bottom: 50px;

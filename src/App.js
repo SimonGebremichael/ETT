@@ -6,6 +6,8 @@ import Calendar from './pages/calendar/calendarMain';
 import Export from './pages/export/Export';
 import Home from './pages/HomePage/Mainpage';
 import Header_login from './pages/LogIn_Header';
+import Create from './pages/create/create'
+
 import { BrowserRouter as Router, Switch, Route  } from 'react-router-dom';
 
 function App() {
@@ -46,6 +48,16 @@ function App() {
       </>
     )
   }
+
+  var create = () => {
+    return(
+      <>
+      <Header />
+      <Create />
+      </>
+    )
+  }
+
   return (
     <>
       <Router>
@@ -54,6 +66,7 @@ function App() {
           <Route  path='/dashboard' component={team} />
           <Route  path='/calendar' component={cali} />
           <Route  path='/export' component={exporter} />
+          <Route  path='/create' component={create} />
         </Switch>
         {/* <Footer /> */}
       </Router>

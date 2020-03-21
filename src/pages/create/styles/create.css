@@ -1,0 +1,35 @@
+#createSide{
+    width: 20%;
+    height: 400px;
+    float: left;
+    color: black; 
+}
+#createSide2{
+    background-color: white;
+    padding-bottom: 40px;
+}
+#createForm{
+    padding-left: 20px;
+}
+#createHeader{
+    width: 100%;
+    border-bottom: 1px solid black;
+    padding-top: 40px;
+
+}
+#createHeader h2{
+    color: black;
+    margin-left: 20px;
+}
+
+#create_btns{
+    width: 100%;
+}
+#create_request{
+    margin-top: 10px;
+    background-color: white;
+    color: black;
+    float: right;
+    border: none;
+    padding: 10px;
+}
