@@ -19,7 +19,6 @@ export default class exporter extends React.Component {
         include.addEventListener("click", () => {
             include.checked ? list.disabled = true : list.disabled = false;
         });
-        exporter_real();
     }
 
     render() {
@@ -56,11 +55,12 @@ function exporter_real() {
     setInterval(() => {
         if(swit){
             swit = false;
+            document.getElementById("expo_img").style.opacity = "1";
             document.getElementById("expo_container2").style.display = "none";
             document.getElementById("expo_load").style.display = "block";
         }else{
             document.getElementById("expo_img").src = check;
-            document.getElementById("expo_img").style.opacity = "0.6";
+            document.getElementById("expo_img").style.opacity = "0.5";
         }
     }, 1000);
 }

@@ -2,6 +2,7 @@ import Status from '../Teamlead/Offsite_status'
 import Calendar from '../calendar/calendarContent'
 import css from './styles/create.css'
 import loading from '../export/imgs/loading.gif'
+import check from '../export/imgs/check.png'
 import React, { Component } from 'react'
 
 
@@ -88,8 +89,18 @@ function date_vali(from, to, type, memo, c_ERR) {
 }
 
 function exporter_real() {
-    document.getElementById("createSide2").style.display = "none";
-    document.getElementById("expo_load").style.display = "block";
+    var swit = true;
+    setInterval(() => {
+        if(swit){
+            swit = false;
+            document.getElementById("createSide2").style.display = "none";
+            document.getElementById("expo_load").style.display = "block";
+        }else{
+            document.getElementById("expo_img").src = check;
+            document.getElementById("expo_img").style.opacity = "0.5";
+        }
+    }, 1000);
+
 }
 
 

@@ -32,7 +32,9 @@ export default function Header() {
                     <Link to='/export'>
                         <li>Export Calendar</li>
                     </Link>
-                    <li>Analysis</li>
+                    <Link to="/analysis">
+                        <li>Analysis</li>
+                    </Link>
                     <Link to='/create'>
                         <li>Create Request</li>
                     </Link>

@@ -2,7 +2,6 @@
     float: left;
     height: 100%;
     margin-left: 4%;
-    margin-top: 3%;
     bottom: 0px; 
     position: relative;
     min-width: 300px;
@@ -81,7 +80,7 @@ table {
 #sideOffsite {
     width: 93%;
     padding-left: 5%;
-    margin-top: 50px;
+    margin-top: 30px;
 }
 
 #sideOffsite h3 {

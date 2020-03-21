@@ -2,7 +2,6 @@ body{
     margin: 0px;
     padding: 0px;
     font-family: Arial, Helvetica, sans-serif;
-    background-color: blue;
     height: 100%;
 }
 
@@ -61,8 +60,10 @@ header ul{
 
 #content{
     height: 86.7%;
+    width: 100%;
     float: left;
     background-color: #2F93F2;
+    padding-top: 3%;
     
 }
 

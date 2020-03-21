@@ -1,0 +1,13 @@
+#Dashboard_cont, #report_cont{
+    height: 100%;
+    float: left;
+    margin-left: 4%;
+}
+#Dashboard_cont{
+    background-color: coral;
+    width: 35%;
+}
+#report_cont{
+    background-color: darkorchid;
+    width: 25%;
+}

@@ -7,6 +7,8 @@ import Export from './pages/export/Export';
 import Home from './pages/HomePage/Mainpage';
 import Header_login from './pages/LogIn_Header';
 import Create from './pages/create/create'
+import er_404 from './pages/404/unfound'
+import Analysis from './pages/analysis/analysis'
 
 import { BrowserRouter as Router, Switch, Route  } from 'react-router-dom';
 
@@ -58,15 +60,28 @@ function App() {
     )
   }
 
+  var analysis = () => {
+    return(
+      <>
+      <Header />
+      <Analysis />
+      </>
+    )
+  }
+
+
+
   return (
     <>
       <Router>
         <Switch>
-          <Route  path='/' exact component={homeBound} />
+          <Route  path='/' exact={true} component={homeBound} />
           <Route  path='/dashboard' component={team} />
           <Route  path='/calendar' component={cali} />
           <Route  path='/export' component={exporter} />
           <Route  path='/create' component={create} />
+          <Route  path='/analysis' component={analysis} />
+          <Route  path='*' exact={true} component={er_404} />
         </Switch>
         {/* <Footer /> */}
       </Router>

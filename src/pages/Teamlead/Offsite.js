@@ -1,8 +1,26 @@
-import React from 'react';
 import Status from './Offsite_status'
 import pro from './pics/profile.png';
+import React, { Component } from 'react'
 
-export default function Offsite() {
+export default class offsite extends React.Component {
+
+    constructor(props) {
+        super(props);
+    }
+
+    componentDidMount() {
+
+    }
+
+    render() {
+        return (
+            <>
+            <Offsite />
+            </>
+        )
+    }
+}
+function Offsite() {
     return (
         <div id="sideBar">
             <div id="sideAcc">
