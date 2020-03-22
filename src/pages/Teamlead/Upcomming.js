@@ -4,7 +4,7 @@ import Status from './Offsite_status'
 export default function Upcomming() {
     return (
         <div id="upcomming">
-            <div id="upcomingTtile">
+            <div id="upcomingTittile">
                 <h3>Upcomming Offsites:</h3>
             </div><br />
             <div id="upcommingSort">

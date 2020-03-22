@@ -44,9 +44,10 @@ header ul{
 }
 
 #logo{
-    width: 150px;
-    margin-left: 35%;
-    margin-top: 10px;
+    width: 120px;
+    margin-left: 50%;
+    margin-top: 15px;
+    opacity: 0.4;
 }
 
 

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import profile from './imgs/profile.png';
+
 export default class states extends React.Component {
 
     constructor(props) {

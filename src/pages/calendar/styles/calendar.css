@@ -139,7 +139,6 @@ header i:hover {
 #cal_stat_Data{
     background-color: white;
     border-collapse: collapse;
-    border: 1px solid black;
     width: 100%;
 }
 
@@ -166,12 +165,14 @@ header i:hover {
 }
 #cal_side_btns{
     display: grid;
-    grid-template-columns: 25% 25% 25%;
+    grid-template-columns: 50% 50%;
     width: 100%;
-    background-color: tomato;
+    color: black;
+    background-color: white;
 }
 .cal_side_actions{
- 
+    padding: 4px;
+    padding: 3px 5px;
 }
 
 
@@ -179,7 +180,7 @@ header i:hover {
     display: grid;
     overflow-y: auto;
     overflow-x: hidden;
-    height: 450px;
+    height: 430px;
     grid-template-columns: 250px  250px;
 }
 
@@ -189,6 +190,7 @@ header i:hover {
 
 #displayFor{
     color: white;
+    font-size: 25px;
 }
 
 #cal_stat_profile {

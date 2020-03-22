@@ -1,7 +1,24 @@
-import React from 'react'
 import pro from './pics/profile.png';
-export default function Offsite_status() {
+import React, { Component } from 'react'
+
+export default class status extends React.Component {
+
+    constructor(props) {
+        super(props);
+    }
+
+    componentDidMount() {
+ 
+    }
+
+    render() {
+        return (<Offsite_status />)
+    }
+}
+
+function Offsite_status() {
     return (
+        <>
         <div id="OffsiteSatus">
             <table id="offSiteData">
                 <tr>
@@ -13,16 +30,17 @@ export default function Offsite_status() {
                     </td>
                 </tr>
                 <tr>
-                    <td id="upcommingType" colspan="2">
+                    <td id="upcommingType" className="upcomming_Type" colspan="2">
                         <div id="offsiteLeft">
                             <button id="requestActivity">Feb.17.20</button>&nbsp;&nbsp;
                             <button id="requestActivity">Feb.2.29</button>&nbsp;&nbsp;
                             <button id="requestActivity">View on calendar</button>
                         </div>
-                        <div id="offsiteRight">Remote</div>
+                        <div id="offsiteRight" className="offsite_Right"></div>
                     </td>
                 </tr>
             </table>
-        </div>
+        </div><br />
+        </>
     )
 }

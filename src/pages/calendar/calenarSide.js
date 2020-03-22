@@ -11,9 +11,9 @@ export default class side extends React.Component {
             colours2 = ["lightblue", "lightgreen", "pink", "salmon"],
             colours3 = ["Remote", "Vacation", "Bithday", "Sick"];
 
-            var currentDate = new Date();
-            document.getElementById("sideDatePrint").innerHTML = weekday[currentDate.getDay()-1] + ", " + mon[currentDate.getMonth() - 1];
-        
+        var currentDate = new Date();
+        document.getElementById("sideDatePrint").innerHTML = weekday[currentDate.getDay() - 1] + ", " + mon[currentDate.getMonth()];
+
         var elem = document.getElementsByClassName("cal_stat_details");
         var elem2 = document.getElementsByClassName("cal_stat_type_value");
         for (var i = 0; i < elem.length; i++) {
@@ -39,7 +39,6 @@ function CalenarSide() {
                 <br />
                 <label id="displayFor">Display for: March</label>
                 <br />
-                <br />
                 <hr color="white" /><br />
                 <div id="cal_side_Display" >
                     <Status />
@@ -51,12 +50,47 @@ function CalenarSide() {
                 </div><br />
 
                 <div id="cal_side_btns">
-                    <button class="cal_side_actions">Remote Work</button>
-                    <button class="cal_side_actions">Vacation</button>
-                    <button class="cal_side_actions">Sick days</button>
-                    <button class="cal_side_actions">Bithdays</button>
+                    <div class="cal_side_actions">
+                        <div style={left}>
+                            Remote Work:
+                        </div>
+                        <div style={right}>
+                            4
+                        </div>
+                    </div>
+                    <div class="cal_side_actions">
+                        <div style={left}>
+                            Vacation:
+                        </div>
+                        <div style={right}>
+                            2
+                        </div>
+                    </div>
+                    <div class="cal_side_actions">
+                        <div style={left}>
+                            Sick days:
+                        </div>
+                        <div style={right}>
+                            1
+                         </div>
+                    </div>
+                    <div class="cal_side_actions">
+                        <div style={left}>
+                            Bithdays:
+                        </div>
+                        <div style={right}>
+                            0
+                        </div>
+                    </div>
                 </div>
             </div>
         </>
     )
+}
+
+const left = {
+    float: "left"
+}
+const right = {
+    float: "right"
 }

@@ -33,6 +33,18 @@ export default class team extends React.Component {
             document.getElementById("ProfileSideAcc").style.display = "block";
             document.getElementById("ProfileColours").style.display = "none";
         });
+
+
+        var colours2 = ["lightblue", "lightgreen", "pink", "salmon"],
+            colours3 = ["Remote", "Vacation", "Bithday", "Sick"];
+
+        var elem = document.getElementsByClassName("request_Type");
+        var elem2 = document.getElementsByClassName("request_Type_info");
+        for (var i = 0; i < elem.length; i++) {
+            var rand = (Math.floor(Math.random() * 4) + 1) - 1;
+            elem[i].style.backgroundColor = colours2[rand];
+            elem2[i].innerHTML = colours3[rand];
+        }
     }
 
     render() {
