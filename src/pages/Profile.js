@@ -24,7 +24,6 @@ export default class Profiler extends React.Component {
             } catch{
                 document.getElementById("content").style.filter = "blur(2px)";
             }
-
             document.getElementById("profile").style.display = "block";
         });
 
@@ -37,7 +36,6 @@ export default class Profiler extends React.Component {
             document.getElementById("ProfileSideAcc").style.display = "block";
             document.getElementById("ProfileColours").style.display = "none";
         });
-
 
         var colours2 = ["lightblue", "lightgreen", "pink", "salmon"],
             colours3 = ["Remote", "Vacation", "Bithday", "Sick"];
