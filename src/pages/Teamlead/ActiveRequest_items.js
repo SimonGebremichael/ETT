@@ -44,11 +44,10 @@ function ActiveRequest_items() {
                     </tr>
 
                     <tr>
-                        <td id="requestType" class="request_Type" colspan="4">
-                            &nbsp;&nbsp;
+                        <td id="requestType" class="request_Type" colspan="4">&nbsp;&nbsp;
                         <button id="requestActivity">Feb.17.20</button>&nbsp;&nbsp;
                         <button id="requestActivity">Mar.3.20</button>&nbsp;&nbsp;
-                        <Link to="/calendar">
+                            <Link to="/calendar">
                                 <button id="requestActivity">View on calendar</button>
                             </Link>
                             <label class="request_Type_info">Remote Work</label>

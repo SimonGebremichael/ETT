@@ -190,7 +190,9 @@ table {
 
 #displayRequests{
     clear: both;
-    width: 100%;
+    width: 90%;
+    margin-left: 5%;
+    padding-right: 10px;
     height: 65%;
     overflow-y: auto;
     overflow-x: hidden;
@@ -209,12 +211,13 @@ table {
 }
 
 #requestType {
+    padding: 6px;
     font-size: 13px;
     background-color: darkgray;
 }
 #requestType label{
     float: right;
-    margin-right: 20px;
+    margin-right: 10px;
     margin-top: 10px;
 }
 
@@ -288,7 +291,10 @@ table {
 
 #upcommingResults{
     overflow-y: auto;
-    height: 60%
+    height: 60%;
+    width: 90%;
+    margin-left: 5%;
+    padding-right: 10px;
 }
 #upcomingTittile{
     width: 100%;
@@ -342,7 +348,7 @@ table {
 
 
 #upcommingType {
-    padding: 3px;
+    padding: 6px;
     margin: 0px;
     font-size: 13px;
     background-color: salmon;

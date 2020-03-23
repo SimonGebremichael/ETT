@@ -11,30 +11,6 @@ export default class team extends React.Component {
     }
 
     componentDidMount() {
-        var proBG = document.getElementById("proBG").addEventListener("click", () => {
-            document.getElementById("upcomming").style.filter = "blur(0)";
-            document.getElementById("mainFeed").style.filter = "blur(0)";
-            document.getElementById("sideBar").style.filter = "blur(0)";
-            document.getElementById("profile").style.display = "none";
-        });
-        var sideAcc = document.getElementById("sideAcc").addEventListener("click", () => {
-            document.getElementById("upcomming").style.filter = "blur(2px)";
-            document.getElementById("mainFeed").style.filter = "blur(2px)";
-            document.getElementById("sideBar").style.filter = "blur(2pxs)";
-            document.getElementById("profile").style.display = "block";
-        });
-
-        var sideAcc = document.getElementById("colour_Scheme").addEventListener("click", () => {
-            document.getElementById("ProfileColours").style.display = "block";
-            document.getElementById("ProfileSideAcc").style.display = "none";
-        });
-
-        var sideAcc = document.getElementById("colourBtn").addEventListener("click", () => {
-            document.getElementById("ProfileSideAcc").style.display = "block";
-            document.getElementById("ProfileColours").style.display = "none";
-        });
-
-
         var colours2 = ["lightblue", "lightgreen", "pink", "salmon"],
             colours3 = ["Remote", "Vacation", "Bithday", "Sick"];
 
@@ -54,11 +30,13 @@ export default class team extends React.Component {
 
 function Teamleader() {
     return (
-        <div id="content">
+        <>
             <Profile />
-            <Offsite />
-            <ActiveRequests />
-            <Upcomming />
-        </div>
+            <div id="content">
+                <Offsite />
+                <ActiveRequests />
+                <Upcomming />
+            </div>
+        </>
     )
 }

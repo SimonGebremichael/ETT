@@ -53,12 +53,12 @@ function expo_vali2(all, list, ERR) {
 function exporter_real() {
     var swit = true;
     setInterval(() => {
-        if(swit){
+        if (swit) {
             swit = false;
             document.getElementById("expo_img").style.opacity = "1";
             document.getElementById("expo_container2").style.display = "none";
             document.getElementById("expo_load").style.display = "block";
-        }else{
+        } else {
             document.getElementById("expo_img").src = check;
             document.getElementById("expo_img").style.opacity = "0.5";
         }
@@ -77,37 +77,40 @@ function DataExpo() {
 
 function SideData() {
     return (
-        <div id="expo_container">
-            <div id="expo_container2">
-                <div id="expo_header">
-                    <h2>Export to excel</h2><br />
-                </div><br /><br /><br />
-                <div id="expo_form">
-                    <h3>From:</h3><br />
-                    <input type="date" id="expo_from" /><br /><br />
-                    <h3>To:</h3><br />
-                    <input type="date" id="expo_to" /><br /><br />
-                    <h3>Include:</h3><br />
-                    <input type="checkbox" id="include" />
-                    <label for="include">&nbsp;&nbsp;All</label><br /><br />
-                    <select style={expoListStyle} id="includeList" multiple="multiple">
-                        <option>john james</option>
-                        <option>frank businesman</option>
-                        <option>mary piperwork</option>
-                        <option>eric gates</option>
-                        <option>aidan stinson</option>
-                        <option>luther summerhayes</option>
-                    </select>
+        <>
+            <div id="expo_container">
+                <div id="expo_container2">
+                    <div id="expo_header">
+                        <h2>Export to excel</h2><br />
+                    </div><br /><br /><br />
+                    <div id="expo_form">
+                        <h3>From:</h3><br />
+                        <input type="date" id="expo_from" /><br /><br />
+                        <h3>To:</h3><br />
+                        <input type="date" id="expo_to" /><br /><br />
+                        <h3>Include:</h3><br />
+                        <input type="checkbox" id="include" />
+                        <label for="include">&nbsp;&nbsp;All</label><br /><br />
+                        <select style={expoListStyle} id="includeList" multiple="multiple">
+                            <option>john james</option>
+                            <option>frank businesman</option>
+                            <option>mary piperwork</option>
+                            <option>eric gates</option>
+                            <option>aidan stinson</option>
+                            <option>luther summerhayes</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="expo_load" style={expo_load}>
+                    <img id="expo_img" src={loading} style={expo_img} />
+                </div>
+                <div id="expo_btns">
+
+                    <input type="button" onClick={expo_vali} id="expo_export" value="Export" />
                 </div>
             </div>
-            <div id="expo_load" style={expo_load}>
-                <img id="expo_img" src={loading} style={expo_img} />
-            </div>
-            <div id="expo_btns">
-                <label id="expo_err" style={expo_err}></label>
-                <input type="button" onClick={expo_vali} id="expo_export" value="Export" />
-            </div>
-        </div>
+            <label id="expo_err" style={expo_err}></label>
+        </>
     )
 }
 const expoListStyle = {
@@ -117,7 +120,7 @@ const expoListStyle = {
 const expo_err = {
     color: "red",
     marginTop: "10px",
-    marginLeft: "10px"
+    marginLeft: "30px"
 }
 
 const expo_img = {
