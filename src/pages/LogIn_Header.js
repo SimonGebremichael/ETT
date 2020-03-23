@@ -5,11 +5,11 @@ import logo from '../imgs/logo.png';
 export default function Header() {
     const btn = {
         width: "150px",
-        padding: "5px",
+        height: "40px",
         color: "black",
         backgroundColor: "white",
         border: "1px solid black",
-        margin: "3px 3px"
+        margin: "5px 3px"
       }
 
     const lleft = {
