@@ -29,62 +29,60 @@ export default class side extends React.Component {
 
 function CalenarSide() {
     return (
-        <>
-            <div id="sideCal" >
-                <div id='sideInfo' >
-                    <dive id="sideDate">
-                        <h4 id="sideDatePrint" title="today"></h4>
-                    </dive>
-                </div>
-                <br />
-                <label id="displayFor">Display for: March</label>
-                <br />
-                <hr color="white" /><br />
-                <div id="cal_side_Display" >
-                    <Status />
-                    <Status />
-                    <Status />
-                    <Status />
-                    <Status />
-                    <Status />
-                </div><br />
+        <div id="sideCal" >
+            <div id='sideInfo' >
+                <dive id="sideDate">
+                    <h4 id="sideDatePrint" title="today"></h4>
+                </dive>
+            </div>
+            <br />
+            <label id="displayFor">Display for: March</label>
+            <br />
+            <hr color="white" /><br />
+            <div id="cal_side_Display" >
+                <Status />
+                <Status />
+                <Status />
+                <Status />
+                <Status />
+                <Status />
+            </div><br />
 
-                <div id="cal_side_btns">
-                    <div class="cal_side_actions">
-                        <div style={left}>
-                            Remote Work:
+            <div id="cal_side_btns">
+                <div class="cal_side_actions">
+                    <div style={left}>
+                        Remote Work:
                         </div>
-                        <div style={right}>
-                            4
+                    <div style={right}>
+                        4
                         </div>
-                    </div>
-                    <div class="cal_side_actions">
-                        <div style={left}>
-                            Vacation:
+                </div>
+                <div class="cal_side_actions">
+                    <div style={left}>
+                        Vacation:
                         </div>
-                        <div style={right}>
-                            2
+                    <div style={right}>
+                        2
                         </div>
-                    </div>
-                    <div class="cal_side_actions">
-                        <div style={left}>
-                            Sick days:
+                </div>
+                <div class="cal_side_actions">
+                    <div style={left}>
+                        Sick days:
                         </div>
-                        <div style={right}>
-                            1
+                    <div style={right}>
+                        1
                          </div>
-                    </div>
-                    <div class="cal_side_actions">
-                        <div style={left}>
-                            Bithdays:
+                </div>
+                <div class="cal_side_actions">
+                    <div style={left}>
+                        Bithdays:
                         </div>
-                        <div style={right}>
-                            0
+                    <div style={right}>
+                        0
                         </div>
-                    </div>
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 

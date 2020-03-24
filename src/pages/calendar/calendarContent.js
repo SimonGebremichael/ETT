@@ -158,19 +158,19 @@ export default class Socki extends React.Component {
 function CalendarContent() {
     const left1 = {
         float: "left",
-        padding: "15px"
+        padding: "10px"
     }
     const right1 = {
         float: "right",
-        padding: "15px"
+        padding: "10px"
     }
     return (
-        <div class="Calendar" id="calicali">
-            <header>
+        <div id="calendar">
+            <div id="header">
                 <button style={left1} id="calNav1">&#8592;</button>
                 <h1 id="dateTitle"></h1>
                 <button style={right1} id="calNav2">&rarr;</button><br />
-            </header>
+            </div>
 
             <main id="date-section">
                 <h2>Sun</h2>

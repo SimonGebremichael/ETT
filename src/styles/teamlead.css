@@ -1,3 +1,13 @@
+#content{
+    height: 87%;
+    width: 100%;
+    float: left;
+    background-color: #2F93F2;
+    margin-top: 3%;
+    
+}
+
+
 #sideBar, #mainFeed, #upcomming{
     float: left;
     height: 100%;

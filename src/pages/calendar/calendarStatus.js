@@ -25,6 +25,7 @@ function Offsite_status() {
                         <label>Anna jamson</label><br />
                         <label>anna.j@gmail.com</label><br />
                         <button id="offsiteActivity">Active</button>
+                        <div id="cal_stat_type" class="cal_stat_type_value">Remote</div>
                     </td>
                 </tr>
                 <tr>
@@ -33,7 +34,7 @@ function Offsite_status() {
                             <button id="cal_stat_Activity">Feb.17.20</button>&nbsp;&nbsp;&nbsp;&nbsp;
                             <button id="cal_stat_Activity">Feb.2.29</button>
                         </div>
-                        <div id="cal_stat_type" class="cal_stat_type_value">Remote</div>
+                        
                     </td>
                 </tr>
             </table>

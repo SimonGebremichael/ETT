@@ -4,14 +4,12 @@ import Side from './calenarSide'
 import Calendar from './calendarContent'
 import Details from './calendarDetails'
 
- function calendarMain() {
+export default function calendarMain() {
     return (
-        <>
+        <div id="publicCal">
             <Details />
             <Side />
             <Calendar />
-        </>
+        </div>
     )
 } 
-
-export default calendarMain;
