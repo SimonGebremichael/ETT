@@ -12,7 +12,7 @@ export default class side extends React.Component {
             colours3 = ["Remote", "Vacation", "Bithday", "Sick"];
 
         var currentDate = new Date();
-        document.getElementById("sideDatePrint").innerHTML = weekday[currentDate.getDay() - 1] + ", " + mon[currentDate.getMonth()];
+        document.getElementById("sideDatePrint").innerHTML = weekday[currentDate.getDay() - 1] + ", " + currentDate.getDate() + " of " + mon[currentDate.getMonth()];
 
         var elem = document.getElementsByClassName("cal_stat_details");
         var elem2 = document.getElementsByClassName("cal_stat_type_value");
@@ -36,18 +36,9 @@ function CalenarSide() {
                 </dive>
             </div>
             <br />
-            <label id="displayFor">Display for: March</label>
+            <label id="displayFor">March</label>
             <br />
-            <hr color="white" /><br />
-            <div id="cal_side_Display" >
-                <Status />
-                <Status />
-                <Status />
-                <Status />
-                <Status />
-                <Status />
-            </div><br />
-
+            <br />
             <div id="cal_side_btns">
                 <div class="cal_side_actions">
                     <div style={left}>
@@ -73,6 +64,7 @@ function CalenarSide() {
                         1
                          </div>
                 </div>
+
                 <div class="cal_side_actions">
                     <div style={left}>
                         Bithdays:
@@ -80,6 +72,66 @@ function CalenarSide() {
                     <div style={right}>
                         0
                         </div>
+                </div>
+            </div>
+            <br />
+
+            <div id="cal_side_Display" >
+                <Status />
+                <div></div>
+                <Status />
+                <Status />
+                <div></div>
+                <Status />
+                <Status />
+                <div></div>
+                <Status />
+            </div><br />
+
+            <div id="cal_side_organizer">
+                <h3>View</h3>
+                <div id="cal_side_organizer_displayer">
+                    <div id="cal_side_organizer_item">
+                        <input type="checkbox" class="cal_organizer_type" />
+                        <label>Remote days</label>
+                    </div>
+
+                    <div id="cal_side_organizer_item">
+                        <input type="checkbox" class="cal_organizer_type" />
+                        <label>Vacations</label>
+                    </div>
+                    <div id="cal_side_organizer_item">
+                        <input type="checkbox" class="cal_organizer_type" />
+                        <label>Sick days</label>
+                    </div>
+
+                    <div id="cal_side_organizer_item">
+                        <input type="checkbox" class="cal_organizer_type" />
+                        <label>Birthdays</label>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div id="cal_side_event_container">
+                <h3>Upcomming events: <label>(Only me)</label></h3>
+                <div id="cal_side_event_only_displayer">
+                    <div id="cal_side_event_only_item">
+                        <p>Report deadline</p>
+                        <p id="cal_side_event_dates">Feb.17.20</p>
+                        <p id="cal_side_event_dates">Feb.2.29</p>
+                    </div>
+                    <div id="cal_side_event_only_item"></div>
+                    <div id="cal_side_event_only_item"></div>
+                </div>
+            </div>
+            <br />
+            <br />
+            <div id="cal_side_event_container">
+                <div id="cal_side_event_header">
+                    <h3>Upcomming events: <label>(Public)</label></h3>
+                </div>
+                <div id="cal_side_event_public_displayer">
+
                 </div>
             </div>
         </div>

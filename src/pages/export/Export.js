@@ -69,8 +69,11 @@ function DataExpo() {
 
     return (
         <>
-            <SideData />
-            <Calendar />
+            <Popup />
+            <div id="container_export">
+                <SideData />
+                <Calendar />
+            </div>
         </>
     )
 }

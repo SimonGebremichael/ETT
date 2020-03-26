@@ -9,7 +9,6 @@ export default class states extends React.Component {
 
     componentDidMount() {
         
-
     }
     render() {
         return (<Offsite_status />)
@@ -30,14 +29,20 @@ function Offsite_status() {
                 </tr>
                 <tr>
                     <td id="calendarType" class="cal_stat_details" colspan="2">
-                        <div id="offsiteLeft">
-                            <button id="cal_stat_Activity">Feb.17.20</button>&nbsp;&nbsp;&nbsp;&nbsp;
-                            <button id="cal_stat_Activity">Feb.2.29</button>
-                        </div>
-                        
+                            <div id="cal_stat_Activity" style={left}>Feb.17.20</div>
+                            <div id="cal_stat_Activity" style={right}>Feb.2.29</div>
                     </td>
                 </tr>
+
             </table>
         </div>
     )
+}
+
+const left = {
+    float: "left"
+}
+
+const right = {
+    float: "right"
 }

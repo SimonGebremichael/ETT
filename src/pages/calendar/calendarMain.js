@@ -6,10 +6,12 @@ import Details from './calendarDetails'
 
 export default function calendarMain() {
     return (
-        <div id="publicCal">
+        <>
             <Details />
-            <Side />
-            <Calendar />
-        </div>
+            <div id="container_calendar">
+                <Side />
+                <Calendar />
+            </div>
+        </>
     )
 } 

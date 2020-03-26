@@ -10,14 +10,8 @@ export default class team extends React.Component {
     componentDidMount() {
         document.getElementById("popBg").addEventListener("click", function () {
             document.getElementById("popupDisplay").style.display = "none";
-            document.getElementsByClassName("Calendar")[0].style.filter = "blur(0)";
-            try {
-                document.getElementById("sideCal").style.filter = "blur(0)";
-            } catch (e) {
-                document.getElementById("expo_container").style.filter = "blur(0)";
-            }
+            document.getElementById("container_" + window.location.href.split("/")[3]).style.filter = "blur(0)";
         });
-
     }
     render() {
         return (

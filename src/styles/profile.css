@@ -20,7 +20,7 @@
     cursor: pointer;
 }
 
-#ProfileSideAcc, #ProfileColours {
+#ProfileSideAcc, #ProfileColours, #profileSettings{
     width: 100%;
     height: 20%;
     background-color: #222;
@@ -28,20 +28,17 @@
     animation: slideInLeft 0.5s;
 }
 
-#ProfileColours{
-    display: none;
-}
 #colourHeader{
     padding: 10px;
     height: 70%;
 }
-#colourBtn{
+.backhomeBtn{
     padding: 10px;
     border: 1px solid #333;
     background-color: #222;
     color: white;
 }
-#colourBtn:hover{
+.backhomeBtn:hover{
     background-color: #333;
     cursor: pointer;
 }
@@ -81,4 +78,13 @@
     opacity: 0.6;
     width: 40px;
     height: 40px;
+}
+
+
+#profileSettings {
+    color: white;
+}
+
+#profileSettings table td{
+    transition: margin 0.5s ease-in-out;
 }

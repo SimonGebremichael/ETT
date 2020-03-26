@@ -9,6 +9,7 @@ export default class statty extends React.Component {
         this.componentDidMount = this.componentDidMount.bind(this);
         this.carrier = "d_" + props.children.id;
         this.name = props.children.name;
+        this.color = props.children.color;
         console.log(this.carrier);
     }
     componentDidMount() {
@@ -30,6 +31,7 @@ export default class statty extends React.Component {
             let diver = document.createElement("div");
             diver.style.height = "100%";
             diver.id = "stat_bg";
+            diver.style.backgroundColor = this.color;
             diver.style.animation = "bounceIn 1." + i + "s";
             diver.className = "stat_bg_contain"  + this.carrier;
             diver.style.borderRight = "1px solid black";

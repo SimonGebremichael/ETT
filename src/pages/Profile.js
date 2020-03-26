@@ -3,6 +3,8 @@ import modify from './Teamlead/pics/modify.png'
 import settings from './Teamlead/pics/settings.png'
 import Scheme from './Teamlead/pics/theme.png'
 import profile from './Teamlead/pics/profile.png'
+import { Link } from 'react-router-dom'
+import $ from 'jquery'
 
 export default class Profiler extends React.Component {
 
@@ -10,42 +12,38 @@ export default class Profiler extends React.Component {
         super(props);
     }
     componentDidMount() {
-        var proBG = document.getElementById("proBG").addEventListener("click", () => {
-            try {
-                document.getElementById("analysis_container").style.filter = "blur(0)";
-            } catch{
-                document.getElementById("content").style.filter = "blur(0)";
-            }
+        $("#ProfileColours").fadeOut();
+        $("#profileSettings").fadeOut();
+        $("#ProfileSideAcc").fadeIn();
+
+        $("#proBG").click(() => {
+            document.getElementById("container_" + window.location.href.split("/")[3]).style.filter = "blur(0)";
             document.getElementById("profile").style.display = "none";
         });
-        var sideAcc = document.getElementById("sideAcc").addEventListener("click", () => {
-            try {
-                document.getElementById("analysis_container").style.filter = "blur(2px)";
-            } catch{
-                document.getElementById("content").style.filter = "blur(2px)";
-            }
+        $("#sideAcc").click(() => {
+            document.getElementById("container_" + window.location.href.split("/")[3]).style.filter = "blur(2px)";
             document.getElementById("profile").style.display = "block";
         });
 
-        var sideAcc = document.getElementById("colour_Scheme").addEventListener("click", () => {
-            document.getElementById("ProfileColours").style.display = "block";
-            document.getElementById("ProfileSideAcc").style.display = "none";
+        $("#colour_Scheme").click(() => {
+            clear();
+            $("#ProfileColours").show();
         });
 
-        var sideAcc = document.getElementById("colourBtn").addEventListener("click", () => {
-            document.getElementById("ProfileSideAcc").style.display = "block";
-            document.getElementById("ProfileColours").style.display = "none";
+        $(".backhomeBtn").click(() => {
+            clear();
+            $("#ProfileSideAcc").show();
         });
 
-        var colours2 = ["lightblue", "lightgreen", "pink", "salmon"],
-            colours3 = ["Remote", "Vacation", "Bithday", "Sick"];
+        $("#settings").click(() => {
+            clear();
+            $("#profileSettings").show();
+        });
 
-        var elem = document.getElementsByClassName("request_Type");
-        var elem2 = document.getElementsByClassName("request_Type_info");
-        for (var i = 0; i < elem.length; i++) {
-            var rand = (Math.floor(Math.random() * 4) + 1) - 1;
-            elem[i].style.backgroundColor = colours2[rand];
-            elem2[i].innerHTML = colours3[rand];
+        function clear() {
+            $("#ProfileColours").hide();
+            $("#profileSettings").hide();
+            $("#ProfileSideAcc").hide();
         }
     }
 
@@ -75,7 +73,7 @@ export default class Profiler extends React.Component {
                                     <img src={modify} id="proimg" /></td>
                             </tr>
                             <tr>
-                                <td>Settings</td>
+                                <td id="settings">Settings</td>
                                 <td id="Options_Items">
                                     <img src={settings} id="proimg" /></td>
                             </tr>
@@ -90,7 +88,7 @@ export default class Profiler extends React.Component {
 
                     <div id="ProfileColours">
                         <div id="colourHeader">
-                            <button id="colourBtn">Back</button><br /><br />
+                            <button class="backhomeBtn">Back</button><br /><br />
                             <label><font size="30px">Colour Scheme</font></label>
                         </div>
                         <table id="profileOptions">
@@ -98,6 +96,30 @@ export default class Profiler extends React.Component {
                             <tr id="theme2"><td >Grizzely bear</td></tr>
                             <tr id="theme3"><td>Paprika</td></tr>
                             <tr id="theme4"><td>Default</td></tr>
+                        </table>
+
+                        <style dangerouslySetInnerHTML={{
+                            __html: `
+                     #theme1 { background-image: linear-gradient(to right, lightblue , rgb(228, 131, 228), rgb(81, 81, 199)); }
+                     #theme2 { background-image: linear-gradient(to right, rgb(95, 49, 55) , rgb(168, 77, 60), rgb(78, 42, 42)); }
+                     #theme3 { background-image: linear-gradient(to right, rgb(107, 103, 79) , rgb(192, 128, 56), rgb(195, 204, 110));" }
+                     #theme4 { background-image: linear-gradient(to right, #222 , #333, #222); }
+                     #Options_Items{text-align: center; margin-right: 50px;}
+                    `}} />
+                    </div>
+
+                    <div id="profileSettings">
+                        <div id="colourHeader">
+                            <button class="backhomeBtn">Back</button><br /><br />
+                            <label><font size="30px">Settings</font></label>
+                        </div>
+                        <table id="profileOptions">
+                            <tr>
+                                <td>
+                                    <Link to='/offtype'>Add new off type </Link>
+                                </td>
+                            </tr>
+                            <tr><td >remove person</td></tr>
                         </table>
 
                         <style dangerouslySetInnerHTML={{

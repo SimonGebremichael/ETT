@@ -1,6 +1,5 @@
 import React from 'react';
 import Header from './pages/Header';
-import Footer from './pages/Footer';
 import Teamlead from './pages/Teamlead/Teamlead';
 import Calendar from './pages/calendar/calendarMain';
 import Export from './pages/export/Export';
@@ -9,6 +8,7 @@ import Header_login from './pages/LogIn_Header';
 import Create from './pages/create/create'
 import er_404 from './pages/404/unfound'
 import Analysis from './pages/analysis/analysis'
+import OffTyper from './pages/offType/offtype_form'
 
 import { BrowserRouter as Router, Switch, Route  } from 'react-router-dom';
 
@@ -69,7 +69,14 @@ function App() {
     )
   }
 
-
+  var offType = () => {
+    return(
+      <>
+      <Header />
+      <OffTyper />
+      </>
+    )
+  }
 
   return (
     <>
@@ -81,9 +88,9 @@ function App() {
           <Route  path='/export' component={exporter} />
           <Route  path='/create' component={create} />
           <Route  path='/analysis' component={analysis} />
+          <Route  path='/offtype' component={offType} />
           <Route  path='*' exact={true} component={er_404} />
         </Switch>
-        {/* <Footer /> */}
       </Router>
     </>
   );

@@ -32,7 +32,7 @@ function Teamleader() {
     return (
         <>
             <Profile />
-            <div id="content">
+            <div id="container_dashboard">
                 <Offsite />
                 <ActiveRequests />
                 <Upcomming />

@@ -98,20 +98,12 @@ export default class Socki extends React.Component {
                 addEvent();
             }
         }
-
         function addEvent() {
             var temp = d.getElementsByClassName("day");
             for (var i = 0; i < temp.length; i++) {
-
                 temp[i].addEventListener("click", function () {
                     document.getElementById("popupDisplay").style.display = "block";
-                    document.getElementsByClassName("Calendar")[0].style.filter = "blur(2px)";
-                    try {
-                        document.getElementById("sideCal").style.filter = "blur(2px)";
-                    } catch (e) { 
-                        document.getElementById("expo_container").style.filter = "blur(2px)";
-                    }
-                    document.getElementById("popDate").innerHTML = this.id;
+                    document.getElementById("container_" + window.location.href.split("/")[3]).style.filter = "blur(2px)";
                 }, false)
             }
         }

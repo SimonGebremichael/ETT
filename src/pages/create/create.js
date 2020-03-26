@@ -1,5 +1,6 @@
 import Status from '../Teamlead/Offsite_status'
 import Calendar from '../calendar/calendarContent'
+import Popup from '../calendar/calendarDetails'
 import css from './styles/create.css'
 import loading from '../export/imgs/loading.gif'
 import check from '../export/imgs/check.png'
@@ -19,8 +20,11 @@ export default class creator extends React.Component {
     render() {
         return (
             <>
+            <Popup />
+            <div id="container_create">
                 <Calendar />
                 <CreateForm />
+                </div>
             </>
         )
     }

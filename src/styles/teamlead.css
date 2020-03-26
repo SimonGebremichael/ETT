@@ -1,4 +1,4 @@
-#content{
+#container_dashboard{
     height: 87%;
     width: 100%;
     float: left;
@@ -99,6 +99,7 @@ table {
 #OffsiteSatus {
     padding: 0px;
     animation: fadeIn 1s;
+    border-radius: 10px;
 }
 
 #OffsiteImg {

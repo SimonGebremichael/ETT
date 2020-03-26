@@ -30,7 +30,7 @@ export default function Header() {
                         <li>Public Calendar</li>
                     </Link>
                     <Link to='/export'>
-                        <li>Export Calendar</li>
+                        <li>Export</li>
                     </Link>
                     <Link to="/analysis">
                         <li>Analysis</li>

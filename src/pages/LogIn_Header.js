@@ -4,12 +4,13 @@ import logo from '../imgs/logo.png';
 
 export default function Header() {
     const btn = {
-        width: "150px",
-        height: "40px",
+        width: "130px",
+        height: "30px",
         color: "black",
         backgroundColor: "white",
         border: "1px solid black",
-        margin: "5px 3px"
+        marginRight: "10px",
+        marginTop: "5px"
       }
 
     const lleft = {
@@ -27,9 +28,7 @@ export default function Header() {
             </div>
 
             <div style={rright}>
-                <ul id="options">
                     <button style={btn} >Register with Google</button>
-                </ul>
             </div>
         </header >
     )

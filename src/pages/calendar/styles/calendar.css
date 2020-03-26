@@ -1,4 +1,4 @@
-#publicCal{
+#container_calendar {
     height: 94%;
 }
 
@@ -34,13 +34,13 @@
     margin: 15px 15px;
 }
 
-#header{
+#header {
     text-align: center;
 }
+
 #header i:hover {
     color: #9C9FA2;
 }
-
 
 main p {
     padding: 30px 30px;
@@ -56,7 +56,6 @@ main p:hover {
     cursor: pointer;
 }
 
-
 .day {
     height: 75px;
     padding: 5px;
@@ -70,17 +69,17 @@ main p:hover {
     opacity: 1;
 }
 
-.reserve{
+.reserve {
     height: 10px;
     width: 100%;
     margin-top: 10px;
 }
 
-#dateTitle{
+#dateTitle {
     color: darkgrey;
     justify-self: center;
     grid-area: 1/2/1/3;
-    font-size: 26px; 
+    font-size: 26px;
     font-weight: bold;
     margin-top: 10px;
 }
@@ -90,43 +89,51 @@ main p:hover {
 #sideCal {
     float: left;
     padding: 10px;
-    width: 25%;
-}
-#sideInfo{
-    width: 100%;
+    width: 30%;
+    height: 80%;
+    overflow-y: auto;
+    overflow-x: hidden;
     background-color: white;
+    padding-bottom: 50px;
 }
 
-#sideInfo:hover{
-    background-color: darksalmon;
+#sideInfo {
+    width: 100%;
+    background-color: white;
+    position: sticky;
+    border: 1px solid black;
+}
+
+#sideInfo:hover {
+    background-color: lightgrey;
     color: white !important;
     cursor: pointer;
 }
 
-#sideDate{
+#sideDate {
     padding: 10px;
     text-align: center;
     width: 100%;
     color: grey;
 }
 
-#calNav1, #calNav2, #dateTitle{
+#calNav1, #calNav2, #dateTitle {
     display: inline-block;
-
 }
-#calNav1:hover, #calNav2:hover{
+
+#calNav1:hover, #calNav2:hover {
     cursor: pointer;
 }
 
-#calendarType{
+#calendarType {
     padding: 5px;
     margin: 0px;
     font-size: 13px;
     color: white;
 }
 
-#cal_stat_Data{
-    background-color: white;
+#cal_stat_Data {
+    background-color: lightgrey;
     border-collapse: collapse;
     width: 100%;
 }
@@ -147,39 +154,45 @@ main p:hover {
     color: white;
 }
 
-#cal_stat_type{
-    float: right; 
+#cal_stat_type {
+    float: right;
     margin-top: 5px;
     color: black;
 }
-#cal_side_btns{
+
+#cal_side_btns {
     display: grid;
     grid-template-columns: 50% 50%;
     width: 100%;
     color: black;
+    padding: 10px 0px 10px 0px;
     background-color: white;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
 }
-.cal_side_actions{
+
+.cal_side_actions {
     padding: 4px;
     padding: 3px 5px;
 }
 
-
-#cal_side_Display{
+#cal_side_Display {
     display: grid;
-    overflow-y: auto;
+    overflow-y: hidden;
     overflow-x: hidden;
-    height: 330px;
-    padding-right: 10px;
-    grid-template-columns: 50%  50%;
+    grid-template-columns: 45% 10% 45%;
 }
 
-#sideDatePrint{
+#sideDate {
     color: darkgrey;
 }
 
-#displayFor{
+#sideDate:hover {
     color: white;
+}
+
+#displayFor {
+    color: black;
     font-size: 25px;
 }
 
@@ -189,8 +202,58 @@ main p:hover {
     margin-left: 15%;
 }
 
+#cal_side_organizer_displayer {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    background-color: white;
+    padding-top: 10px;
+    padding-bottom: 20px;
+}
+
+#cal_side_organizer h3 {
+    color: black;
+}
+
+#cal_side_organizer_item {
+    margin-top: 10px;
+    padding-left: 20px;
+}
+
+#cal_side_organizer_item label {
+    margin-left: 20px;
+}
+
+#cal_side_organizer_item input {
+    padding: 10px;
+    transform: scale(1.6);
+}
+
+.cal_organizer_type {}
+
+#cal_side_event_container label {
+    color: lightgrey;
+}
+
+#cal_side_event_only_displayer {
+    display: grid;
+    grid-template-columns: 100%;
+}
+
+#cal_side_event_only_item {
+    border: 1px solid black;
+    height: 50px;
+    margin-top: 20px;
+    padding: 10px;
+    color: #333333;
+    background-color: lightgrey;
+}
+
+#cal_side_event_dates{
+    display: inline-block;
+}
 /* ----------------------------------------------------------------------------------------------- */
-#popupDisplay{
+
+#popupDisplay {
     width: 100%;
     height: 93%;
     display: none;
@@ -198,7 +261,8 @@ main p:hover {
     position: absolute;
     z-index: 4;
 }
-#calDetails{
+
+#calDetails {
     width: 50%;
     margin-left: 25%;
     margin-top: 5%;
@@ -208,22 +272,25 @@ main p:hover {
     padding: 50px;
     border-radius: 13px;
 }
-#calDetails h4{
+
+#calDetails h4 {
     color: #333;
     margin-left: 10%
 }
 
-#popBg{
+#popBg {
     width: 100%;
     height: 100%;
     opacity: 0.6;
     background-color: black;
     position: absolute;
 }
-#popDate{
+
+#popDate {
     color: #333;
 }
-#displayEvents{
+
+#displayEvents {
     height: 200px;
     overflow-y: auto;
     width: 50%;

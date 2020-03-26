@@ -30,11 +30,8 @@
     background-color: white;
 }
 
-#stat_bg{
-    background-color: lightgrey;
-}
 #stat_bg:hover {
-    background-color: lightskyblue;
+    background-color: lightgrey;
 }
 
 #dash_display{
