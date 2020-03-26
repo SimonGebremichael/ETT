@@ -33,7 +33,7 @@ const un_header = {
 }
 const un_btn = {
     padding: "15px",
-    backgroundColor: "#333",
+    background: "none",
     color: "white",
     border: "1px solid white"
 }

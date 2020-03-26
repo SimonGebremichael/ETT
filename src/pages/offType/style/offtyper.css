@@ -6,7 +6,7 @@
   border-radius: 4px;
 }
 
-#offtype_container input[type="text"], select, textarea {
+#offtype_container input[type="text"], #offtype_container select,  #offtype_container textarea {
   width: 100%;
   padding: 12px;
   border: 1px solid #ccc;
@@ -59,7 +59,7 @@ input[type="submit"]:hover {
 
 /* Clear floats after the columns */
 
-.row:after {
+#offtype_container .row:after {
   content: "";
   display: table;
   clear: both;

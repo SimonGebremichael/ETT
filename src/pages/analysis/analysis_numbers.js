@@ -10,7 +10,6 @@ export default class statty extends React.Component {
         this.carrier = "d_" + props.children.id;
         this.name = props.children.name;
         this.color = props.children.color;
-        console.log(this.carrier);
     }
     componentDidMount() {
         var display = document.getElementById(this.carrier);
