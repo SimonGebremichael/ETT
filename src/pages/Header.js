@@ -18,18 +18,18 @@ export default class appy extends React.Component {
     componentDidMount() {
 
     }
+
+
     render() {
-        this.g = window.location.href.split('/');
-        this.e = this.g[this.g.length - 1];
-        if (this.e != "" && this.e != "login") {
-            this.headType = true;
-        } else {
-            this.headType = false;
-        }
-        alert(this.e + " " + this.headType);
+        var headType = false,
+            g = window.location.href.split('/'),
+            e = g[g.length - 1];
 
+        e != "login" ? headType = true : headType = false;
 
-        if (this.headType) {
+        // alert(e + " " + headType);
+
+        if (headType) {
             const lleft = {
                 float: "left"
             }
@@ -59,7 +59,7 @@ export default class appy extends React.Component {
                             <Link to='/create'>
                                 <li>Create Request</li>
                             </Link>
-                            <Link to='/'>
+                            <Link to='/login'>
                                 <li>Sign Out</li>
                             </Link>
                         </ul>
@@ -76,7 +76,6 @@ export default class appy extends React.Component {
                 marginRight: "10px",
                 marginTop: "5px"
             }
-
             const lleft = {
                 float: "left"
             }

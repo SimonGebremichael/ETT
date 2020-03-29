@@ -1,0 +1,48 @@
+.pending_container {
+  max-width: 50%;
+  margin: auto;
+  padding: 10px;
+  position: center;
+  background-color: white;
+
+}
+
+#pending_header{
+  padding-top: 10%;
+  padding-bottom: 5%;
+  border-bottom: 1px solid black;
+  display: grid;
+  grid-template-columns: 95% 5%;
+}
+.pending_container p{
+  color: gray;
+}
+.pending_container input[type="text"] {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  resize: vertical;
+}
+
+.pending_container input[type="submit"] {
+  background-color: black;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  cursor: pointer;
+  float: right;
+}
+
+
+.pending_container .row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+@media screen and (max-width: 600px) {
+  .col-25, .col-75, input[type="submit"] {
+    width: 100%;
+    margin-top: 0;
+  }
+}

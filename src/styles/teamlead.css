@@ -248,10 +248,11 @@ table {
 #resultBtn1, #resultBtn2{
     text-align: center;
     color: white;
+    font-size: 90%;
 }
 #resultBtn1:hover, #resultBtn2:hover{
     cursor: pointer;
-    font-weight: bold;
+    background-color: black;
 }
 #resultBtn1{
     background-color: rgb(109, 190, 109);
@@ -383,3 +384,17 @@ table {
 }
 /* ------------------------------------------------------------------ */
 
+@media screen and (max-width: 1000px) {
+    #sideBar, #mainFeed, #upcomming {
+        float: none;
+        width: 100%;
+        margin-top: 5%;
+        
+    }
+    #sideAcc{
+        height: 200px;
+    }
+    #requestReason {
+        display: none;
+    }
+}

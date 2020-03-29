@@ -2,22 +2,44 @@
   max-width: 60%;
   margin: auto;
   padding: 10px;
-  border: 2px solid black;
-  border-radius: 4px;
+  background-color: white;
+  padding-bottom: 20px;
 }
 
-#offtype_container input[type="text"], #offtype_container select,  #offtype_container textarea {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  resize: vertical;
+#offtype_header{
+  padding-top: 5%;
+  padding-bottom: 3%;
+  border-bottom: 1px solid black;
 }
 
-#offtype_container h2 {
-  text-decoration-line: underline;
-  margin-left: 40px;
+#offtype_body{
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
 }
+
+#offtype_body label{
+  margin-top: 20%;
+  text-align: center;
+}
+
+#offtype_body input, #offtype_body select {
+  margin-top: 15%;
+  padding: 10px;
+}
+
+
+#offtype_submition{
+  text-align: right;
+  margin: auto;
+  margin-top: 30px;
+}
+#offtype_submition input{
+  padding: 10px;
+  background-color: black;
+  border: none;
+  color: white;
+}
+
 
 #offtype_container label {
   padding: 12px 12px 12px 0;
@@ -26,46 +48,12 @@
 }
 
 #offtype_container input[type="submit"] {
-  background-color: #3ea5bd;
   color: white;
   padding: 12px 20px;
   border: none;
-  border-radius: 4px;
   cursor: pointer;
   float: right;
 }
-
-input[type="submit"]:hover {
-  background-color: #3fa8c0;
-}
-
-.offtype_container {
-  border-radius: 5px;
-  background-color: #f2f2f2;
-  padding: 20px;
-}
-
-.col-25 {
-  float: left;
-  width: 25%;
-  margin-top: 6px;
-}
-
-.col-75 {
-  float: left;
-  width: 75%;
-  margin-top: 6px;
-}
-
-/* Clear floats after the columns */
-
-#offtype_container .row:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
-/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
 
 @media screen and (max-width: 600px) {
   .col-25, .col-75, input[type="submit"] {

@@ -57,7 +57,7 @@ export default function Mainpage() {
   return (
     <div style={pager}>
       <div style={signIn}>
-        <Link to="/dashboard">
+        <Link to="/login/pending">
           <button style={btn}>
             <img src={goog_img} style={btnImg} />
             <label style={btnlbl}>Sign in with google</label>
