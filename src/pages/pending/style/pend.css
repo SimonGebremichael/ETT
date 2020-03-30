@@ -32,13 +32,28 @@
   cursor: pointer;
   float: right;
 }
+.row {
+  clear: both;
+}
 
-
+.row input {
+  margin-right: 10px;
+}
 .pending_container .row:after {
   content: "";
   display: table;
   clear: both;
 }
+
+#pending_pro_img_container, #pending_pro_detainer{
+  float: left;
+}
+#pending_pro_detainer {
+  margin-left: 50px;
+  padding: 10px;
+  background-color: lightgrey;
+}
+
 
 @media screen and (max-width: 600px) {
   .col-25, .col-75, input[type="submit"] {

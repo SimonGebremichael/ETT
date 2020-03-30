@@ -68,7 +68,7 @@ export default class Profiler extends React.Component {
                         </table>
                         <table id="profileOptions">
                             <tr>
-                                <td>Modify Account</td>
+                                <td><Link to="/profile/modify">Modify</Link></td>
                                 <td id="Options_Items">
                                     <img src={modify} id="proimg" /></td>
                             </tr>
