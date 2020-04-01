@@ -8,6 +8,9 @@ export default class team extends React.Component {
 
     constructor(props) {
         super(props);
+        this.componentDidMount = this.componentDidMount.bind(this);
+        console.log(props)
+        this.user = this.props.match.params.id;
     }
 
     componentDidMount() {
@@ -24,19 +27,15 @@ export default class team extends React.Component {
     }
 
     render() {
-        return (<Teamleader />)
+        return (
+            <>
+                <Profile />
+                <div id="container_dashboard">
+                    <Offsite id={this.user} />
+                    <ActiveRequests />
+                    <Upcomming />
+                </div>
+            </>
+        );
     }
-}
-
-function Teamleader() {
-    return (
-        <>
-            <Profile />
-            <div id="container_dashboard">
-                <Offsite />
-                <ActiveRequests />
-                <Upcomming />
-            </div>
-        </>
-    )
 }

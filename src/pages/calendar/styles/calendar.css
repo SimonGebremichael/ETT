@@ -2,30 +2,30 @@
     height: 94%;
 }
 
-#calendar {
+#public_calendar {
     background: #FEFFFF;
     width: 60%;
     float: right;
     height: 100%;
 }
 
-#calendar header {
+#public_calendar header {
     text-align: center;
 }
 
-#calendar #date-section {
+#public_calendar #date-section {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
 }
 
-#calendar #date-section2 {
+#public_calendar #date-section2 {
     margin: 10px;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
 }
 
-#calendar h2 {
+#public_calendar h2 {
     justify-self: center;
     color: #9C9FA2;
     font-size: 20px;

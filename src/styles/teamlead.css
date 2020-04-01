@@ -1,17 +1,15 @@
-#container_dashboard{
+#container_dashboard {
     height: 87%;
     width: 100%;
     float: left;
     margin-top: 3%;
-    
 }
 
-
-#sideBar, #mainFeed, #upcomming{
+#sideBar, #mainFeed, #upcomming {
     float: left;
     height: 100%;
     margin-left: 4%;
-    bottom: 0px; 
+    bottom: 0px;
     position: relative;
     min-width: 300px;
     max-width: 600px;
@@ -39,10 +37,10 @@
 #sideAcc {
     width: 100%;
     height: 20%;
-    border-bottom: 2px solid black;
     transition: background-color 1s ease-int-out;
 }
-#sideAcc:hover, #sideBar #accImgBox:hover, #sideBar #accInfo:hover{
+
+#sideAcc:hover, #sideBar #accImgBox:hover, #sideBar #accInfo:hover {
     cursor: pointer;
     background-color: lightgrey;
 }
@@ -53,9 +51,13 @@ table {
 }
 
 #accImg {
-    width: 50%;
+    width: 70px;
+    height: 70px;
     margin-top: 3%;
     margin-left: 20%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid white;
 }
 
 #accImgBox, #accInfo {
@@ -70,12 +72,12 @@ table {
 }
 
 #accImgBox {
-    width: 40%;
+    width: 45%;
 }
 
 /* ------------------------------------------------------------------------------------ */
 
-#offsiteDisplay{
+#offsiteDisplay {
     overflow-y: auto;
     height: 400px;
     padding-right: 10px;
@@ -86,7 +88,6 @@ table {
 #offSiteData {
     background-color: lightgrey;
     border-collapse: collapse;
-    /* border: 1px solid black; */
 }
 
 #sideOffsite {
@@ -126,7 +127,8 @@ table {
     font-size: 13px;
     background-color: salmon;
 }
-#offsiteTime{
+
+#offsiteTime {
     background-color: salmon;
     font-size: 12px;
     padding: 10px;
@@ -145,60 +147,61 @@ table {
     border: none;
 }
 
-#offsiteLeft{
+#offsiteLeft {
     float: left;
 }
 
-#offsiteRight{
-    float: right; 
+#offsiteRight {
+    float: right;
     margin-top: 9px;
     margin-right: 5px;
 }
 
-
 /* ----------------------------------------------------------------------------- */
 
-#mainAcctions{
+#mainAcctions {
     width: 100%;
     height: 100px;
 }
-#mainAcctions h2{
+
+#mainAcctions h2 {
     margin-left: 5%;
 }
 
-#acctionButtons{
-    width: 100%;
-    padding: 0px;
+#acctionButtons {
+    border: none;
+    background-color: black;
+    padding-top: 30px;
 }
 
-.acctionBtn{
+.acctionBtn {
     width: 20%;
-    margin: 0px;
     padding: 5px;
-    border: 1px solid black;
     text-align: center;
-    float: left;
-}
-
-#remoteBtn, #vacationBtn, #birthdayBtn, #sickBtn, #allBtn{
-    animation: fadeIn 1s 1;
-    background-color: lightgrey;
-    transition: background-color .5s ease-in-out;
+    display: inline-block;
+    background: none;
     border: none;
 }
 
-#remoteBtn:hover, #vacationBtn:hover, #birthdayBtn:hover, #sickBtn:hover, #allBtn:hover{
-    cursor: pointer;
+#remoteBtn, #vacationBtn, #birthdayBtn, #sickBtn, #allBtn {
+    animation: fadeIn 1s 1;
+    background: none;
+    border: none;
     color: white;
-    background-color: darkgray;
+    transition: background-color .5s ease-in-out;
 }
 
-#PendingAmt{
+#remoteBtn:hover, #vacationBtn:hover, #birthdayBtn:hover, #sickBtn:hover, #allBtn:hover {
+    cursor: pointer;
+    background-color: #222222;
+}
+
+#PendingAmt {
     margin-left: 4%;
-    margin-top: 7%;
+    margin-top: 10%;
 }
 
-#displayRequests{
+#displayRequests {
     clear: both;
     width: 90%;
     margin-left: 5%;
@@ -208,13 +211,13 @@ table {
     overflow-x: hidden;
 }
 
-#requests{
+#requests {
     width: 100%;
     height: 190px;
     animation: slideInRight 1s;
 }
 
-#requesteData{
+#requesteData {
     width: 100%;
     border-collapse: collapse;
     background-color: lightgrey;
@@ -225,13 +228,14 @@ table {
     font-size: 13px;
     background-color: darkgray;
 }
-#requestType label{
+
+#requestType label {
     float: right;
     margin-right: 10px;
     margin-top: 10px;
 }
 
-#RequestTime{
+#RequestTime {
     font-size: 13px;
     text-align: center;
     background-color: darkgray;
@@ -244,31 +248,36 @@ table {
     border-left: none;
 }
 
-#resultBtn1, #resultBtn2{
+#resultBtn1, #resultBtn2 {
     text-align: center;
     color: white;
     font-size: 90%;
 }
-#resultBtn1:hover, #resultBtn2:hover{
+
+#resultBtn1:hover, #resultBtn2:hover {
     cursor: pointer;
     background-color: black;
 }
-#resultBtn1{
+
+#resultBtn1 {
     background-color: rgb(109, 190, 109);
 }
-#resultBtn2{
+
+#resultBtn2 {
     background-color: rgb(211, 115, 104);
 }
 
-#requestDes{
+#requestDes {
     width: 30%;
 }
-#requestMemo{
+
+#requestMemo {
     text-align: center;
     background-color: #5f5f5f;
     font-size: 13px;
 }
-#requestReason{
+
+#requestReason {
     font-size: 10px;
     padding-top: 5px;
 }
@@ -293,6 +302,7 @@ table {
     color: white;
     background: none;
 }
+
 #requestActivity:hover {
     background-color: #333;
     cursor: pointer;
@@ -300,36 +310,37 @@ table {
 
 /* ---------------------------------------------------------------------- */
 
-#upcommingResults{
+#upcommingResults {
     overflow-y: auto;
     height: 60%;
     width: 90%;
     margin-left: 5%;
     padding-right: 10px;
 }
-#upcomingTittile{
+
+#upcomingTittile {
     width: 100%;
     height: 50px;
     margin: 0px;
-    padding-top: 80px;
+    padding-top: 75px;
     border-bottom: 2px solid black;
 }
 
-#upcomingTittile h3{
+#upcomingTittile h3 {
     margin-left: 5%;
 }
 
-#upcommingSort{
+#upcommingSort {
     width: 100%;
     padding-left: 4%;
     padding-bottom: 4%;
 }
 
-#upcommingSort h4, #offSiteSort{
+#upcommingSort h4, #offSiteSort {
     display: inline-block;
 }
 
-#offSiteSort{
+#offSiteSort {
     padding: 5px;
     margin-left: 20px;
     border: none;
@@ -337,7 +348,7 @@ table {
     background-color: #333333;
 }
 
-#upcommingTime{
+#upcommingTime {
     background-color: darkgray;
     border-radius: 10px;
     padding: 5px;
@@ -357,7 +368,6 @@ table {
     border-right: none;
 }
 
-
 #upcommingType {
     padding: 6px;
     margin: 0px;
@@ -367,8 +377,9 @@ table {
 }
 
 /* -------------------------------------------------------------------- */
+
 #viewCalendarActivity {
-    background-color:rgb(199, 104, 93);
+    background-color: rgb(199, 104, 93);
     border-radius: 5px;
     padding: 5px;
     text-align: center;
@@ -377,10 +388,12 @@ table {
     color: white;
     opacity: 0.6;
 }
-#viewCalendarActivity:hover{
+
+#viewCalendarActivity:hover {
     cursor: pointer;
     opacity: 1;
 }
+
 /* ------------------------------------------------------------------ */
 
 @media screen and (max-width: 1000px) {
@@ -388,12 +401,16 @@ table {
         float: none;
         width: 100%;
         margin-top: 5%;
-        
     }
-    #sideAcc{
+    #sideAcc {
         height: 200px;
     }
     #requestReason {
         display: none;
     }
+}
+
+#upcomingTittile, #mainAcctions, #sideAcc {
+    background-color: black;
+    color: white;
 }

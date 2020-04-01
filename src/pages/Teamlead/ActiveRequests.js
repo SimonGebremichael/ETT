@@ -5,7 +5,7 @@ export default function ActiveRequests() {
     return (
             <div id="mainFeed">
                 <div id="mainAcctions"><br /><br /><br />
-                    <h2>Active Requests:</h2><br />
+                    <h2>Active Requests:</h2>
 
                     <div id="acctionButtons">
                         <input type="button" id="remoteBtn" class="acctionBtn" value="Remote" />

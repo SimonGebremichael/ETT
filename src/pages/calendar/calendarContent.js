@@ -157,7 +157,7 @@ function CalendarContent() {
         padding: "10px"
     }
     return (
-        <div id="calendar">
+        <div id="public_calendar">
             <div id="header">
                 <button style={left1} id="calNav1">&#8592;</button>
                 <h1 id="dateTitle"></h1>

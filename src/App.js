@@ -28,9 +28,6 @@ export default class appy extends React.Component {
 
   componentDidMount = () => {
 
-
-
-
   }
 
   render() {
@@ -41,8 +38,8 @@ export default class appy extends React.Component {
           <Header>{this.state}</Header>
           <Switch>
             <Route path='/login' exact={true} component={Home} />
-            <Route path='/login/pending' exact={true} component={pending} />
-            <Route path='/dashboard' component={Teamlead} />
+            <Route path='/login/pending/:id' exact={true} component={pending} />
+            <Route path='/dashboard/:id' component={Teamlead} />
             <Route path='/calendar' component={Calendar} />
             <Route path='/export' component={Export} />
             <Route path='/create' component={Create} />

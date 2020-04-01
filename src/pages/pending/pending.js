@@ -8,33 +8,36 @@ import { Link } from 'react-router-dom';
 export default class Pending extends React.Component {
     constructor(props) {
         super(props);
+        this.componentDidMount = this.componentDidMount.bind(this);
+        this.user = this.props.match.params.id;
     }
-
     componentDidMount() {
-        document.getElementsByClassName("pending_container")[0].style.display = "none";
-        document.getElementsByClassName("pending_container2")[0].style.display = "block";
-        var url = window.location.href.split("?")[1];
-        var user = url.split("=")[1];
+        turn(true);
         var xhr = new XMLHttpRequest();
-        xhr.open("GET", "http://localhost:8080/crud/api/getperson.php?i=" + user);
+        xhr.open("GET", "http://localhost:8080/crud/api/getperson.php?i=" + this.user);
         xhr.onreadystatechange = function () {
             if (xhr.readyState == 4) {
-                var data = JSON.parse(xhr.responseText);
-                document.getElementsByClassName("pending_container")[0].style.display = "block";
-                document.getElementsByClassName("pending_container2")[0].style.display = "none";
-
-                if(data.employee.employee_status != "onsite"){
-                    document.getElementById("pending_message").innerHTML = "You will  be notified once approved, Thank you";
-                    document.getElementById("pending_header_message").innerHTML = "Your Account is Currently Pending!";
-                }else{
-                    document.getElementById("pending_message").innerHTML = "your account has been aprroved";
-                    document.getElementById("pending_header_message").innerHTML = "Your all set :)";
+                try {
+                    var data = JSON.parse(xhr.responseText);
+                    turn(false);
+                    if (data.employee.employee_status != "onsite") {
+                        document.getElementById("pending_message").innerHTML = "You will  be notified once approved, Thank you";
+                        document.getElementById("pending_header_message").innerHTML = "Your Account is Currently Pending!";
+                    } else {
+                        document.getElementById("pending_message").innerHTML = "your account has been aprroved";
+                        document.getElementById("pending_header_message").innerHTML = "Your all set :)";
+                    }
+                    document.getElementById("pending_username").innerHTML += data.employee.first_name + ", " + data.employee.last_name;
+                    document.getElementById("pending_email").innerHTML += data.employee.email;
+                    document.getElementById("pending_id").innerHTML += "ID: " + data.employee.employeeID;
+                    document.getElementById("pending_img").src = "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.Pd0tR4zfjYF6MwkYlbQcyQHaEn%26pid%3DApi&f=1";
+                    console.log(data);
+                } catch (e) {
+                    console.log(e);
+                    document.getElementById("pending_message").innerHTML = "account might have been delete";
+                    document.getElementById("pending_header_message").innerHTML = "User not found";
+                    document.getElementById("pending_header_message").style.display = "pending_bottom_info";
                 }
-                document.getElementById("pending_username").innerHTML += data.employee.first_name + ", " + data.employee.last_name;
-                document.getElementById("pending_email").innerHTML += data.employee.email;
-                document.getElementById("pending_id").innerHTML += "ID: " + data.employee.employeeID;
-                document.getElementById("pending_img").src = "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.Pd0tR4zfjYF6MwkYlbQcyQHaEn%26pid%3DApi&f=1";
-                console.log(data);
             }
         }
         xhr.send();
@@ -50,8 +53,9 @@ export default class Pending extends React.Component {
             marginLeft: "30%",
             marginTop: "10%",
             borderRadius: "50%",
-            border: "3px solid black",
-            backgroundColor: "gray"
+            border: "5px solid white",
+            backgroundColor: "gray",
+            objectFit: "cover"
         }
 
         const bottom_info = {
@@ -60,42 +64,54 @@ export default class Pending extends React.Component {
             paddingTop: "50px",
             color: "white"
         }
+        var dashId = "/dashboard/" + this.user;
         return (
             <>
-            <div class="pending_container">
-                <div id="pending_header">
-                    <h2 id="pending_header_message"></h2>
-                    <img src={thumpsUp} style={image} />
-                </div><br />
-                <p id="pending_message"></p><br /><br />
-                <div style={bottom_info}>
-                    <div id="pending_profile" >
-                        <div id="pending_pro_img_container">
-                            <img id="pending_img" src="" style={imgProfile} />
+                <div class="pending_container">
+                    <div id="pending_header">
+                        <h2 id="pending_header_message"></h2>
+                        <img src={thumpsUp} style={image} />
+                    </div><br />
+                    <p id="pending_message"></p><br /><br />
+                    <div style={bottom_info} id="pending_bottom_info">
+                        <div id="pending_profile" >
+                            <div id="pending_pro_img_container">
+                                <img id="pending_img" src="" style={imgProfile} />
+                            </div>
+
+                            <div id="pending_pro_detainer">
+                                <p id="pending_username"></p><br />
+                                <p id="pending_email"></p><br />
+                                <p id="pending_id"></p>
+                            </div>
                         </div>
 
-                        <div id="pending_pro_detainer">
-                            <p id="pending_username"></p><br />
-                            <p id="pending_email"></p><br />
-                            <p id="pending_id"></p>
+                        <div class="row">
+                            <Link to={dashId}>
+                                <input type="submit" value="OK" />
+                            </Link>
+                            <Link to="/">
+                                <input type="submit" value="Cancel" />
+                            </Link>
                         </div>
-                    </div>
-
-                    <div class="row">
-                        <Link to="/dashboard">
-                            <input type="submit" value="OK" />
-                        </Link>
-                        <Link to="/">
-                            <input type="submit" value="Cancel" />
-                        </Link>
                     </div>
                 </div>
-            </div>
-            <div class="pending_container2">
-                <img src={loading} id="pending_loading_gif"/>
-            </div>
+                <div class="pending_container2">
+                    <img src={loading} id="pending_loading_gif" />
+                </div>
             </>
 
         )
+    }
+}
+
+function turn(x) {
+    if (x) {
+        document.getElementsByClassName("pending_container")[0].style.display = "none";
+        document.getElementsByClassName("pending_container2")[0].style.display = "block";
+    }
+    else {
+        document.getElementsByClassName("pending_container")[0].style.display = "block";
+        document.getElementsByClassName("pending_container2")[0].style.display = "none";
     }
 }
