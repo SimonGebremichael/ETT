@@ -1,10 +1,12 @@
-.pending_container {
+.pending_container,  .pending_container2{
   max-width: 50%;
   margin: auto;
-  padding: 10px;
   position: center;
   background-color: white;
+}
 
+#pending_header, #pending_message{
+  padding: 10px;
 }
 
 #pending_header{
@@ -14,9 +16,7 @@
   display: grid;
   grid-template-columns: 95% 5%;
 }
-.pending_container p{
-  color: gray;
-}
+
 .pending_container input[type="text"] {
   width: 100%;
   padding: 12px;
@@ -24,14 +24,20 @@
   resize: vertical;
 }
 
-.pending_container input[type="submit"] {
-  background-color: black;
+#pending_profile p{
   color: white;
+  font-size: 20px;
+}
+
+.pending_container input[type="submit"] {
+  background-color: white;
+  color: black;
   padding: 12px 20px;
   border: none;
   cursor: pointer;
   float: right;
 }
+
 .row {
   clear: both;
 }
@@ -51,9 +57,19 @@
 #pending_pro_detainer {
   margin-left: 50px;
   padding: 10px;
-  background-color: lightgrey;
 }
 
+.pending_container2 {
+  text-align: center;
+  padding-top: 200px;
+  padding-bottom: 200px;
+}
+
+#pending_loading_gif{
+  width: 70px;
+  height: 70px;
+
+}
 
 @media screen and (max-width: 600px) {
   .col-25, .col-75, input[type="submit"] {
