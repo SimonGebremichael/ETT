@@ -58,7 +58,6 @@ main p:hover {
 
 .day {
     height: 75px;
-    padding: 5px;
     transition: all 0.3s ease-in-out;
 }
 

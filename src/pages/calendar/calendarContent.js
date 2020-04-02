@@ -1,30 +1,35 @@
 import React, { Component } from 'react'
-
+import ApiCalendar from 'react-google-calendar-api';
+import ApiCalendar2 from 'react-google-calendar-api/ApiCalendar';
+var CLIENT_ID = '1048871087214-t3ttoli7jpjv5ep62qr91ftsh4hf7010.apps.googleusercontent.com';
+var API_KEY = 'AIzaSyA0cfGXh6JoX0lXpYnjgTq09m62vO62TmM';
+var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
+var SCOPES = "https://www.googleapis.com/auth/calendar.readonly";
+var events;
 export default class Socki extends React.Component {
-
     constructor(props) {
         super(props);
     }
 
     componentDidMount() {
+
         var mon = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-            colours = ["-", "lightblue", "-", "lightgreen", "pink", "-", "lightgreen", "-"];
+            colours = ["lightblue", "salmon", "pink", "lightgreen"];
 
         var today = new Date(),
             dd = String(today.getDate()).padStart(2),
             mm = String(today.getMonth() + 1).padStart(2),
             yyyy = today.getFullYear(),
             currentDate = new Date();
-
         var change = false,
             change2 = false,
             listened = false;
-
         var d = document;
-        if (true) { prntCal(); } //one time fire
 
+        getEvents();
+
+        // if (grabber != null) { prntCal(); } //one time fire
         function prntCal() {
-
             //reset cal 
             const box = document.getElementById("date-section2");
             box.innerHTML = "";
@@ -32,10 +37,16 @@ export default class Socki extends React.Component {
             var Starting_dayOfTheWeek = new Date(yyyy, mm - 1, 0).getDay();
             let temp;
             let dayText;
-            let res1;
-            let res2;
-
+            
             document.getElementById("dateTitle").innerHTML = mon[mm - 1] + ", " + yyyy;
+
+            // for(var i=0;i < events.length; i++){
+            //     events[i].push(colours[i]);
+            // }
+
+
+            console.log(events);
+
             for (var i = 0; i < Starting_dayOfTheWeek + 1; i++) {
                 if (Starting_dayOfTheWeek != 6) {
                     var emptyFeild = document.createElement("div");
@@ -55,23 +66,20 @@ export default class Socki extends React.Component {
 
                 dayText = document.createElement("label");
                 dayText.textContent = i;
+                dayText.style.marginLeft = "5px";
                 temp.appendChild(dayText);
 
-                var press = colours[Math.floor((Math.random() * 6) + 1)];
-                if (press != "-") {
-                    res1 = document.createElement("div");
-                    res1.className = "reserve";
-                    res1.setAttribute('style', "background-color: " + press);
-                    temp.appendChild(res1);
-                }
-
-                var press2 = colours[Math.floor((Math.random() * 6) + 1)];
-                if (press2 != "-") {
-                    res2 = document.createElement("div");
-                    res2.className = "reserve";
-                    res2.setAttribute('style', "background-color: " + press2);
-                    temp.appendChild(res2);
-                }
+                if (events.length > 0) {
+                    for (var k = 0; k < events.length; k++) {
+                        console.log(events[k].start.dateTime);
+                        if (i >= new Date(events[k].start.dateTime).getDate() && i <= new Date(events[k].end.dateTime).getDate()) {
+                            var reserve = document.createElement("div");
+                            reserve.className = "reserve";
+                            reserve.setAttribute('style', "background-color: lightblue");
+                            temp.appendChild(reserve);
+                        }
+                    }
+                } else { console.log('No upcoming events found.'); }
 
                 box.appendChild(temp);
 
@@ -88,9 +96,6 @@ export default class Socki extends React.Component {
                     }
                 }
             }
-
-
-
             if (!listened) {
                 init();
                 listened = true;
@@ -141,6 +146,39 @@ export default class Socki extends React.Component {
             });
             document.getElementById("calNav2").addEventListener("mouseup", function () { change2 = false; });
         }
+
+        function getEvents() {
+            if (ApiCalendar.sign) {
+                ApiCalendar.listUpcomingEvents(10)
+                ApiCalendar.gapi.load('client:auth2', () => {
+                    ApiCalendar.gapi.client.init({
+                        apiKey: API_KEY,
+                        clientId: CLIENT_ID,
+                        discoveryDocs: DISCOVERY_DOCS,
+                        scope: SCOPES
+                    }).then(function () {
+                        console.log("success baby");
+                    }, function (error) {
+                        console.log(JSON.stringify(error, null, 2));
+                    });
+                });
+
+                ApiCalendar.gapi.auth2.getAuthInstance().signIn();
+                ApiCalendar.gapi.client.calendar.events.list({
+                    'calendarId': 'primary',
+                    'timeMin': (new Date(yyyy, mm, 0)).toISOString(),
+                    'showDeleted': false,
+                    'singleEvents': true,
+                    'maxResults': 10,
+                    'orderBy': 'startTime'
+                }).then(function (sendBack) {
+                    events = sendBack.result.items;
+                    prntCal();
+                });
+            } else {
+                events = null;
+            }
+        }
     }
     render() {
         return (<CalendarContent />)
@@ -178,3 +216,4 @@ function CalendarContent() {
         </div>
     )
 }
+

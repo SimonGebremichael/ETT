@@ -32,6 +32,7 @@ export default class mainPage extends React.Component {
   componentDidUpdate() {
 
   }
+
   render() {
     const responseGoogle = (response) => {
       try {
