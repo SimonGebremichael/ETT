@@ -26,7 +26,6 @@ export default class mainPage extends React.Component {
     //     }
     // }
     // xhr.send();
-    // handleClientLoad();
   }
 
   componentDidUpdate() {
@@ -43,43 +42,29 @@ export default class mainPage extends React.Component {
         // console.log('Image URL: ' + response.Qt.UK);
         // console.log('Email: ' + response.Qt.zu);
 
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "http://localhost:8080/crud/api/createPerson.php?" +
+          "fname=" + response.Qt.vW +
+          "&lname=" + response.Qt.wU +
+          "&email=" + response.Qt.zu +
+          "&dob=01/01/1998" +
+          "&eStatus=pending" +
+          "&deptID=1" +
+          "&gId=" + response.Qt.SU +
+          "&img=" + response.Qt.UK);
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState == 4) {
+            if (xhr.responseText == "true") {
+              window.location.href = "http://localhost:3000/login/pending/" + response.Qt.SU;
+              if (xhr.responseText == "already") {
+                window.location.href = "http://localhost:3000/dashboard/" + response.Qt.SU;
+              }
+              console.log(xhr.responseText);
+            }
+          }
+          xhr.send();
+        }
 
-        // if (ApiCalendar.sign) {
-        //   ApiCalendar.listUpcomingEvents(10)
-        //   ApiCalendar.gapi.load('client:auth2', () => {
-        //     ApiCalendar.gapi.client.init({
-        //       apiKey: API_KEY,
-        //       clientId: CLIENT_ID,
-        //       discoveryDocs: DISCOVERY_DOCS,
-        //       scope: SCOPES
-        //     }).then(function () {
-        //       console.log("success baby");
-        //     }, function (error) {
-        //       console.log(JSON.stringify(error, null, 2));
-        //     });
-        //   });
-
-        //   ApiCalendar.gapi.auth2.getAuthInstance().signIn();
-        //   ApiCalendar.gapi.client.calendar.events.list({
-        //     'calendarId': 'primary',
-        //     'timeMin': (new Date()).toISOString(),
-        //     'showDeleted': false,
-        //     'singleEvents': true,
-        //     'maxResults': 10,
-        //     'orderBy': 'startTime'
-        //   }).then(function (sendBack) {
-        //     var events = sendBack.result.items;
-        //     if (events.length > 0) {
-        //       for (var i = 0; i < events.length; i++) {
-        //         var event = events[i],
-        //           when = event.start.dateTime;
-
-        //         if (!when) { when = event.start.date; }
-        //         console.log(event.summary + ' (' + when + ')');
-        //       }
-        //     } else {  console.log('No upcoming events found.'); }
-        //   });
-        // }
       } catch (e) {
         console.log(e);
       }

@@ -3,7 +3,7 @@ import Offsite from './Offsite'
 import ActiveRequests from './ActiveRequests'
 import Upcomming from './Upcomming'
 import Profile from '../Profile'
-
+var data;
 export default class team extends React.Component {
 
     constructor(props) {
@@ -11,6 +11,9 @@ export default class team extends React.Component {
         this.componentDidMount = this.componentDidMount.bind(this);
         console.log(props)
         this.user = this.props.match.params.id;
+        this.state = {
+            done: false
+        }
     }
 
     componentDidMount() {
@@ -26,12 +29,26 @@ export default class team extends React.Component {
         }
     }
 
+    componentWillMount() {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "http://localhost:8080/crud/api/getPerson.php?i=" + this.user);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4) {
+                data = JSON.parse(xhr.responseText);
+                console.log(data);
+            }
+        }
+        xhr.send();
+
+        this.setState({ done: true });
+    }
+
     render() {
         return (
             <>
                 <Profile />
                 <div id="container_dashboard">
-                    <Offsite id={this.user} />
+                    <Offsite id={data} />
                     <ActiveRequests />
                     <Upcomming />
                 </div>

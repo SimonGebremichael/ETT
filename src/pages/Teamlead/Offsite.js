@@ -7,7 +7,10 @@ export default class offsite extends React.Component {
     constructor(props) {
         super(props);
         this.componentDidMount = this.componentDidMount.bind(this);
-        this.user = props.id;
+        console.log("offside");
+        console.log(props);
+        this.pros = props;
+   
     }
 
     componentDidMount() {
@@ -22,16 +25,20 @@ export default class offsite extends React.Component {
             elem2[i].innerHTML = colours3[rand];
         }
 
+        // setInterval(() => {
+        //     this.setState({ count: (Math.floor(Math.random() * 5) + 1) });
+        // }, 500);
+
         var xhr = new XMLHttpRequest();
         xhr.open("GET", "http://localhost:8080/crud/api/getperson.php?i=" + this.user);
         xhr.onreadystatechange = function () {
             if (xhr.readyState == 4) {
                 try {
                     var data = JSON.parse(xhr.responseText);
-                    document.getElementById("dash_side_name").innerHTML = data.employee.first_name + ", " + data.employee.last_name;
-                    document.getElementById("dash_side_email").innerHTML = data.employee.email;
-                    document.getElementById("offsiteActivity_Main").innerHTML = data.employee.employee_status;
-                    document.getElementsByClassName("offsite_acc_img")[0].src = "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.Pd0tR4zfjYF6MwkYlbQcyQHaEn%26pid%3DApi&f=1";
+                    document.getElementById("dash_side_name").innerHTML = this.data.employee.first_name + ", " + this.data.employee.last_name;
+                    document.getElementById("dash_side_email").innerHTML = this.data.employee.email;
+                    document.getElementById("offsiteActivity_Main").innerHTML = this.data.employee.employee_status;
+                    document.getElementsByClassName("offsite_acc_img")[0].src = this.data.employee.img;
                     console.log(data);
                 } catch (e) {
                     console.log(e);
@@ -39,6 +46,11 @@ export default class offsite extends React.Component {
             }
         }
         xhr.send();
+    }
+
+    componentDidUpdate() {
+        console.log("offside");
+        console.log(this.pros);
     }
 
     render() {

@@ -57,7 +57,10 @@ main p:hover {
 }
 
 .day {
-    height: 75px;
+    /* height: 75px; */
+    max-height: 100px;
+    min-height: 80px;
+    font-size: 13px;
     transition: all 0.3s ease-in-out;
 }
 
@@ -69,7 +72,7 @@ main p:hover {
 }
 
 .reserve {
-    height: 10px;
+    height: 15px;
     width: 100%;
     margin-top: 10px;
 }

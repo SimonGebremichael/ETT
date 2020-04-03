@@ -14,7 +14,7 @@ export default class Socki extends React.Component {
     componentDidMount() {
 
         var mon = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-            colours = ["lightblue", "salmon", "pink", "lightgreen"];
+            colours = ["lightblue", "salmon", "pink", "lightgreen", "lightblue", "salmon", "pink", "lightgreen", "lightblue", "salmon", "pink", "lightgreen"];
 
         var today = new Date(),
             dd = String(today.getDate()).padStart(2),
@@ -28,31 +28,37 @@ export default class Socki extends React.Component {
 
         getEvents();
 
+
+
         // if (grabber != null) { prntCal(); } //one time fire
         function prntCal() {
-            //reset cal 
+            // //reset cal 
+            // var wasTextAddedForReserve = [];
+            // for (var i = 0; i < events.length; i++) {
+            //     wasTextAddedForReserve.push(false);
+            // }
+
             const box = document.getElementById("date-section2");
             box.innerHTML = "";
 
             var Starting_dayOfTheWeek = new Date(yyyy, mm - 1, 0).getDay();
             let temp;
             let dayText;
-            
+
             document.getElementById("dateTitle").innerHTML = mon[mm - 1] + ", " + yyyy;
-
-            // for(var i=0;i < events.length; i++){
-            //     events[i].push(colours[i]);
-            // }
-
 
             console.log(events);
 
+            //gets what day of the month it starts with
             for (var i = 0; i < Starting_dayOfTheWeek + 1; i++) {
                 if (Starting_dayOfTheWeek != 6) {
                     var emptyFeild = document.createElement("div");
                     box.appendChild(emptyFeild);
                 }
             }
+
+            var numeroPerguntas = events.length;
+            var isTextAddForReserve = new Array(numeroPerguntas).fill(false);
 
             for (var i = 1; i <= new Date(yyyy, mm, 0).getDate(); i++) {
                 temp = document.createElement("div");
@@ -71,14 +77,28 @@ export default class Socki extends React.Component {
 
                 if (events.length > 0) {
                     for (var k = 0; k < events.length; k++) {
-                        console.log(events[k].start.dateTime);
-                        if (i >= new Date(events[k].start.dateTime).getDate() && i <= new Date(events[k].end.dateTime).getDate()) {
-                            var reserve = document.createElement("div");
-                            reserve.className = "reserve";
-                            reserve.setAttribute('style', "background-color: lightblue");
-                            temp.appendChild(reserve);
+                        if (new Date(events[k].start.dateTime).getMonth() == new Date(events[k].end.dateTime).getMonth()) {
+                            if (i >= new Date(events[k].start.dateTime).getDate() && i <= new Date(events[k].end.dateTime).getDate()) {
+                                var reserve = document.createElement("div");
+                                reserve.className = "reserve";
+                                if (!isTextAddForReserve[k]) {
+                                    isTextAddForReserve[k] = !isTextAddForReserve[k];
+                                    reserve.textContent = events[k].summary;
+                                }
+                                reserve.setAttribute('style', "background-color: " + colours[k]);
+                                temp.appendChild(reserve);
+                            }
+                        } else if (new Date(events[k].start.dateTime).getMonth() < mm - 1) {
+                            console.log("before start " + new Date(events[k].start.dateTime).getMonth() + ", before end " + new Date(events[k].end.dateTime).getMonth());
+                            console.log(events[k].summary + " " + mm);
+                            events[k].start.dateTime = new Date(yyyy, mm - 1, 0);
+
+                        } else if (new Date(events[k].end.dateTime).getMonth() >= mm) {
+                            alert(events[k].end.dateTime);
+                            events[k].end.dateTime = new Date(yyyy, mm - 1, new Date(yyyy, mm, 0).getDate());
                         }
                     }
+
                 } else { console.log('No upcoming events found.'); }
 
                 box.appendChild(temp);
@@ -125,7 +145,7 @@ export default class Socki extends React.Component {
                     today = new Date(yyyy, mm, 0);
                     console.log(today);
                     change = true;
-                    prntCal();
+                    getEvents();
                 }
             });
             document.getElementById("calNav1").addEventListener("mouseup", function () { change = false; });
@@ -141,13 +161,14 @@ export default class Socki extends React.Component {
                     today = new Date(yyyy, mm, 0);
                     console.log(today);
                     change = true;
-                    prntCal();
+                    getEvents();
                 }
             });
             document.getElementById("calNav2").addEventListener("mouseup", function () { change2 = false; });
         }
 
         function getEvents() {
+
             if (ApiCalendar.sign) {
                 ApiCalendar.listUpcomingEvents(10)
                 ApiCalendar.gapi.load('client:auth2', () => {

@@ -13,6 +13,7 @@ export default class Pending extends React.Component {
     }
     componentDidMount() {
         turn(true);
+        console.log("from pending " + this.user);
         var xhr = new XMLHttpRequest();
         xhr.open("GET", "http://localhost:8080/crud/api/getperson.php?i=" + this.user);
         xhr.onreadystatechange = function () {
@@ -20,7 +21,7 @@ export default class Pending extends React.Component {
                 try {
                     var data = JSON.parse(xhr.responseText);
                     turn(false);
-                    if (data.employee.employee_status != "onsite") {
+                    if (data.employee.employee_status == "pending") {
                         document.getElementById("pending_message").innerHTML = "You will  be notified once approved, Thank you";
                         document.getElementById("pending_header_message").innerHTML = "Your Account is Currently Pending!";
                     } else {
@@ -29,8 +30,8 @@ export default class Pending extends React.Component {
                     }
                     document.getElementById("pending_username").innerHTML += data.employee.first_name + ", " + data.employee.last_name;
                     document.getElementById("pending_email").innerHTML += data.employee.email;
-                    document.getElementById("pending_id").innerHTML += "ID: " + data.employee.employeeID;
-                    document.getElementById("pending_img").src = "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.Pd0tR4zfjYF6MwkYlbQcyQHaEn%26pid%3DApi&f=1";
+                    document.getElementById("pending_id").innerHTML += "ID: " + data.employee.googleId;
+                    document.getElementById("pending_img").src = data.employee.img;
                     console.log(data);
                 } catch (e) {
                     console.log(e);
