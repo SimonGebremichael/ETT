@@ -10,44 +10,62 @@ export default class Profiler extends React.Component {
 
     constructor(props) {
         super(props);
+        this.user = props.id;
+        this.teamlead = localStorage.getItem("teamlead");
     }
     componentDidMount() {
-        $("#ProfileColours").fadeOut();
-        $("#profileSettings").fadeOut();
-        $("#ProfileSideAcc").fadeIn();
+        if (this.teamlead == "true") {
+            $("#profileSettings").fadeOut();
+            $("#ProfileSideAcc").fadeIn();
 
-        $("#proBG").click(() => {
-            document.getElementById("container_" + window.location.href.split("/")[3]).style.filter = "blur(0)";
-            document.getElementById("profile").style.display = "none";
-        });
-        $("#sideAcc").click(() => {
-            document.getElementById("container_" + window.location.href.split("/")[3]).style.filter = "blur(2px)";
-            document.getElementById("profile").style.display = "block";
-        });
+            $("#proBG").click(() => {
+                document.getElementById("container_" + window.location.href.split("/")[3]).style.filter = "blur(0)";
+                document.getElementById("profile").style.display = "none";
+            });
+            $("#sideAcc").click(() => {
+                document.getElementById("container_" + window.location.href.split("/")[3]).style.filter = "blur(2px)";
+                document.getElementById("profile").style.display = "block";
+            });
 
-        $("#colour_Scheme").click(() => {
-            clear();
-            $("#ProfileColours").show();
-        });
 
-        $(".backhomeBtn").click(() => {
-            clear();
-            $("#ProfileSideAcc").show();
-        });
+            $(".backhomeBtn").click(() => {
+                clear();
+                $("#ProfileSideAcc").show();
+            });
 
-        $("#settings").click(() => {
-            clear();
-            $("#profileSettings").show();
-        });
+            $("#settings").click(() => {
+                clear();
+                $("#profileSettings").show();
+            });
 
-        function clear() {
-            $("#ProfileColours").hide();
-            $("#profileSettings").hide();
-            $("#ProfileSideAcc").hide();
+            function clear() {
+                $("#profileSettings").hide();
+                $("#ProfileSideAcc").hide();
+            }
         }
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "http://localhost:8080/crud/api/getperson.php?i=" + this.user);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4) {
+                try {
+                    var data = JSON.parse(xhr.responseText);
+                    document.getElementById("profile_name_print").innerHTML = data.employee.first_name + ", " + data.employee.last_name;
+                    document.getElementById("profile_email_print").innerHTML = data.employee.email;
+                    document.getElementsByClassName("profile_stat_print")[0].innerHTML = data.employee.employee_status;
+                    document.getElementsByClassName("profile_stat_accImg")[0].src = data.employee.img;
+                    console.log(data);
+                } catch (e) {
+                    console.log(e);
+                }
+            }
+        }
+        xhr.send();
     }
 
     render() {
+        var offtypeEmployee = '/offtype/' + this.user;
+        var modifyEmployees = '/profile/modify/' + this.user;
         return (
             <div id="profile">
                 <div id="proBG"></div>
@@ -56,19 +74,19 @@ export default class Profiler extends React.Component {
                         <table>
                             <tr>
                                 <td id="accImgBox">
-                                    <img src={profile} id="accImg" />
+                                    <img src={profile} class="profile_stat_accImg" id="accImg" />
                                 </td>
                                 <td id="accInfo">
-                                    <label>John Smith</label><br />
-                                    <label>j.smith8080@gmail.com</label><br />
-                                    <button id="offsiteActivity">Active</button>
+                                    <label id="profile_name_print">John Smith</label><br />
+                                    <label id="profile_email_print">j.smith8080@gmail.com</label><br />
+                                    <button class="profile_stat_print" id="offsiteActivity">Active</button>
                                 </td>
                             </tr>
 
                         </table>
                         <table id="profileOptions">
                             <tr>
-                                <td><Link to="/profile/modify">Modify</Link></td>
+                                <td><Link to={modifyEmployees}>Modify people</Link></td>
                                 <td id="Options_Items">
                                     <img src={modify} id="proimg" /></td>
                             </tr>
@@ -78,34 +96,7 @@ export default class Profiler extends React.Component {
                                     <img src={settings} id="proimg" /></td>
                             </tr>
 
-                            <tr>
-                                <td id="colour_Scheme">Colour Scheme</td>
-                                <td id="Options_Items">
-                                    <img src={Scheme} id="proimg" /></td>
-                            </tr>
                         </table>
-                    </div>
-
-                    <div id="ProfileColours">
-                        <div id="colourHeader">
-                            <button class="backhomeBtn">Back</button><br /><br />
-                            <label><font size="30px">Colour Scheme</font></label>
-                        </div>
-                        <table id="profileOptions">
-                            <tr id="theme1"><td>Sea Navy</td></tr>
-                            <tr id="theme2"><td >Grizzely bear</td></tr>
-                            <tr id="theme3"><td>Paprika</td></tr>
-                            <tr id="theme4"><td>Default</td></tr>
-                        </table>
-
-                        <style dangerouslySetInnerHTML={{
-                            __html: `
-                     #theme1 { background-image: linear-gradient(to right, lightblue , rgb(228, 131, 228), rgb(81, 81, 199)); }
-                     #theme2 { background-image: linear-gradient(to right, rgb(95, 49, 55) , rgb(168, 77, 60), rgb(78, 42, 42)); }
-                     #theme3 { background-image: linear-gradient(to right, rgb(107, 103, 79) , rgb(192, 128, 56), rgb(195, 204, 110));" }
-                     #theme4 { background-image: linear-gradient(to right, #222 , #333, #222); }
-                     #Options_Items{text-align: center; margin-right: 50px;}
-                    `}} />
                     </div>
 
                     <div id="profileSettings">
@@ -116,10 +107,9 @@ export default class Profiler extends React.Component {
                         <table id="profileOptions">
                             <tr>
                                 <td>
-                                    <Link to='/offtype'>Add new off type </Link>
+                                    <Link to={offtypeEmployee}>Add new OffType</Link>
                                 </td>
                             </tr>
-                            <tr><td >remove person</td></tr>
                         </table>
 
                         <style dangerouslySetInnerHTML={{

@@ -51,9 +51,9 @@
     height: 70px;
     margin-left: 15%;
     margin-top: 20%;
-    background-color: grey;
-    object-fit: fill;
-    border: 4px solid black
+    background-color: black;
+    object-fit: cover;
+    border: 4px solid white
 }
 #modify_user_info{
     display: grid;
@@ -94,6 +94,7 @@
 
 #modify_lookup{
     width: 500px;
+    border-right: 1px solid;
 }
 
 #modify_lookup_header{
@@ -104,13 +105,12 @@
 }
 
 #modify_lookup_display{
-    border-right: 1px solid black;
 }
 
 #modify_lookup_actions{
     margin-top: 20px;
     display: grid;
-    grid-template-columns: 25% 25% 25% 25%;
+    grid-template-columns: 33.33% 33.33% 33.33%;
 }
 
 #modify_lookup_actions button{
@@ -124,4 +124,25 @@
 #modify_lookup_details{
     padding-top: 4%;
     height: 100%;
+}
+
+#modify_action_delete {
+    background-color: salmon;
+}
+#modify_action_approve {
+    background-color: lightgreen;
+    
+}
+#modify_action_assign {
+    background-color: lightblue;
+    
+}
+
+#modify_linkto_lookup{
+    width: 100%;
+    padding-left: 30%;
+    padding-top: 60%;
+    background-color: salmon;
+    color: white;
+    font-size: 40px;
 }

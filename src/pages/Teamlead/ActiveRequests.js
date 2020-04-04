@@ -1,8 +1,39 @@
-import React from 'react'
+import React, { component } from 'react';
 import Request from './ActiveRequest_items'
+import $ from 'jquery'
 
-export default function ActiveRequests() {
-    return (
+export default class AcctiveRequests extends React.Component {
+    constructor(props) {
+        super(props);
+        this.componentDidMount = this.componentDidMount.bind(this);
+        this.state = this.props.children;
+        this.user = props.id;
+    }
+    componentDidMount = () => {
+        $("#remoteBtn").on("click", () => {
+            
+        });
+
+        $("#vacationBtn").on("click", () => {
+            
+        });
+
+        $("#birthdayBtn").on("click", () => {
+            
+        });
+
+        $("#sickBtn").on("click", () => {
+            
+        });
+
+        $("#allBtn").on("click", () => {
+            alert("ee");
+        });
+    }
+
+
+    render() {
+        return (
             <div id="mainFeed">
                 <div id="mainAcctions"><br /><br /><br />
                     <h2>Active Requests:</h2>
@@ -26,5 +57,7 @@ export default function ActiveRequests() {
                     <Request />
                 </div>
             </div>
-    )
+        )
+    }
+
 }

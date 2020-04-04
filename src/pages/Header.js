@@ -12,6 +12,8 @@ export default class appy extends React.Component {
         super(props);
         this.componentDidMount = this.componentDidMount.bind(this);
         this.state = this.props.children;
+        this.user = localStorage.getItem("access");
+        this.teamlead = localStorage.getItem("teamlead");
     }
     componentDidMount = () => {
         setInterval(() => {
@@ -34,47 +36,69 @@ export default class appy extends React.Component {
     }
 
     render() {
-        const responseGoogle = (response) => {
 
-        }
-        
+        var dashboar = '/dashboard/' + this.user;
+        var calendar = '/calendar/' + this.user;
+        var exporting = '/export/' + this.user;
+        var analysis = '/analysis/' + this.user;
+        var create = '/create/' + this.user;
         if (this.state.headType) {
-            return (
-                <header>
-                    <Link className="/login/pending/3" to='/dashboard'>
-                        <img src={logo} id="logo" />
-                    </Link>
-                    <div></div>{/* Seperator of header sections. see grid */}
-                    <ul>
-                        <Link className="linker" to='/dashboard'>
-                            <li id="dashboard" className="header_Item">Home</li>
+            if (this.teamlead == "true") {
+                return (
+                    <header>
+                        <Link className="/login/pending/3" to='/dashboard'>
+                            <img src={logo} id="logo" />
                         </Link>
-                        <Link className="linker" to='/calendar'>
-                            <li id="calendar" className="header_Item">Calendar</li>
+                        <div></div>{/* Seperator of header sections. see grid */}
+                        <ul>
+                            <Link className="linker" to={dashboar}>
+                                <li id="dashboard" className="header_Item">Home</li>
+                            </Link>
+                            <Link className="linker" to={calendar}>
+                                <li id="calendar" className="header_Item">Calendar</li>
+                            </Link>
+                            <Link className="linker" to={exporting}>
+                                <li id="export" className="header_Item">Export</li>
+                            </Link>
+                            <Link className="linker" to={analysis}>
+                                <li id="analysis" className="header_Item">Analysis</li>
+                            </Link>
+                            <Link className="linker" to={create}>
+                                <li id="create" className="header_Item">Create</li>
+                            </Link>
+                            <Link className="linker" to='/login'>
+                                <li> Sign out </li>
+                            </Link>
+                        </ul>
+                    </header >
+                )
+            } else {
+                return (
+                    <header>
+                        <Link className="/login/pending/3" to='/dashboard'>
+                            <img src={logo} id="logo" />
                         </Link>
-                        <Link className="linker" to='/export'>
-                            <li id="export" className="header_Item">Export</li>
-                        </Link>
-                        <Link className="linker" to="/analysis">
-                            <li id="analysis" className="header_Item">Analysis</li>
-                        </Link>
-                        <Link className="linker" to='/create'>
-                            <li id="create" className="header_Item">Requests</li>
-                        </Link>
-                        <Link className="linker" to='/login'>
-                            <li>          
-                                <GoogleLogin
-                                clientId="1048871087214-t3ttoli7jpjv5ep62qr91ftsh4hf7010.apps.googleusercontent.com"
-                                buttonText="Login"
-                                onSuccess={responseGoogle}
-                                onFailure={responseGoogle}
-                                isSignedIn={true}
-                                cookiePolicy={'single_host_origin'}
-                            /></li>
-                        </Link>
-                    </ul>
-                </header >
-            )
+                        <div></div>{/* Seperator of header sections. see grid */}
+                        <ul>
+                            <Link className="linker" to={dashboar}>
+                                <li id="dashboard" className="header_Item">Home</li>
+                            </Link>
+                            <Link className="linker" to={calendar}>
+                                <li id="calendar" className="header_Item">Calendar</li>
+                            </Link>
+                            <Link className="linker" to={analysis}>
+                                <li id="analysis" className="header_Item">Analysis</li>
+                            </Link>
+                            <Link className="linker" to={create}>
+                                <li id="create" className="header_Item">Create</li>
+                            </Link>
+                            <Link className="linker" to='/login'>
+                                <li> Sign out </li>
+                            </Link>
+                        </ul>
+                    </header >
+                )
+            }
         } else {
             return (
                 <header>

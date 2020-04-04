@@ -1,37 +1,119 @@
 import React, { Component } from 'react'
 import css from './style/offtyper.css'
+import loading from './style/loading.gif'
+import check from './style/check.png'
 
 export default class offTypes extends React.Component {
     constructor(props) {
         super(props);
     }
     componentDidMount() {
+        turn(false);
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "http://localhost:8080/crud/api/getOffType.php");
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4) {
+                console.log(xhr.responseText);
+                try {
+                    var data = JSON.parse(xhr.responseText);
+                    console.log(data);
+                    var box = document.getElementById("offtype_list_displayer");
+                    box.style.overflowY = "auto";
+                    box.style.height = "200px";
+
+                    for (var i = 0; i < parseInt(data.Total); i++) {
+                        var div = document.createElement("div");
+                        div.style.padding = "10px";
+                        div.style.marginTop = "20px";
+                        div.style.backgroundColor = "lightgrey";
+                        div.style.borderRadius = "10px";
+
+                        var h3 = document.createElement("h3");
+                        h3.textContent = data.offtype[i].name;
+                        var br = document.createElement("BR");
+                        var lbl = document.createElement("lbl");
+                        lbl.textContent = "Limit: " + data.offtype[i].limit;
+                        div.appendChild(h3);
+                        div.appendChild(br);
+                        div.appendChild(lbl);
+                        box.appendChild(div)
+                    }
+                } catch (e) { console.log(e); }
+            }
+        }
+        xhr.send();
+
+        document.getElementById("offtypeAddition_btn").addEventListener("click", () => {
+            turn(true);
+            var name = document.getElementById("offtype_name").value;
+            var limi = document.getElementById("offtype_limit").value;
+            var limit = limi.replace(/[^0-9\.]+/g, "");
+            var color = document.getElementById("offtype_colour").value;
+
+            alert(name + " " + limit);
+            if (name.length != 0 && limit.length != 0) {
+                var xhr = new XMLHttpRequest();
+                xhr.open("GET", "http://localhost:8080/crud/api/createOffType.php?n=" + name + "&l=" + limit + "&c=" + color);
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4) {
+                        console.log(xhr.responseText);
+                        if (xhr.responseText == "true") {
+                            document.getElementsByClassName("offtypeLoadingImg")[0].src = check;
+                        } else if (xhr.responseText == "already") {
+                            alert("offtype already exists");
+                            turn(false)
+                        }
+                    }
+                }
+                xhr.send();
+            }
+        });
     }
     render() {
         return (
-                <div class="offtype_container">
+            <div class="offtype_container">
+                <div id="offtype_container_1">
                     <div id="offtype_header">
                         <h2>New Offtype Entry</h2>
                     </div>
                     <div id="offtype_body">
-                        <label for="otname">Offtype Name:</label>
-                        <input type="text" id="otname" name="offtypename" placeholder="The offtype name.." />
+                        <label for="offtype_name">Offtype Name:</label>
+                        <input type="text" id="offtype_name" name="offtypename" placeholder="The offtype name.." />
                         <label for="colour">Colour:</label>
-                        <select id="colour">
+                        <select id="offtype_colour">
                             <option value="red">Red</option>
                             <option value="green">Green</option>
                             <option value="blue">Blue</option>
                             <option value="purple">Purple</option>
                             <option value="orange">Orange</option>
                         </select>
-                        <label for="limit">Default Limit:</label>
-                        <input type="text" id="dlimit" name="defaultlimit" placeholder="The default number of days" />
+                        <label for="offtype_limit">Default Limit:</label>
+                        <input type="text" id="offtype_limit" name="defaultlimit" placeholder="The default number of days" />
                     </div>
-
                     <div id="offtype_submition" class="row">
-                    <input type="submit" value="Submit" />
+                        <input type="button" value="Submit" id="offtypeAddition_btn" />
+                    </div><br /><br /><br />
+
+                    <div id="offtype_list_displayer">
+                    </div>
                 </div>
+                <div id="offtype_container_2">
+                    <img src={loading} class="offtypeLoadingImg" id="pending_loading_gif" />
                 </div>
+            </div>
         )
+    }
+}
+
+function turn(x) {
+    if (x) {
+        document.getElementById("offtype_container_1").style.display = "none";
+        document.getElementById("offtype_container_2").style.display = "block";
+        document.getElementById("offtype_container_2").style.paddingLeft = "45%";
+        document.getElementById("offtype_container_2").style.paddingTop = "5%";
+    }
+    else {
+        document.getElementById("offtype_container_1").style.display = "block";
+        document.getElementById("offtype_container_2").style.display = "none";
     }
 }

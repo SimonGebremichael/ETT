@@ -3,7 +3,7 @@ import Offsite from './Offsite'
 import ActiveRequests from './ActiveRequests'
 import Upcomming from './Upcomming'
 import Profile from '../Profile'
-var data;
+import Analysis from '../analysis/dash'
 export default class team extends React.Component {
 
     constructor(props) {
@@ -27,32 +27,46 @@ export default class team extends React.Component {
             elem[i].style.backgroundColor = colours2[rand];
             elem2[i].innerHTML = colours3[rand];
         }
-    }
 
-    componentWillMount() {
         var xhr = new XMLHttpRequest();
-        xhr.open("GET", "http://localhost:8080/crud/api/getPerson.php?i=" + this.user);
+        xhr.open("GET", "http://localhost:8080/crud/api/checkTeamlead.php?i=" + this.user);
         xhr.onreadystatechange = function () {
             if (xhr.readyState == 4) {
-                data = JSON.parse(xhr.responseText);
-                console.log(data);
+                localStorage.setItem("teamlead", xhr.readyState);
+                console.log(xhr.readyState);
             }
         }
         xhr.send();
+
+
+        localStorage.setItem("access", this.user);
+    }
+
+    componentWillMount() {
 
         this.setState({ done: true });
     }
 
     render() {
-        return (
-            <>
-                <Profile />
+        if (localStorage.getItem("teamlead") == "true") {
+            return (
+                <>
+                    <Profile id={this.user} />
+                    <div id="container_dashboard">
+                        <Offsite id={this.user} />
+                        <ActiveRequests />
+                        <Upcomming />
+                    </div>
+                </>
+            );
+        } else {
+            return (
                 <div id="container_dashboard">
-                    <Offsite id={data} />
-                    <ActiveRequests />
+                    <Offsite id={this.user} />
+                    <Analysis />
                     <Upcomming />
                 </div>
-            </>
-        );
+            );
+        }
     }
 }

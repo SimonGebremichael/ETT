@@ -5,7 +5,7 @@ export default function Upcomming() {
     return (
         <div id="upcomming">
             <div id="upcomingTittile">
-                <h3>Upcomming Offsites:</h3>
+                <h2>Upcomming Offsites:</h2>
             </div><br />
             <div id="upcommingSort">
                 <h4>Sort By:</h4>

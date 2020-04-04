@@ -7,10 +7,7 @@ export default class offsite extends React.Component {
     constructor(props) {
         super(props);
         this.componentDidMount = this.componentDidMount.bind(this);
-        console.log("offside");
-        console.log(props);
-        this.pros = props;
-   
+        this.user = localStorage.getItem("access");
     }
 
     componentDidMount() {
@@ -35,10 +32,10 @@ export default class offsite extends React.Component {
             if (xhr.readyState == 4) {
                 try {
                     var data = JSON.parse(xhr.responseText);
-                    document.getElementById("dash_side_name").innerHTML = this.data.employee.first_name + ", " + this.data.employee.last_name;
-                    document.getElementById("dash_side_email").innerHTML = this.data.employee.email;
-                    document.getElementById("offsiteActivity_Main").innerHTML = this.data.employee.employee_status;
-                    document.getElementsByClassName("offsite_acc_img")[0].src = this.data.employee.img;
+                    document.getElementById("dash_side_name").innerHTML = data.employee.first_name + ", " + data.employee.last_name;
+                    document.getElementById("dash_side_email").innerHTML = data.employee.email;
+                    document.getElementById("offsiteActivity_Main").innerHTML = data.employee.employee_status;
+                    document.getElementsByClassName("offsite_acc_img")[0].src = data.employee.img;
                     console.log(data);
                 } catch (e) {
                     console.log(e);
@@ -46,11 +43,9 @@ export default class offsite extends React.Component {
             }
         }
         xhr.send();
-    }
 
-    componentDidUpdate() {
-        console.log("offside");
-        console.log(this.pros);
+
+        
     }
 
     render() {

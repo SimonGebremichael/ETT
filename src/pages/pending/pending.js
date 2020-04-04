@@ -2,7 +2,6 @@ import React, { component } from 'react';
 import css from './style/pend.css'
 import thumpsUp from './pics/thumbs.png'
 import loading from './pics/loading.gif'
-import { BrowserRouter as Router, Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 export default class Pending extends React.Component {
