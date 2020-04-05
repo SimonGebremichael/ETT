@@ -1,4 +1,3 @@
-import Status from '../Teamlead/Offsite_status'
 import Calendar from '../calendar/calendarContent'
 import Popup from '../calendar/calendarDetails'
 import css from './styles/create.css'

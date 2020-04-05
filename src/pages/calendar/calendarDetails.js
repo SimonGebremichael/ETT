@@ -1,4 +1,3 @@
-import Status from '../Teamlead/Offsite_status'
 import React, { Component } from 'react'
 
 export default class team extends React.Component {
@@ -30,9 +29,6 @@ function CalendarDetail() {
                 <h3>3 Results:</h3><br />
 
                 <div id="displayEvents">
-                    <Status />
-                    <Status />
-                    <Status />
                 </div>
             </div>
         </div>

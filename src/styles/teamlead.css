@@ -97,7 +97,10 @@ table {
 }
 
 #OffsiteSatus {
-    padding: 0px;
+    display: grid;
+    background-color: lightgrey;
+    margin-top: 30px;
+    grid-template-columns: 45% 55%;
     animation: fadeIn 1s;
     border-radius: 10px;
 }
@@ -147,15 +150,28 @@ table {
     border: none;
 }
 
-#offsiteLeft {
-    float: left;
+#offsiteRight{
+    border-bottom-right-radius: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+#offsiteLeft{
+    border-bottom-left-radius: 10px;
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
-#offsiteRight {
-    float: right;
-    margin-top: 9px;
-    margin-right: 5px;
+#offsiteRight, #offsiteLeft {
+    background-color: salmon;
 }
+#offsiteRight label {
+    margin-top: 3%;
+    float: right;
+    color: white;
+}
+
 
 /* ----------------------------------------------------------------------------- */
 
@@ -294,6 +310,8 @@ table {
 }
 
 #requestActivity {
+    font-size: 12px;
+    display: inline-block;
     padding: 3px;
     text-align: center;
     margin-top: 5px;
@@ -374,6 +392,7 @@ table {
     font-size: 13px;
     background-color: salmon;
     color: white;
+    
 }
 
 /* -------------------------------------------------------------------- */

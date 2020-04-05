@@ -4,8 +4,8 @@ export default class statty extends React.Component {
 
     constructor(props) {
         super(props);
-        console.log(props.children.id);
-        console.log(props.children.name);
+        // console.log(props.children.id);
+        // console.log(props.children.name);
         this.componentDidMount = this.componentDidMount.bind(this);
         this.carrier = "d_" + props.children.id;
         this.name = props.children.name;

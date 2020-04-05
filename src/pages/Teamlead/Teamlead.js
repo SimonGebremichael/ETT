@@ -33,11 +33,9 @@ export default class team extends React.Component {
         xhr.onreadystatechange = function () {
             if (xhr.readyState == 4) {
                 localStorage.setItem("teamlead", xhr.readyState);
-                console.log(xhr.readyState);
             }
         }
         xhr.send();
-
 
         localStorage.setItem("access", this.user);
     }
