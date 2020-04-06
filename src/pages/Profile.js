@@ -10,7 +10,7 @@ export default class Profiler extends React.Component {
 
     constructor(props) {
         super(props);
-        this.user = props.id;
+        this.user = localStorage.getItem("access");
         this.teamlead = localStorage.getItem("teamlead");
     }
     componentDidMount() {
@@ -54,7 +54,6 @@ export default class Profiler extends React.Component {
                     document.getElementById("profile_email_print").innerHTML = data.employee.email;
                     document.getElementsByClassName("profile_stat_print")[0].innerHTML = data.employee.employee_status;
                     document.getElementsByClassName("profile_stat_accImg")[0].src = data.employee.img;
-                    console.log(data);
                 } catch (e) {
                     console.log(e);
                 }

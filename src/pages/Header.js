@@ -14,6 +14,10 @@ export default class appy extends React.Component {
         this.state = this.props.children;
         this.user = localStorage.getItem("access");
         this.teamlead = localStorage.getItem("teamlead");
+
+        // if(this.props.match.params.id != localStorage.getItem("access")){
+        //     window.location.href = "http://localhost:8080/";
+        // }
     }
     componentDidMount = () => {
         setInterval(() => {

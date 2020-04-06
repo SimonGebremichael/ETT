@@ -1,5 +1,7 @@
 import pro from './pics/profile.png';
 import React, { Component } from 'react'
+import loading from '../item/loading.gif';
+var mon = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Novr", "Dec"];
 
 export default class offsite extends React.Component {
 
@@ -7,21 +9,11 @@ export default class offsite extends React.Component {
         super(props);
         this.componentDidMount = this.componentDidMount.bind(this);
         this.user = localStorage.getItem("access");
+
     }
 
     componentDidMount() {
-        var colours2 = ["lightblue", "lightgreen", "pink", "salmon"],
-            colours3 = ["Remote", "Vacation", "Bithday", "Sick"];
-
-        var elem = document.getElementsByClassName("upcomming_Type  ");
-        var elem2 = document.getElementsByClassName("offsite_Right");
-        for (var i = 0; i < elem.length; i++) {
-            var rand = (Math.floor(Math.random() * 4) + 1) - 1;
-            elem[i].style.backgroundColor = colours2[rand];
-            elem2[i].innerHTML = colours3[rand];
-        }
-
-
+        turn(true);
         var xhr = new XMLHttpRequest();
         xhr.open("GET", "http://localhost:8080/crud/api/getperson.php?i=" + this.user);
         xhr.onreadystatechange = function () {
@@ -32,7 +24,12 @@ export default class offsite extends React.Component {
                     document.getElementById("dash_side_email").innerHTML = data.employee.email;
                     document.getElementById("offsiteActivity_Main").innerHTML = data.employee.employee_status;
                     document.getElementsByClassName("offsite_acc_img")[0].src = data.employee.img;
-                    console.log(data);
+
+                    console.log(data.employee.googleId);
+                    console.log(localStorage.getItem("access"));
+                    if (data.employee.googleId != localStorage.getItem("access")) {
+                        window.location.href = "http://localhost:8080/";
+                    }
                 } catch (e) {
                     console.log(e);
                 }
@@ -44,9 +41,10 @@ export default class offsite extends React.Component {
         offsite.open("GET", "http://localhost:8080/crud/api/getOffSite.php");
         offsite.onreadystatechange = function () {
             if (offsite.readyState == 4) {
+                var box = document.getElementById("offsiteDisplay");
                 try {
                     var data = JSON.parse(offsite.responseText);
-                    var box = document.getElementById("offsiteDisplay");
+                    turn(false);
                     if (data.Total != 0) {
                         for (var i = 0; i < data.Total; i++) {
                             box.appendChild(OffsiteItem(data.employee[i]));
@@ -54,7 +52,7 @@ export default class offsite extends React.Component {
                     } else {
                         box.innerHTML = "everyone's onsite :)";
                     }
-                } catch (e) { 
+                } catch (e) {
                     console.log(e);
                     box.innerHTML = "there seems to be an issue :(";
                 }
@@ -85,9 +83,30 @@ export default class offsite extends React.Component {
                     <h3>Currently Offsite:</h3>
                     <div id="offsiteDisplay">
                     </div>
+                    <div id="offsiteDisplay_loading">
+                        <img src={loading} style={loadingImg} />
+                    </div>
                 </div>
             </div>
         )
+    }
+}
+
+const loadingImg = {
+    width: "100px",
+    marginLeft: "35%",
+    marginTop: "20%",
+    opacity: "0.6"
+}
+
+function turn(x) {
+    if (x) {
+        document.getElementById("offsiteDisplay").style.display = "none";
+        document.getElementById("offsiteDisplay_loading").style.display = "block";
+    }
+    else {
+        document.getElementById("offsiteDisplay").style.display = "block";
+        document.getElementById("offsiteDisplay_loading").style.display = "none";
     }
 }
 
@@ -95,6 +114,13 @@ function OffsiteItem(person) {
 
     var OffsiteSatus = document.createElement("div");
     OffsiteSatus.id = "OffsiteSatus";
+
+    var OffsiteSatus_top = document.createElement("div");
+    OffsiteSatus_top.id = "OffsiteSatus_top";
+
+    var OffsiteSatus_bottom = document.createElement("div");
+    OffsiteSatus_bottom.id = "OffsiteSatus_bottom";
+
     var br = document.createElement("BR");
 
     var offImg = document.createElement("div");
@@ -119,14 +145,17 @@ function OffsiteItem(person) {
     offInfo.appendChild(br);
     offInfo.appendChild(active);
 
+    var end = new Date(person.end);
+    var start = new Date(person.start);
     var offsiteLeft = document.createElement("div");
     offsiteLeft.id = "offsiteLeft";
+    offsiteLeft.style.backgroundColor = "#" + person.color;
     var btn1 = document.createElement("button");
     btn1.id = "requestActivity";
-    btn1.textContent = "Feb.17.20";
+    btn1.textContent = mon[start.getMonth()] + ", " + start.getDate() + " " + start.getFullYear();
     var btn2 = document.createElement("button");
     btn2.id = "requestActivity";
-    btn2.textContent = "Feb.17.20";
+    btn2.textContent = mon[end.getMonth()] + ", " + end.getDate() + " " + end.getFullYear();
     offsiteLeft.appendChild(btn1);
     offsiteLeft.innerHTML += "&nbsp;&nbsp;";
     offsiteLeft.appendChild(btn2);
@@ -134,14 +163,17 @@ function OffsiteItem(person) {
 
     var offsiteRight = document.createElement("div");
     offsiteRight.id = "offsiteRight";
+    offsiteRight.style.backgroundColor = "#" + person.color;
     offsiteRight.className = "offsite_Right";
     var label = document.createElement("label")
-    label.textContent = "remote";
+    label.textContent = person.category;
     offsiteRight.appendChild(label);
 
-    OffsiteSatus.appendChild(offImg);
-    OffsiteSatus.appendChild(offInfo);
-    OffsiteSatus.appendChild(offsiteLeft);
-    OffsiteSatus.appendChild(offsiteRight);
+    OffsiteSatus_top.appendChild(offImg);
+    OffsiteSatus_top.appendChild(offInfo);
+    OffsiteSatus_bottom.appendChild(offsiteLeft);
+    OffsiteSatus_bottom.appendChild(offsiteRight);
+    OffsiteSatus.appendChild(OffsiteSatus_top);
+    OffsiteSatus.appendChild(OffsiteSatus_bottom);
     return OffsiteSatus;
 }
