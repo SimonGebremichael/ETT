@@ -1,8 +1,6 @@
 import React from 'react'
 import modify from './Teamlead/pics/modify.png'
 import settings from './Teamlead/pics/settings.png'
-import Scheme from './Teamlead/pics/theme.png'
-import profile from './Teamlead/pics/profile.png'
 import { Link } from 'react-router-dom'
 import $ from 'jquery'
 
@@ -73,7 +71,7 @@ export default class Profiler extends React.Component {
                         <table>
                             <tr>
                                 <td id="accImgBox">
-                                    <img src={profile} class="profile_stat_accImg" id="accImg" />
+                                    <img src="" class="profile_stat_accImg" id="accImg" />
                                 </td>
                                 <td id="accInfo">
                                     <label id="profile_name_print">John Smith</label><br />

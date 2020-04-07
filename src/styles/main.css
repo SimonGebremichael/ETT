@@ -26,7 +26,6 @@ header{
 header ul{
     z-index: 4;
     display: grid;
-    
     grid-template-columns: 16% 16% 16% 16% 16% 16%;
 }
 
@@ -55,7 +54,7 @@ header ul li:hover {
 header #logo{
     width: 120px;
     margin-top: 15px;
-    opacity: 0.4;
+    opacity: 0.9;
     left: 20%;
     text-align: left;
     margin-left: 50px;

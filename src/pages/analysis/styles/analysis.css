@@ -1,17 +1,5 @@
-#Dashboard_cont, #report_cont{
-    height: 92.1%;
-    float: left;
-    margin-left: 4%;
-    max-width: 600px;
-}
-
-
-
-/* ------------------------------------------------------------- */
-
 #Dashboard_cont{
     background-color: white;
-    width: 35%;
 }
 #dashHeader{
     padding-bottom: 45px;
@@ -60,7 +48,6 @@
 /* ------------------------------------------------------------- */
 #report_cont{
     background-color: white;
-    width: 25%;
 }
 
 #reportHeader{
@@ -77,6 +64,8 @@
     display: grid;
     grid-template-columns: 50% 50%;
     padding-top: 20px;
+    overflow-y: auto;
+    height: 70%;
 }
 
 .reportItem{

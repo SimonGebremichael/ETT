@@ -12,12 +12,12 @@ export default class unknown extends React.Component {
     }
 
     render() {
-        const back = "/dashboard" + localStorage.getItem("access");
+        const back = "/login";
         return (
             <div style={un_header}>
                 <h1>Uh oh... a little lost?</h1><br />
                 <Link to={back}>
-                    <button style={un_btn}>back home</button>
+                    <button style={un_btn}>back to the blueprints?</button>
                 </Link>
             </div>
         )

@@ -1,4 +1,3 @@
-import pro from './pics/profile.png';
 import React, { Component } from 'react'
 import loading from '../item/loading.gif';
 var mon = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Novr", "Dec"];
@@ -7,15 +6,13 @@ export default class offsite extends React.Component {
 
     constructor(props) {
         super(props);
-        this.componentDidMount = this.componentDidMount.bind(this);
-        this.user = localStorage.getItem("access");
-
+        // this.componentDidMount = this.componentDidMount.bind(this);
     }
 
     componentDidMount() {
         turn(true);
         var xhr = new XMLHttpRequest();
-        xhr.open("GET", "http://localhost:8080/crud/api/getperson.php?i=" + this.user);
+        xhr.open("GET", "http://localhost:8080/crud/api/getperson.php?i=" + localStorage.getItem("access"));
         xhr.onreadystatechange = function () {
             if (xhr.readyState == 4) {
                 try {
@@ -24,12 +21,6 @@ export default class offsite extends React.Component {
                     document.getElementById("dash_side_email").innerHTML = data.employee.email;
                     document.getElementById("offsiteActivity_Main").innerHTML = data.employee.employee_status;
                     document.getElementsByClassName("offsite_acc_img")[0].src = data.employee.img;
-
-                    console.log(data.employee.googleId);
-                    console.log(localStorage.getItem("access"));
-                    if (data.employee.googleId != localStorage.getItem("access")) {
-                        window.location.href = "http://localhost:8080/";
-                    }
                 } catch (e) {
                     console.log(e);
                 }
@@ -69,7 +60,7 @@ export default class offsite extends React.Component {
                     <table>
                         <tr>
                             <td id="accImgBox">
-                                <img src={pro} id="accImg" className="offsite_acc_img" />
+                                <img src="" id="accImg" className="offsite_acc_img" />
                             </td>
                             <td id="accInfo">
                                 <label id="dash_side_name"></label><br />

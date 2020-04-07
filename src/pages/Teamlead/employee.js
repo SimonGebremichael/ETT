@@ -1,10 +1,8 @@
 import React from 'react'
 import Offsite from './Offsite'
-import ActiveRequests from './ActiveRequests'
 import Upcomming from './Upcomming'
-import Profile from '../Profile'
 import Inbox from '../Inbox'
-export default class team extends React.Component {
+export default class team2 extends React.Component {
 
     constructor(props) {
         super(props);
@@ -18,14 +16,11 @@ export default class team extends React.Component {
 
     render() {
         return (
-            <>
-                <Profile id={this.user} />
-                <div id="container_dashboard">
-                    <Offsite id={this.user} />
-                    <ActiveRequests />
-                    <Upcomming />
-                </div>
-            </>
+            <div id="container_dashboard">
+                <Offsite id={this.user} />
+                <Inbox />
+                <Upcomming />
+            </div>
         );
     }
 }

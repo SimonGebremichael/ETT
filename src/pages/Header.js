@@ -46,11 +46,16 @@ export default class appy extends React.Component {
         var exporting = '/export/' + this.user;
         var analysis = '/analysis/' + this.user;
         var create = '/create/' + this.user;
+
+        var dashboar2 = '/dashboard/2/' + this.user;
+        var calendar2 = '/calendar/2/' + this.user;
+        var analysis2 = '/analysis/2/' + this.user;
+        var create2 = '/create/2/' + this.user;
         if (this.state.headType) {
             if (this.teamlead == "true") {
                 return (
-                    <header>
-                        <Link className="/login/pending/3" to='/dashboard'>
+                    <header id="f12342341">
+                        <Link to='/dashboard/5464255324'>
                             <img src={logo} id="logo" />
                         </Link>
                         <div></div>{/* Seperator of header sections. see grid */}
@@ -78,22 +83,23 @@ export default class appy extends React.Component {
                 )
             } else {
                 return (
-                    <header>
-                        <Link className="/login/pending/3" to='/dashboard'>
+                    <header id="f12342341">
+                        <Link to='/dashboard/5464255324'>
                             <img src={logo} id="logo" />
                         </Link>
                         <div></div>{/* Seperator of header sections. see grid */}
                         <ul>
-                            <Link className="linker" to={dashboar}>
+                            <div></div>
+                            <Link className="linker" to={dashboar2}>
                                 <li id="dashboard" className="header_Item">Home</li>
                             </Link>
-                            <Link className="linker" to={calendar}>
+                            <Link className="linker" to={calendar2}>
                                 <li id="calendar" className="header_Item">Calendar</li>
                             </Link>
-                            <Link className="linker" to={analysis}>
+                            <Link className="linker" to={analysis2}>
                                 <li id="analysis" className="header_Item">Analysis</li>
                             </Link>
-                            <Link className="linker" to={create}>
+                            <Link className="linker" to={create2}>
                                 <li id="create" className="header_Item">Create</li>
                             </Link>
                             <Link className="linker" to='/login'>
@@ -106,7 +112,7 @@ export default class appy extends React.Component {
         } else {
             return (
                 <header>
-                    <Link className="pending" to='/login/pending/3'>
+                    <Link className="pending" to='/dashboard/5464255324'>
                         <img src={logo} id="logo" />
                     </Link>
                 </header >

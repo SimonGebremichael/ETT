@@ -1,35 +1,25 @@
-#container_dashboard {
-    height: 87%;
+#container_dashboard, #analysis_container{
     width: 100%;
-    float: left;
     margin-top: 3%;
+    display: grid;
+    grid-template-columns: 30% 40% 30%;
 }
 
-#sideBar, #mainFeed, #upcomming {
-    float: left;
-    height: 100%;
-    margin-left: 4%;
-    bottom: 0px;
-    position: relative;
-    min-width: 300px;
-    max-width: 600px;
+#sideBar, #mainFeed, #upcomming,  #Dashboard_cont, #report_cont  {
     color: black;
-    /* border: 2px solid black; */
+    width: 90%;
+    margin-left: 5%;
+    height: 630px;
 }
 
 #sideBar {
     background-color: #ffffff;
-    width: 25%;
 }
-
 #mainFeed {
     background-color: #ffffff;
-    width: 35%;
 }
-
 #upcomming {
     background-color: #ffffff;
-    width: 25%;
 }
 
 /*------------------------------------------------------------------------*/
@@ -77,12 +67,18 @@ table {
 
 /* ------------------------------------------------------------------------------------ */
 
-#offsiteDisplay {
+#offsiteDisplay, #Inbox_display {
     overflow-y: auto;
     height: 400px;
     padding-right: 10px;
     overflow-x: hidden;
     margin-top: 20px;
+}
+
+#Inbox_display {
+    max-width: 80%;
+    padding-left: 10%;
+    padding-top: 5%;
 }
 
 #offSiteData {
@@ -102,12 +98,13 @@ table {
     animation: fadeIn 1s;
     border-radius: 10px;
 }
-#OffsiteSatus_top{
+
+#OffsiteSatus_top {
     display: grid;
     grid-template-columns: 30% 70%;
 }
 
-#OffsiteSatus_bottom{
+#OffsiteSatus_bottom {
     display: grid;
     grid-template-columns: 55% 45%;
 }
@@ -161,13 +158,14 @@ table {
     border: none;
 }
 
-#offsiteRight{
+#offsiteRight {
     border-bottom-right-radius: 10px;
     padding-right: 10px;
     padding-top: 10px;
     padding-bottom: 10px;
 }
-#offsiteLeft{
+
+#offsiteLeft {
     border-bottom-left-radius: 10px;
     padding-left: 10px;
     padding-top: 10px;
@@ -179,7 +177,6 @@ table {
     float: right;
     color: white;
 }
-
 
 /* ----------------------------------------------------------------------------- */
 
@@ -225,8 +222,8 @@ table {
     margin-top: 10%;
 }
 
-
 /* 000000000000000000000000000000000000000000000000000000000000000000000 */
+
 #displayRequests {
     clear: both;
     width: 90%;
@@ -250,7 +247,6 @@ table {
     border-left: none;
 }
 
-
 #resultBtn1:hover, #resultBtn2:hover {
     cursor: pointer;
     background-color: black;
@@ -263,13 +259,12 @@ table {
     border-radius: 10px;
 }
 
-
-#requestSatus_top{
+#requestSatus_top {
     display: grid;
     grid-template-columns: 20% 40% 20% 20%;
 }
 
-#requestSatus_bottom{
+#requestSatus_bottom {
     display: grid;
     grid-template-columns: 55% 45%;
 }
@@ -291,18 +286,19 @@ table {
     cursor: pointer;
 }
 
-#request_btn_cont{
-   height: 100px;
+#request_btn_cont {
+    height: 100px;
 }
 
-#aprv_btn, #decl_btn{
+#aprv_btn, #decl_btn {
     border: none;
     color: white;
     background-color: rgb(133, 133, 133);
     width: 100%;
     height: 50%;
 }
-#aprv_btn:hover{
+
+#aprv_btn:hover {
     background-color: rgb(93, 192, 93);
     cursor: pointer;
 }

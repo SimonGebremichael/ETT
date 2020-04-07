@@ -11,19 +11,15 @@ export default class mainPage extends React.Component {
     super(props);
   }
   componentDidMount = () => {
-
-    // var xhr = new XMLHttpRequest();
-    // xhr.open("GET", "http://localhost:8080/crud/api/getdata.php");
-    // xhr.onreadystatechange = function () {
-    //     if (xhr.readyState == 4) {
-    //       var data = JSON.parse(xhr.responseText);
-    //       console.log(data);
-    //     }
-    // }
-    // xhr.send();
+    localStorage.removeItem("access");
+    localStorage.removeItem("teamlead");
   }
 
   render() {
+    const errr = (response) => {
+      alert("error");
+    }
+
     const responseGoogle = (response) => {
       try {
         var xhr = new XMLHttpRequest();
@@ -38,21 +34,39 @@ export default class mainPage extends React.Component {
           "&img=" + response.Qt.UK);
         xhr.onreadystatechange = function () {
           if (xhr.readyState == 4) {
-            if (xhr.responseText == "true") {
-              window.location.href = "http://localhost:3000/login/pending/" + response.Qt.SU;
+            console.log(xhr.responseText);
+            try {
               if (xhr.responseText == "already") {
-                window.location.href = "http://localhost:3000/dashboard/" + response.Qt.SU;
+                var check = new XMLHttpRequest();
+                check.open("GET", "http://localhost:8080/crud/api/checkTeamlead.php?i=" + response.Qt.SU);
+                check.onreadystatechange = function () {
+                  if (check.readyState == 4) {
+                    console.log(check.responseText);
+                    if (check.responseText == 'true') {
+                      localStorage.setItem("teamlead", check.responseText);
+                      localStorage.setItem("access", response.Qt.SU);
+                      window.location.href = "http://localhost:3000/dashboard/" + response.Qt.SU;
+                    } else {
+                      localStorage.setItem("teamlead", check.responseText);
+                      localStorage.setItem("access", response.Qt.SU);
+                      window.location.href = "http://localhost:3000/dashboard/2/" + response.Qt.SU;
+                    }
+                  }
+                }
+                check.send();
+              } else {
+                window.location.href = "http://localhost:3000/login/pending/" + response.Qt.SU;
               }
-              console.log(xhr.responseText);
-            }
+            } catch (e) { console.log(e); }
           }
-          xhr.send();
         }
 
-      } catch (e) {
-        console.log(e);
-      }
+
+        xhr.send();
+      } catch (e) { console.log(e); }
     }
+
+
 
     return (
       <div>
@@ -63,7 +77,7 @@ export default class mainPage extends React.Component {
               clientId="1048871087214-t3ttoli7jpjv5ep62qr91ftsh4hf7010.apps.googleusercontent.com"
               buttonText="Login with google"
               onSuccess={responseGoogle}
-              onFailure={responseGoogle}
+              onFailure={errr}
               isSignedIn={true}
               cookiePolicy={'single_host_origin'}
             />
@@ -85,6 +99,9 @@ export default class mainPage extends React.Component {
   }
 }
 
+function isTeamlead(response) {
+
+}
 const signIn = {
   width: "30%",
   height: "100%",
@@ -113,3 +130,4 @@ const treeDisplay = {
   height: "100%",
   float: "right"
 }
+
