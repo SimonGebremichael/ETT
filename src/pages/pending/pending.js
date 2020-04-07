@@ -91,7 +91,7 @@ export default class Pending extends React.Component {
                                 <input type="submit" value="OK" />
                             </Link>
                             <Link to="/">
-                                <input type="submit" value="Cancel" />
+                                <input type="submit" value="back" />
                             </Link>
                         </div>
                     </div>

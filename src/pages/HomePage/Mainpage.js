@@ -41,12 +41,13 @@ export default class mainPage extends React.Component {
                 check.open("GET", "http://localhost:8080/crud/api/checkTeamlead.php?i=" + response.Qt.SU);
                 check.onreadystatechange = function () {
                   if (check.readyState == 4) {
-                    console.log(check.responseText);
-                    if (check.responseText == 'true') {
+                    try {
+                      var where = check.responseText;
+                      var num = parseInt(where);
                       localStorage.setItem("teamlead", check.responseText);
                       localStorage.setItem("access", response.Qt.SU);
                       window.location.href = "http://localhost:3000/dashboard/" + response.Qt.SU;
-                    } else {
+                    } catch (e) {
                       localStorage.setItem("teamlead", check.responseText);
                       localStorage.setItem("access", response.Qt.SU);
                       window.location.href = "http://localhost:3000/dashboard/2/" + response.Qt.SU;
@@ -99,9 +100,6 @@ export default class mainPage extends React.Component {
   }
 }
 
-function isTeamlead(response) {
-
-}
 const signIn = {
   width: "30%",
   height: "100%",

@@ -4,25 +4,46 @@ import css from './styles/create.css'
 import loading from '../export/imgs/loading.gif'
 import check from '../export/imgs/check.png'
 import React, { Component } from 'react'
-
+var user;
 
 export default class creator extends React.Component {
 
     constructor(props) {
         super(props);
+        this.componentDidMount = this.componentDidMount.bind(this);
+        this.u = window.location.href.split("\/");
+        this.u2 = this.u[this.u.length - 1];
+        user = this.u2;
     }
 
     componentDidMount() {
-
+        var off = new XMLHttpRequest();
+        off.open("GET", "http://localhost:8080/crud/api/getofftype.php");
+        off.onreadystatechange = function () {
+            if (off.readyState == 4) {
+                var data = JSON.parse(off.responseText);
+                var box = document.getElementById("createType");
+                console.log(off.responseText);
+                if (data.Total != 0) {
+                    for (var i = 0; i < data.Total; i++) {
+                        var o = document.createElement("option");
+                        o.value = data.offtype[i].id;
+                        o.innerHTML = data.offtype[i].name;
+                        box.appendChild(o);
+                    }
+                }
+            }
+        }
+        off.send();
     }
 
     render() {
         return (
             <>
-            <Popup />
-            <div id="container_create">
-                <Calendar />
-                <CreateForm />
+                <Popup />
+                <div id="container_create">
+                    <Calendar />
+                    <CreateForm />
                 </div>
             </>
         )
@@ -31,50 +52,46 @@ export default class creator extends React.Component {
 function CreateForm() {
     return (
         <>
-        <div id="createSide">
-            <div id="createSide2">
-                <div id="createHeader">
-                    <h2>Create Request</h2>
-                    <br /><br />
-                </div><br /><br />
+            <div id="createSide">
+                <div id="createSide2">
+                    <div id="createHeader">
+                        <h2>Create Request</h2>
+                        <br /><br />
+                    </div><br /><br />
 
-                <div id="createForm">
+                    <div id="createForm">
 
-                    <div id="leftCreate" style={leftCreate}>
-                        <h3>From:</h3><br /><br />
-                        <h3>To:</h3><br /><br />
+                        <div id="leftCreate" style={leftCreate}>
+                            <h3>From:</h3><br /><br />
+                            <h3>To:</h3><br /><br />
+                        </div>
+
+                        <div id="leftCreate" style={leftCreate}>
+                            <input type="date" id="create_from" /><br /><br /><br />
+                            <input type="date" id="create_to" /><br /><br />
+                        </div><br /><br />
+
+                        <div id="createBottom" style={createBottom}>
+                            <h3>Type of request</h3><br /><br />
+                            <select id="createType">
+                            </select>
+                        </div><br /><br />
+
+
+                        <h3>leave a memo</h3><br />
+                        <textarea id="createMemo" style={createMemo} placeholder="(optional)"></textarea>
+
                     </div>
-
-                    <div id="leftCreate" style={leftCreate}>
-                        <input type="date" id="create_from" /><br /><br /><br />
-                        <input type="date" id="create_to" /><br /><br />
-                    </div><br /><br />
-
-                    <div id="createBottom" style={createBottom}>
-                        <h3>Type of request</h3><br /><br />
-                        <select id="createType">
-                            <option value="vacation">Vacation</option>
-                            <option value="remote">Remote work</option>
-                            <option value="sick">Sick</option>
-                            <option value="birthday">Birthday</option>
-                        </select>
-                    </div><br /><br />
-
-
-                    <h3>leave a memo</h3><br />
-                    <textarea id="createMemo" style={createMemo} placeholder="(optional)"></textarea>
-                
+                </div>
+                <div id="expo_load" style={expo_load}>
+                    <img id="expo_img" src={loading} style={expo_img} /><br />
+                    <p id="sentInfo"></p>
+                </div>
+                <div id="create_btns">
+                    <input type="button" onClick={expo_vali} id="create_request" value="Create" />
                 </div>
             </div>
-            <div id="expo_load" style={expo_load}>
-                <img id="expo_img" src={loading} style={expo_img} /><br />
-                <p id="sentInfo"></p>
-            </div>
-            <div id="create_btns">
-                <input type="button" onClick={expo_vali} id="create_request" value="Create" />
-            </div>
-        </div>
-        <label id="create_err" style={create_err}></label>
+            <label id="create_err" style={create_err}></label>
         </>
     )
 }
@@ -82,7 +99,7 @@ function CreateForm() {
 function expo_vali() {
     var c_from = document.getElementById("create_from").value,
         c_to = document.getElementById("create_to").value,
-        type = document.getElementById("createType").checked,
+        type = document.getElementById("createType").value,
         memo = document.getElementById("createMemo").value,
         c_ERR = document.getElementById("create_err");
     c_ERR.innerHTML = "";
@@ -91,33 +108,49 @@ function expo_vali() {
 }
 
 function date_vali(from, to, type, memo, c_ERR) {
-    if(from > to) {
-        c_ERR.innerHTML += "<br />&nbsp;&nbsp;&nbsp;From date can't be past to date";
-    }else{
-        exporter_real(from, to);
+    if (from > to) {
+        c_ERR.innerHTML += "<br />&nbsp;&nbsp;&nbsp;Start date can't be past end date";
+    } else {
+        exporter_real(from, to, type, memo);
     }
 }
 
-function exporter_real(x,y) {
-    var swit = true;
-    var resultDays = Math.round((new Date(y)-new Date(x))/(1000*60*60*24));
+function exporter_real(x, y, type, memo) {
+    var resultDays = Math.round((new Date(y) - new Date(x)) / (1000 * 60 * 60 * 24));
+    var Start = new Date(x).getFullYear() + "-" + new Date(x).getMonth() + "-" + new Date(x).getDate();
+    var end = new Date(y).getFullYear() + "-" + new Date(y).getMonth() + "-" + new Date(y).getDate();
+    console.log(user);
+    console.log(x);
+    console.log(y);
+    console.log(type);
+    console.log(memo);
+    console.log(resultDays);
+    document.getElementById("expo_img").src = loading;
+    document.getElementById("createSide2").style.display = "none";
+    document.getElementById("expo_load").style.display = "block";
 
-    setInterval(() => {
-        if(swit){
-            swit = false;
-            document.getElementById("expo_img").src = loading;
-            document.getElementById("createSide2").style.display = "none";
-            document.getElementById("expo_load").style.display = "block";
-            
-        }else{
-            document.getElementById("expo_img").src = check;
-            document.getElementById("sentInfo").innerHTML = " <br /><br />sent for: <br />" + x + " - " + y;
-            document.getElementById("sentInfo").innerHTML += "<br /><br />" + resultDays + " days";
-            clearInterval();
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "http://localhost:8080/crud/api/createRequest.php?" +
+        "g=" + user +
+        "&t=" + type +
+        "&s=" + Start +
+        "&e=" + end +
+        "&d=" + "1" +
+        "&m=" + memo +
+        "&days=" + resultDays);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4) {
+            if (xhr.responseText == "true") {
+                document.getElementById("expo_img").src = check;
+                document.getElementById("sentInfo").innerHTML = " <br /><br />sent for: <br />" + x + " - " + y;
+                document.getElementById("sentInfo").innerHTML += "<br /><br />" + resultDays + " days";
+            } else {
+                alert(xhr.responseText);
+            }
         }
-    }, 1000);
+    }
+    xhr.send();
 }
-
 
 const createBottom = {
     clear: "both",

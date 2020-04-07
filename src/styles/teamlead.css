@@ -98,6 +98,10 @@ table {
     animation: fadeIn 1s;
     border-radius: 10px;
 }
+#OffsiteSatus_top_inbox {
+    display: grid;
+    grid-template-columns: 90% 10%;
+}
 
 #OffsiteSatus_top {
     display: grid;
@@ -129,6 +133,7 @@ table {
     font-size: 13px;
     padding: 12px;
     border-left: none;
+
 }
 
 #offSiteType {
@@ -177,7 +182,13 @@ table {
     float: right;
     color: white;
 }
-
+.inbox_cancel_btn {
+    background-color:black;
+}
+.inbox_cancel_btn:hover {
+    background-color: rgb(78, 78, 78);
+    cursor: pointer;
+}
 /* ----------------------------------------------------------------------------- */
 
 #mainAcctions {
@@ -324,7 +335,8 @@ table {
     width: 100%;
     height: 50px;
     margin: 0px;
-    padding-top: 75px;
+    padding-top: 45px;
+    padding-bottom: 30px;
     border-bottom: 2px solid black;
 }
 

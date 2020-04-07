@@ -12,34 +12,32 @@ export default class Profiler extends React.Component {
         this.teamlead = localStorage.getItem("teamlead");
     }
     componentDidMount() {
-        if (this.teamlead == "true") {
-            $("#profileSettings").fadeOut();
-            $("#ProfileSideAcc").fadeIn();
+        $("#profileSettings").fadeOut();
+        $("#ProfileSideAcc").fadeIn();
 
-            $("#proBG").click(() => {
-                document.getElementById("container_" + window.location.href.split("/")[3]).style.filter = "blur(0)";
-                document.getElementById("profile").style.display = "none";
-            });
-            $("#sideAcc").click(() => {
-                document.getElementById("container_" + window.location.href.split("/")[3]).style.filter = "blur(2px)";
-                document.getElementById("profile").style.display = "block";
-            });
+        $("#proBG").click(() => {
+            document.getElementById("container_" + window.location.href.split("/")[3]).style.filter = "blur(0)";
+            document.getElementById("profile").style.display = "none";
+        });
+        $("#sideAcc").click(() => {
+            document.getElementById("container_" + window.location.href.split("/")[3]).style.filter = "blur(2px)";
+            document.getElementById("profile").style.display = "block";
+        });
 
 
-            $(".backhomeBtn").click(() => {
-                clear();
-                $("#ProfileSideAcc").show();
-            });
+        $(".backhomeBtn").click(() => {
+            clear();
+            $("#ProfileSideAcc").show();
+        });
 
-            $("#settings").click(() => {
-                clear();
-                $("#profileSettings").show();
-            });
+        $("#settings").click(() => {
+            clear();
+            $("#profileSettings").show();
+        });
 
-            function clear() {
-                $("#profileSettings").hide();
-                $("#ProfileSideAcc").hide();
-            }
+        function clear() {
+            $("#profileSettings").hide();
+            $("#ProfileSideAcc").hide();
         }
 
         var xhr = new XMLHttpRequest();

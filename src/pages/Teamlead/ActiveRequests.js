@@ -79,7 +79,6 @@ function turn(x) {
         document.getElementById("displayRequests_loader").style.display = "none";
     }
 }
-
 function getData(x) {
     var xhr = new XMLHttpRequest();
     xhr.open("GET", "http://localhost:8080/crud/api/getrequests.php?o=" + x);

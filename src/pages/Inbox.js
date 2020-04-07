@@ -1,5 +1,6 @@
 import React, { Component, createElement } from 'react'
 import loading from './item/loading.gif';
+import $ from 'jquery'
 var mon = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Novr", "Dec"];
 
 export default class Inbox extends React.Component {
@@ -20,12 +21,12 @@ export default class Inbox extends React.Component {
                     var data = JSON.parse(xhr.responseText);
                     turn(false);
                     if (data.Total != 0) {
-                        document.getElementById("dashHeader_lbl").innerHTML += "  " + data.Total; 
+                        document.getElementById("dashHeader_lbl").innerHTML += "  " + data.Total;
                         for (var i = 0; i < data.Total; i++) {
-                            box.appendChild(OffsiteItem(data.item[i]));
+                            box.appendChild(inboxitem(data.item[i]));
                         }
                     } else {
-                        document.getElementById("dashHeader_lbl").innerHTML +="  " + 0; 
+                        document.getElementById("dashHeader_lbl").innerHTML += "  " + 0;
                         box.innerHTML = "nothing to show here";
                     }
                 } catch (e) {
@@ -35,7 +36,7 @@ export default class Inbox extends React.Component {
             }
         }
         xhr.send();
-     }
+    }
 
     render() {
         return (
@@ -44,9 +45,9 @@ export default class Inbox extends React.Component {
                     <h2 id="dashHeader_lbl">Inbox:</h2>
                 </div>
                 <div id="dash_body">
-                    
+
                     <div id="Inbox_display">
-                    <h3>Pending:</h3>
+                        <h3>Pending:</h3>
                     </div>
                     <div id="Inbox_Display_loading">
                         <img src={loading} style={loadingImg} />
@@ -75,25 +76,57 @@ function turn(x) {
     }
 }
 
-function OffsiteItem(person) {
+function removeItem(person) {
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "http://localhost:8080/crud/api/deleteRequest.php?i=" + person.id);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4) {
+            try {
+                var data = Boolean(xhr.responseText);
+                console.log(xhr.responseText);
+                if (data) {
+                    $("#canc" + person.id).fadeToggle();
+                } else {
+                    alert("there seems to be an issue");
+                }
+            } catch (e) {
+                console.log(e);
+                alert("there seems to be an issue");
+            }
+        }
+    }
+    xhr.send();
+}
+
+function inboxitem(person) {
 
     var OffsiteSatus = document.createElement("div");
     OffsiteSatus.id = "OffsiteSatus";
 
     var OffsiteSatus_top = document.createElement("div");
-    OffsiteSatus_top.id = "OffsiteSatus_top";
+    OffsiteSatus_top.id = "OffsiteSatus_top_inbox";
     OffsiteSatus_top.style.gridTemplateColumns = "none";
     var OffsiteSatus_bottom = document.createElement("div");
     OffsiteSatus_bottom.id = "OffsiteSatus_bottom";
 
-    var br = document.createElement("BR");
-
     var offInfo = document.createElement("div");
     offInfo.id = "offInfo";
+    offInfo.width = "100%";
     var type = document.createElement("h2");
     type.textContent = person.category + " Days";
+    var cancel = document.createElement("button");
+    cancel.textContent = "cancel";
+    cancel.style.padding = "5px";
+    cancel.style.border = "none";
+    cancel.style.marginTop = "10px";
+    cancel.style.color = "white";
+    cancel.className = "inbox_cancel_btn";
+    cancel.id = "canc" + person.id;
+    cancel.onclick = function () {
+        removeItem(person);
+    };
+
     offInfo.appendChild(type);
-    offInfo.appendChild(br);
 
     var end = new Date(person.end);
     var start = new Date(person.start);
@@ -120,6 +153,7 @@ function OffsiteItem(person) {
     offsiteRight.appendChild(label);
 
     OffsiteSatus_top.appendChild(offInfo);
+    OffsiteSatus_top.appendChild(cancel);
     OffsiteSatus_bottom.appendChild(offsiteLeft);
     OffsiteSatus_bottom.appendChild(offsiteRight);
     OffsiteSatus.appendChild(OffsiteSatus_top);
