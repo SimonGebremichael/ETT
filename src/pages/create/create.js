@@ -30,10 +30,7 @@ export default class creator extends React.Component {
                         o.value = data.offtype[i].id;
                         o.innerHTML = data.offtype[i].name;
                         box.appendChild(o);
-                    }
-                }
-            }
-        }
+                    } } } }
         off.send();
     }
 

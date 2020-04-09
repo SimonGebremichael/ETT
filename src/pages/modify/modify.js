@@ -12,37 +12,23 @@ export default class Modify extends React.Component {
         super(props);
         this.componentDidMount = this.componentDidMount.bind(this);
         id = this.props.match.params.id;
-        person = this.props.match.params.person;
     }
 
     componentDidMount() {
         turn(false);
         printAllEmployees("first_name");
 
-        if (person == null || person == 0) {
-            document.getElementById("modify_lookup").style.display = "none";
-        } else {
-            printLookupUser(person);
-        }
+        $("#modify_lookup").css("display", "none");
 
-        $(".modify_sort_action")[0].click(() => {
+        $(".modify_sort_action").click((data) => {
             turn(false);
-            printAllEmployees(document.getElementsByClassName("modify_sort_value")[0].value);
+            printAllEmployees(data.target.value);
         });
-        $(".modify_sort_action")[1].click(() => {
-            turn(false);
-            printAllEmployees(document.getElementsByClassName("modify_sort_value")[0].value);
-        });
-        $(".modify_sort_action")[2].click(() => {
-            turn(false);
-            printAllEmployees(document.getElementsByClassName("modify_sort_value")[0].value);
-        });
-
         $("#modify_action_delete").click(() => {
             deletePerson();
         });
         $("#modify_action_approve").click(() => {
-
+            approvePerson();
         });
         $("#modify_action_assign").click(() => {
 
@@ -84,12 +70,12 @@ export default class Modify extends React.Component {
                     </div>
                     <div id="modify_lookup_display">
                         <div id="modify_lookup_actions">
-                            <button id="modify_action_delete" onclick={deletePerson} >Delete person</button>
+                            <button id="modify_action_delete">Delete person</button>
                             <button id="modify_action_approve">Approve pending</button>
                             <button id="modify_action_assign">Assign department</button>
                         </div>
                         <div id="modify_lookup_details">
-                            <center><h3>Pening requests</h3></center>
+                            <center><h3>Pending requests</h3></center>
                         </div>
                     </div>
                 </div>
@@ -98,47 +84,75 @@ export default class Modify extends React.Component {
     }
 }
 function deletePerson() {
-    alert(document.getElementById("modify_action_delete").className);
+    var id = document.getElementById("modify_action_delete").className;
+    if (window.confirm("user is to be deleted?")) {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "http://localhost:8080/crud/api/deletePerson.php?i=" + id);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4) {
+                try {
+                    var data = parseInt(xhr.responseText);
+                   $("#modify_lookup").toggleFade();
+                } catch (e) {
+                    document.getElementById("modify_action_approve").textContent = "Error occured :(";
+                }
+            }
+        }
+        xhr.send();
+    }
+}
+
+function approvePerson() {
+    var id = document.getElementById("modify_action_delete").className;
+    document.getElementById("modify_action_approve").disabled = true;
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "http://localhost:8080/crud/api/approvePerson.php?i=" + id);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4) {
+            try {
+                var data = parseInt(xhr.responseText);
+                document.getElementById("modify_action_approve").textContent = "Approved";
+            } catch (e) {
+                document.getElementById("modify_action_approve").textContent = "Error occured :(";
+            }
+        }
+    }
+    xhr.send();
 }
 function printLookupUser(person) {
     var lookupdata = new XMLHttpRequest();
     lookupdata.open("GET", "http://localhost:8080/crud/api/getperson.php?i=" + person);
     lookupdata.onreadystatechange = function () {
         if (lookupdata.readyState == 4) {
-            console.log(person);
-            if (lookupdata.responseText != "false") {
-                var data = JSON.parse(lookupdata.responseText);
-                document.getElementById("modify_lookup_name").innerHTML = data.employee.first_name + ", " + data.employee.last_name;
-                document.getElementById("modify_lookup_email").innerHTML = data.employee.email;
-                document.getElementById("modify_lookup_id").innerHTML = data.employee.employee_status;
-
-                if (data.employee.employee_status == "pending") {
-                    document.getElementById("modify_action_approve").disabled = false;
-                } else {
-                    document.getElementById("modify_action_approve").disabled = true;
-                    document.getElementById("modify_action_approve").textContent = "already approved";
-                }
+            var data = JSON.parse(lookupdata.responseText);
+            $("#modify_lookup").css("display", "block");
+            if (data.Total != 0) {
+                $("#modify_lookup_name").text(data.employee.first_name + ", " + data.employee.last_name);
+                $("#modify_lookup_email").text(data.employee.email);
+                $("#modify_lookup_id").text(data.employee.employee_status);
+                data.employee.employee_status != "pending" ? $("#modify_action_approve").css("display", "none") : $("#modify_action_approve").css("display", "block");
                 document.getElementById("modify_action_delete").className = data.employee.googleId;
-                printRequests(data.employee.googleId);
+                printPendingRequests(data.employee.googleId);
             } else {
-                console.log("user not found");
-                document.getElementById("modify_lookup").style.display = "none";
+                $("#modify_lookup").css("display", "block");
+                $("#modify_lookup_name").text("user not found");
             }
         }
     }
     lookupdata.send();
 }
 
-function printRequests(id) {
+function printPendingRequests(id) {
     var request = new XMLHttpRequest();
     request.open("GET", "http://localhost:8080/crud/api/getInbox.php?i=" + id);
     request.onreadystatechange = function () {
         if (request.readyState == 4) {
             var box = document.getElementById("modify_lookup_details");
+            box.innerHTML = "";
             var data = JSON.parse(request.responseText);
             if (data.Total != 0) {
                 for (var i = 0; i < data.Total; i++) {
-                    box.appendChild(requestItem(data.item[i]));
+                    box.appendChild(pendingRequestItem(data.item[i]));
                 }
             } else {
                 document.getElementById("modify_lookup_details").innerHTML = "<center>nothing to show here</center>";
@@ -148,12 +162,13 @@ function printRequests(id) {
     request.send();
 }
 
-function requestItem(person) {
+function pendingRequestItem(person) {
 
     var OffsiteSatus = document.createElement("div");
     OffsiteSatus.id = "OffsiteSatus";
     OffsiteSatus.className = "item" + person.googleId;
     OffsiteSatus.style.width = "70%";
+    OffsiteSatus.style.borderRadius = "5px";
     OffsiteSatus.style.marginLeft = "15%";
 
     var OffsiteSatus_top = document.createElement("div");
@@ -223,18 +238,6 @@ function requestItem(person) {
 }
 
 function printAllEmployees(x) {
-    let item;
-    let img;
-    let info;
-    let btn;
-    let emptyDiv;
-    let name;
-    let info_bottom;
-    let email;
-    let active;
-    let dept;
-    let br;
-    let a;
     var xhr = new XMLHttpRequest();
     xhr.open("GET", "http://localhost:8080/crud/api/getdataByOrder.php?order=" + x);
     xhr.onreadystatechange = function () {
@@ -243,74 +246,91 @@ function printAllEmployees(x) {
             var Everyone = document.getElementById("modify_user_display");
             Everyone.innerHTML = "";
             turn(true);
-
             document.getElementById("modify_header_total").innerHTML = "Everyone: " + data.Total + " found";
             for (var i = 0; i < data.Total; i++) {
-                item = document.createElement("div");
-                item.id = "modify_user_item";
+                Everyone.appendChild(printSomeone(data.employee[i]));
+            }
 
-                img = document.createElement("img");
-                img.src = data.employee[i].img;
-                img.id = "modify_user_img";
-
-                info = document.createElement("div");
-                info.id = "modify_user_info";
-
-                btn = document.createElement("button");
-                btn.className = data.employee[i].googleId;
-                a = document.createElement("a");
-                a.id = "modify_linkto_lookup";
-                if (person == null) {
-                    a.href = "http://localhost:3000/profile/modify/" + id + "\/" + data.employee[i].googleId;
-                    console.log("null");
-                    console.log(a.href);
-                } else {
-                    a.href = data.employee[i].googleId;
-                }
-
-                a.innerHTML = '&#9830;';
-                btn.appendChild(a);
-                //FOR INFO
-                emptyDiv = document.createElement("div");
-                br = document.createElement("BR");
-
-                name = document.createElement("h3");
-                name.id = "modify_user_info_name";
-                name.textContent = data.employee[i].first_name + ", " + data.employee[i].last_name;
-
-                info_bottom = document.createElement("div");
-                info_bottom.id = "modify_user_info_bottom";
-
-                //for bottom info
-                email = document.createElement("a");
-                email.id = "modify_user_info_email";
-                email.textContent = data.employee[i].email;
-
-                active = document.createElement("label");
-                active.id = "offsiteActivity";
-                active.textContent = data.employee[i].employee_status;
-
-                dept = document.createElement("label");
-                dept.id = "modify_user_info_dept";
-                dept.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
-                    data.employee[i].employee_status;
-
-                info_bottom.appendChild(active);
-                info_bottom.appendChild(dept);
-                info.appendChild(emptyDiv);
-                info.appendChild(name);
-                info.appendChild(email);
-                info.appendChild(info_bottom);
-                item.appendChild(img);
-                item.appendChild(info);
-                item.appendChild(a);
-                Everyone.appendChild(item);
+            var emp = document.getElementsByClassName("employee");
+            for (var i = 0; i < emp.length - 1; i++) {
+                $("#" + emp[i].id).click((eleme) => {
+                    printLookupUser(eleme.currentTarget.id.substr(1, eleme.currentTarget.id.length - 1));
+                });
             }
         }
-    }; xhr.send();
-
+    };
+    xhr.send();
 }
 
+function printSomeone(person) {
+    var item;
+    var img;
+    var info;
+    var btn;
+    var emptyDiv;
+    var name;
+    var info_bottom;
+    var email;
+    var active;
+    var dept;
+    var br;
+    var a;
+    item = document.createElement("div");
+    item.id = "modify_user_item";
+
+    img = document.createElement("img");
+    img.src = person.img;
+    img.id = "modify_user_img";
+
+    info = document.createElement("div");
+    info.id = "modify_user_info";
+
+    btn = document.createElement("button");
+    btn.className = "employee";
+    btn.id = "e" + person.googleId;
+    btn.innerHTML = '&#9830;';
+
+
+    //FOR INFO
+    emptyDiv = document.createElement("div");
+    br = document.createElement("BR");
+
+    name = document.createElement("h3");
+    name.id = "modify_user_info_name";
+    name.textContent = person.first_name + ", " + person.last_name;
+
+    info_bottom = document.createElement("div");
+    info_bottom.id = "modify_user_info_bottom";
+
+    //for bottom info
+    email = document.createElement("a");
+    email.id = "modify_user_info_email";
+    email.textContent = person.email;
+
+    active = document.createElement("label");
+    active.id = "offsiteActivity";
+    active.textContent = person.employee_status;
+
+    dept = document.createElement("label");
+    dept.id = "modify_user_info_dept";
+    dept.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
+        person.employee_status;
+
+    info_bottom.appendChild(active);
+    info_bottom.appendChild(dept);
+    info.appendChild(emptyDiv);
+    info.appendChild(name);
+    info.appendChild(email);
+    info.appendChild(info_bottom);
+    item.appendChild(img);
+    item.appendChild(info);
+    item.appendChild(btn);
+    return item;
+}
+
+function print(x) {
+    alert(x);
+}
 function Approved(person, x) {
     var xhr = new XMLHttpRequest();
     xhr.open("GET", "http://localhost:8080/crud/api/approveRequest.php?i=" + person.id + "&t=" + x);

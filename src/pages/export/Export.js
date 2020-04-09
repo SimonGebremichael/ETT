@@ -4,6 +4,7 @@ import Popup from '../calendar/calendarDetails'
 import css from './style/expo_style.css'
 import loading from './imgs/loading.gif'
 import check from './imgs/check.png'
+import $ from 'jquery';
 
 export default class exporter extends React.Component {
     constructor(props) {
@@ -25,7 +26,38 @@ export default class exporter extends React.Component {
         return (
             <>
                 <Popup />
-                <DataExpo />
+                <div id="expo_container">
+                    <div id="expo_container2">
+                        <div id="expo_header">
+                            <h2>Export to excel</h2><br />
+                        </div><br /><br /><br />
+                        <div id="expo_form">
+                            <h3>From:</h3><br />
+                            <input type="date" id="expo_from" /><br /><br />
+                            <h3>To:</h3><br />
+                            <input type="date" id="expo_to" /><br /><br />
+                            <h3>Include:</h3><br />
+                            <input type="checkbox" id="include" />
+                            <label for="include">&nbsp;&nbsp;All</label><br /><br />
+                            <select style={expoListStyle} id="includeList" multiple="multiple">
+                                <option>john james</option>
+                                <option>frank businesman</option>
+                                <option>mary piperwork</option>
+                                <option>eric gates</option>
+                                <option>aidan stinson</option>
+                                <option>luther summerhayes</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="expo_load" style={expo_load}>
+                        <img id="expo_img" src={loading} style={expo_img} />
+                    </div>
+                    <div id="expo_btns">
+                        <input type="button" onClick={expo_vali} id="expo_export" value="Export" />
+                    </div>
+                </div>
+                <label id="expo_err" style={expo_err}></label>
+                <Calendar />
             </>
         );
     }
@@ -39,83 +71,36 @@ function expo_vali() {
         ERR = document.getElementById("expo_err");
     ERR.innerHTML = "";
 
-    from != "" && to != "" ? expo_vali2(All, list, ERR) : ERR.innerHTML = "<br />Empty dates";
+    from != "" && to != "" ? expo_vali2(from, to, All, list, ERR) : ERR.innerHTML = "<br />Empty dates";
+
 }
 
-function expo_vali2(all, list, ERR) {
-    if (all) {
-        exporter_real();
+function expo_vali2(f, t, all, a, list, ERR) {
+
+    if (new Date(f) < new Date(t)) {
+        exporter_real(f, t);
     } else {
-        list != "" ? exporter_real() : ERR.innerHTML += "<br />No persons selected";
+        ERR.innerHTML += "<br />from date can't be ahead of to date";
     }
+    // if (all) {
+    //     exporter_real();
+    // }
+    //  else {
+    //     list != "" ? exporter_real() : ERR.innerHTML += "<br />No persons selected";
+    // }
 }
 
-function exporter_real() {
-    var swit = true;
-    setInterval(() => {
-        if (swit) {
-            swit = false;
-            document.getElementById("expo_img").style.opacity = "1";
-            document.getElementById("expo_container2").style.display = "none";
-            document.getElementById("expo_load").style.display = "block";
-        } else {
-            document.getElementById("expo_img").src = check;
-            document.getElementById("expo_img").style.opacity = "0.5";
-        }
-    }, 1000);
+function exporter_real(x, y) {
+    var Start = new Date(x).getFullYear() + "-" + new Date(x).getMonth() + "-" + new Date(x).getDate();
+    var end = new Date(y).getFullYear() + "-" + new Date(y).getMonth() + "-" + new Date(y).getDate();
+    document.getElementById("expo_img").src = loading;
+    $("#expo_container2").css("display", "none");
+    $("#expo_load").css("display", "block");
+    window.open("http://localhost:8080/crud/api/dataExport.php?f=" + Start + "&t=" + end, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=200,height=200");
+    $("#expo_container2").css("display", "block");
+    $("#expo_load").css("display", "none");
 }
 
-function DataExpo() {
-
-    return (
-        <>
-            <Popup />
-            <div id="container_export">
-                <SideData />
-                <Calendar />
-            </div>
-        </>
-    )
-}
-
-function SideData() {
-    return (
-        <>
-            <div id="expo_container">
-                <div id="expo_container2">
-                    <div id="expo_header">
-                        <h2>Export to excel</h2><br />
-                    </div><br /><br /><br />
-                    <div id="expo_form">
-                        <h3>From:</h3><br />
-                        <input type="date" id="expo_from" /><br /><br />
-                        <h3>To:</h3><br />
-                        <input type="date" id="expo_to" /><br /><br />
-                        <h3>Include:</h3><br />
-                        <input type="checkbox" id="include" />
-                        <label for="include">&nbsp;&nbsp;All</label><br /><br />
-                        <select style={expoListStyle} id="includeList" multiple="multiple">
-                            <option>john james</option>
-                            <option>frank businesman</option>
-                            <option>mary piperwork</option>
-                            <option>eric gates</option>
-                            <option>aidan stinson</option>
-                            <option>luther summerhayes</option>
-                        </select>
-                    </div>
-                </div>
-                <div id="expo_load" style={expo_load}>
-                    <img id="expo_img" src={loading} style={expo_img} />
-                </div>
-                <div id="expo_btns">
-
-                    <input type="button" onClick={expo_vali} id="expo_export" value="Export" />
-                </div>
-            </div>
-            <label id="expo_err" style={expo_err}></label>
-        </>
-    )
-}
 const expoListStyle = {
     height: "120px"
 }

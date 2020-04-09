@@ -17,15 +17,16 @@ export default class reporter extends React.Component {
                 turn(false);
                 try {
                     var data = JSON.parse(xhr.responseText);
+                    document.getElementById("reportHeader_message").innerHTML += " " + data.report.first_name + ", " + data.report.last_name;
                     console.log(data);
-                    if(data.Total != 0){
-                    for(var i=0; i< data.Total; i++){
-                        box.appendChild(printReport(data.report[i]));
+                    if (data.Total != 0) {
+                        for (var i = 0; i < data.Total; i++) {
+                            box.appendChild(printReport(data.report[i]));
+                        }
+                    } else {
+                        box.innerHTML = "nothing to show here :)";
+                        box.style.marginLeft = "50px";
                     }
-                }else{
-                    box.innerHTML = "nothing to show here :)";
-                    box.style.marginLeft = "50px";
-                }
                 } catch (e) {
                     console.log(e);
                 }
@@ -38,13 +39,13 @@ export default class reporter extends React.Component {
         return (
             <div id="report_cont" >
                 <div id="reportHeader">
-                    <h2>Your reports:</h2>
+                    <h2 id="reportHeader_message">Your reports:</h2>
                 </div>
 
                 <div id="reportBody">
                 </div>
                 <div id="reportBody_loading">
-                <img src={loading} style={loadingImg} />
+                    <img src={loading} style={loadingImg} />
 
                 </div>
             </div>
@@ -69,7 +70,7 @@ function turn(x) {
         document.getElementById("reportBody_loading").style.display = "none";
     }
 }
-function printReport(report){
+function printReport(report) {
     var repo = document.createElement("div");
     repo.id = "repopo";
     var br = document.createElement("BR");

@@ -44,7 +44,7 @@ export default class mainPage extends React.Component {
                     try {
                       var where = check.responseText;
                       var num = parseInt(where);
-                      localStorage.setItem("teamlead", check.responseText);
+                      localStorage.setItem("teamlead", "_true_");
                       localStorage.setItem("access", response.Qt.SU);
                       window.location.href = "http://localhost:3000/dashboard/" + response.Qt.SU;
                     } catch (e) {

@@ -183,7 +183,7 @@ main p:hover {
     display: grid;
     overflow-y: hidden;
     overflow-x: hidden;
-    grid-template-columns: 45% 10% 45%;
+    grid-template-columns: 100%;
 }
 
 #sideDate {
@@ -231,7 +231,9 @@ main p:hover {
     transform: scale(1.6);
 }
 
-.cal_organizer_type {}
+#cal_side_event_container{
+    padding-bottom: 30px;
+}
 
 #cal_side_event_container label {
     color: lightgrey;
@@ -242,13 +244,25 @@ main p:hover {
     grid-template-columns: 100%;
 }
 
+#googleUpcommingRender{
+    width: 100%;
+    padding: 15px;
+    font-size: 15px;
+    border: none;
+    color: white;
+    background-color: black;
+    margin-top: 30px;
+}
+#googleUpcommingRender:hover{
+    cursor: pointer;
+    background-color: #333333;
+}
 #cal_side_event_only_item {
     border: 1px solid black;
-    height: 50px;
     margin-top: 20px;
     padding: 10px;
-    color: #333333;
-    background-color: lightgrey;
+    color: black;
+    background-color: white;
 }
 
 #cal_side_event_dates{

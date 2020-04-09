@@ -13,16 +13,15 @@ export default class appy extends React.Component {
         this.componentDidMount = this.componentDidMount.bind(this);
         this.state = this.props.children;
         this.user = localStorage.getItem("access");
+        localStorage.setItem("teamlead", "_true_");
         this.teamlead = localStorage.getItem("teamlead");
-
-        // if(this.props.match.params.id != localStorage.getItem("access")){
-        //     window.location.href = "http://localhost:8080/";
-        // }
     }
     componentDidMount = () => {
         setInterval(() => {
             window.location.href.search("login") == -1 && window.location.href.search("pending") == -1 ? this.setState({ headType: true }) : this.setState({ headType: false });
             this.setState({ name: window.location.href });
+            this.user = localStorage.getItem("access");
+            this.teamlead = localStorage.getItem("teamlead");
         }, 500);
     }
 
@@ -40,7 +39,6 @@ export default class appy extends React.Component {
     }
 
     render() {
-
         var dashboar = '/dashboard/' + this.user;
         var calendar = '/calendar/' + this.user;
         var exporting = '/export/' + this.user;
@@ -51,10 +49,11 @@ export default class appy extends React.Component {
         var calendar2 = '/calendar/2/' + this.user;
         var analysis2 = '/analysis/2/' + this.user;
         var create2 = '/create/2/' + this.user;
+        // alert("value: " + this.teamlead + ", length: " + this.teamlead.length + ", type: " + typeof this.teamlead);
         if (this.state.headType) {
-            if (this.teamlead == "true") {
+            if (this.teamlead.length == 6) {
                 return (
-                    <header id="f12342341">
+                    <header>
                         <Link to='/dashboard/5464255324'>
                             <img src={logo} id="logo" />
                         </Link>
@@ -83,7 +82,7 @@ export default class appy extends React.Component {
                 )
             } else {
                 return (
-                    <header id="f12342341">
+                    <header>
                         <Link to='/dashboard/5464255324'>
                             <img src={logo} id="logo" />
                         </Link>

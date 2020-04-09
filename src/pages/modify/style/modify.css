@@ -33,6 +33,7 @@
     overflow-y: auto;
     overflow-x: hidden;
     padding-left: 8%;
+    padding-right: 5%;
 }
 #modify_user_item{
     border: 3px solid black;

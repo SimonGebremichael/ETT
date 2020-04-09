@@ -24,28 +24,23 @@ export default class appy extends React.Component {
       headType: false
     };
   }
-
-  componentDidMount = () => {
-
-  }
+  componentDidMount = () => { }
 
   render() {
-
     return (
         <Router>
           <Header>{this.state}</Header>
           <Switch>
             <Route path='/login' exact={true} component={Home} />
             <Route path='/login/pending/:id' exact={true} component={pending} />
-            <Route path='/dashboard/2/:id' component={Teamlead2} />
-            <Route path='/dashboard/:id' component={Teamlead} />
+            <Route path='/dashboard/2/:id' exact component={Teamlead2} />
+            <Route path='/dashboard/:id' exact component={Teamlead} />
             <Route path='/calendar/:id' component={Calendar} />
             <Route path='/export/:id' component={Export} />
             <Route path='/create/:id' component={Create} />
             <Route path='/analysis/2/:id' component={Analysis2} />
             <Route path='/analysis/:id' component={Analysis} />
             <Route path='/offtype/:id' component={OffTyper} />
-            <Route path='/profile/modify/:id/:person' component={Modify} />
             <Route path='/profile/modify/:id' component={Modify} />
             <Redirect exact from="/" strict to="/login" />
             <Route path='*' exact={true} component={er_404} />
