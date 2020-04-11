@@ -132,7 +132,6 @@ function exporter_real(x, y, type, memo) {
         "&t=" + type +
         "&s=" + Start +
         "&e=" + end +
-        "&d=" + "1" +
         "&m=" + memo +
         "&days=" + resultDays);
     xhr.onreadystatechange = function () {

@@ -36,12 +36,10 @@ export default class AcctiveRequests extends React.Component {
     }
 
     render() {
-
         return (
             <div id="mainFeed">
                 <div id="mainAcctions"><br /><br /><br />
                     <h2>Active Requests:</h2>
-
                     <div id="acctionButtons">
                         <input type="button" id="remoteBtn" class="acctionBtn" value="Remote" />
                         <input type="button" id="vacationBtn" class="acctionBtn" value="Vacation" />
@@ -50,7 +48,7 @@ export default class AcctiveRequests extends React.Component {
                         <input type="button" id="allBtn" class="acctionBtn" value="All" />
                     </div>
                 </div><br />
-                <h3 id="PendingAmt">5 Pending:</h3><br />
+                <h3 id="PendingAmt"></h3><br />
                 <div id="displayRequests">
 
                 </div>
@@ -80,8 +78,9 @@ function turn(x) {
     }
 }
 function getData(x) {
+    var user = localStorage.getItem("access");
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "http://localhost:8080/crud/api/getrequests.php?o=" + x);
+    xhr.open("GET", "http://localhost:8080/crud/api/getrequests.php?o=" + x + "&i=" + user);
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4) {
             var box = document.getElementById("displayRequests");
@@ -89,6 +88,7 @@ function getData(x) {
             turn(false);
             try {
                 var data = JSON.parse(xhr.responseText);
+                document.getElementById("PendingAmt").innerHTML = data.Total + " Pending";
                 if (data.Total != 0) {
                     for (var i = 0; i < data.Total; i++) {
                         box.appendChild(printRequest(data.request[i]));

@@ -37,16 +37,10 @@ export default class exporter extends React.Component {
                             <h3>To:</h3><br />
                             <input type="date" id="expo_to" /><br /><br />
                             <h3>Include:</h3><br />
-                            <input type="checkbox" id="include" />
-                            <label for="include">&nbsp;&nbsp;All</label><br /><br />
-                            <select style={expoListStyle} id="includeList" multiple="multiple">
-                                <option>john james</option>
-                                <option>frank businesman</option>
-                                <option>mary piperwork</option>
-                                <option>eric gates</option>
-                                <option>aidan stinson</option>
-                                <option>luther summerhayes</option>
-                            </select>
+                            <input type="radio" id="expo_include_dept" name="include" value="demp" checked />
+                            <label for="male">My Dept</label><br />
+                            <input type="radio" id="expo_include_all" name="include" value="all" />
+                            <label for="male">All depts</label><br />
                         </div>
                     </div>
                     <div id="expo_load" style={expo_load}>
@@ -66,28 +60,26 @@ export default class exporter extends React.Component {
 function expo_vali() {
     var from = document.getElementById("expo_from").value,
         to = document.getElementById("expo_to").value,
-        All = document.getElementById("include").checked,
-        list = document.getElementById("includeList").value,
+        All = document.getElementById("expo_include_all").checked,
+        My = document.getElementById("expo_include_dept").checked,
         ERR = document.getElementById("expo_err");
     ERR.innerHTML = "";
 
-    from != "" && to != "" ? expo_vali2(from, to, All, list, ERR) : ERR.innerHTML = "<br />Empty dates";
+    from != "" && to != "" ? expo_vali2(from, to, All, My, ERR) : ERR.innerHTML = "<br />Empty dates";
 
 }
 
-function expo_vali2(f, t, all, a, list, ERR) {
+function expo_vali2(f, t, all, my, ERR) {
 
     if (new Date(f) < new Date(t)) {
-        exporter_real(f, t);
+
+        if (all || my) {
+            exporter_real(f, t);
+        }
+
     } else {
         ERR.innerHTML += "<br />from date can't be ahead of to date";
     }
-    // if (all) {
-    //     exporter_real();
-    // }
-    //  else {
-    //     list != "" ? exporter_real() : ERR.innerHTML += "<br />No persons selected";
-    // }
 }
 
 function exporter_real(x, y) {
@@ -99,10 +91,6 @@ function exporter_real(x, y) {
     window.open("http://localhost:8080/crud/api/dataExport.php?f=" + Start + "&t=" + end, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=200,height=200");
     $("#expo_container2").css("display", "block");
     $("#expo_load").css("display", "none");
-}
-
-const expoListStyle = {
-    height: "120px"
 }
 
 const expo_err = {

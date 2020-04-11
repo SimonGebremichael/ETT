@@ -1,12 +1,13 @@
 import React, { component } from 'react';
 import { Link } from 'react-router-dom';
 import css from './style/modify.css';
+import Popup from './modify_popup';
 import $ from 'jquery';
-
 import loading from '../item/loading.gif'
+
 var mon = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Novr", "Dec"];
 var id;
-var person;
+var selected_D;
 export default class Modify extends React.Component {
     constructor(props) {
         super(props);
@@ -14,10 +15,12 @@ export default class Modify extends React.Component {
         id = this.props.match.params.id;
     }
 
+
     componentDidMount() {
         turn(false);
         printAllEmployees("first_name");
-
+        grabDept(1);
+        $("#modify_lookup").css("display", "block");
         $("#modify_lookup").css("display", "none");
 
         $(".modify_sort_action").click((data) => {
@@ -30,12 +33,33 @@ export default class Modify extends React.Component {
         $("#modify_action_approve").click(() => {
             approvePerson();
         });
-        $("#modify_action_assign").click(() => {
 
+        $("#department_selection").click((elem) => {
+            var g = $("#department_selection").val();
+            console.log(g[0]);
+            grabDept(g[0]);
+        });
+
+
+        $("#department_actions_cont").click((elem) => {
+            if (elem.target.id == "d_action_name") {
+                changeDeptName(selected_D);
+            } else if (elem.target.id == "d_action_new") {
+                createDept();
+            } else if (elem.target.id == "d_action_delete") {
+                deleteDept();
+            } else if (elem.target.id == "d_action_assign") {
+                $("#modify_pop").show();
+            } else if (elem.target.id == "d_action_add__") {
+                $("#modify_pop2").show();
+            }
+        });
+
+        $("#modify_action_assign").click((elem) => {
+            $("#modify_pop3").show();
         });
     }
     render() {
-
         const imgProfile = {
             marginLeft: "45%",
             marginTop: "30%",
@@ -43,6 +67,7 @@ export default class Modify extends React.Component {
         }
         return (
             <>
+                <Popup />
                 <div id="modify_container">
                     <div id="modify_header">
                         <h2 id="modify_header_total"></h2>
@@ -61,12 +86,43 @@ export default class Modify extends React.Component {
                         <img id="pending_img" src={loading} style={imgProfile} />
                     </div>
                 </div>
-
+                <div id="department_lookup">
+                    <div id="department_top">
+                        <div id="department_details">
+                            <h1 id="dept_num_message"></h1>
+                        </div>
+                        <div id="dept_delection_cont">
+                            <h3>Departments</h3>
+                            <select id="department_selection" multiple>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="department_actions_cont">
+                        <button id="d_action_delete">Delete Dept</button>
+                        <button id="d_action_assign">Assign Dept head</button>
+                        <button id="d_action_name">Change name</button>
+                        <button id="d_action_add__">Add members</button>
+                        <button id="d_action_new">New Dept</button>
+                    </div>
+                    <div id="department_bottom">
+                        <div id="department_lookup_cont">
+                            <center><h4>department head</h4></center>
+                            <div id="department_lookup_head">
+                            </div>
+                        </div>
+                        <div id="department_lookup_members">
+                            <center><h4 id="department_lookup_members_total"></h4></center>
+                            <div id="department_lookup_members_display">
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div id="modify_lookup">
                     <div id="modify_lookup_header">
                         <h2 id="modify_lookup_name"></h2><br />
                         <p id="modify_lookup_email"></p>
                         <p id="modify_lookup_id"></p>
+                        <p id="modify_lookup_dept"></p>
                     </div>
                     <div id="modify_lookup_display">
                         <div id="modify_lookup_actions">
@@ -83,6 +139,164 @@ export default class Modify extends React.Component {
         )
     }
 }
+
+function grabDept(x) {
+    var dept = new XMLHttpRequest();
+    dept.open("GET", "http://localhost:8080/crud/api/getDeptPeople.php?d=" + x);
+    dept.onreadystatechange = function () {
+        if (dept.readyState == 4) {
+            try {
+                var data = JSON.parse(dept.responseText);
+                var box = document.getElementById("department_lookup_members_display");
+                var head = document.getElementById("department_lookup_head");
+                document.getElementById("department_lookup_members_total").textContent = data.Total + " members";
+                var selction = document.getElementById("department_selection");
+                selected_D = x;
+                localStorage.setItem("dept", selected_D);
+                if (data.Total != 0) {
+                    box.innerHTML = "";
+                    for (var i = 0; i < data.Total; i++) {
+                        box.appendChild(OffsiteItem(data.employee[i]));
+                    }
+                } else {
+                    box.innerHTML = "";
+                }
+                if (data.headAmt != 0) {
+                    head.innerHTML = "";
+                    for (var i = 0; i < data.headAmt; i++) {
+                        head.appendChild(OffsiteItem(data.head));
+                    }
+                } else {
+                    head.innerHTML = "";
+                }
+
+                if (data.deptCount != 0) {
+                    selction.innerHTML = "";
+                    for (var i = 0; i < data.deptCount; i++) {
+                        selction.appendChild(printDeptSelection(data.dept[i]));
+                        if (data.dept[i].id == x) {
+                            document.getElementById("dept_num_message").innerHTML = "#" + x + "<br />" + data.dept[i].name;
+                        }
+                    }
+                }
+            } catch (e) { console.log(e); }
+        }
+    }
+    dept.send();
+}
+
+function printDeptSelection(data) {
+    var dept = document.createElement("Option");
+    dept.textContent = data.name;
+    dept.value = data.id;
+
+    if (selected_D == data.id) {
+        dept.selected = "selected";
+    }
+    return dept;
+}
+
+function changeDeptName(x) {
+    var newName = prompt("new department name");
+    if (newName != "" && newName != null) {
+        var change = new XMLHttpRequest();
+        change.open("GET", "http://localhost:8080/crud/api/updateDeptName.php?d=" + x + "&n=" + newName);
+        change.onreadystatechange = function () {
+            if (change.readyState == 4) {
+                try {
+                    if (change.responseText.length == 2) {
+                        grabDept(x);
+                    } else {
+                        console.error("error with updating dept name");
+                    }
+                } catch (e) { console.log(e); }
+            }
+        }
+        change.send();
+    }
+}
+
+function createDept() {
+    var newName = prompt("Department name");
+    if (newName != "" && newName != null) {
+        var change = new XMLHttpRequest();
+        change.open("GET", "http://localhost:8080/crud/api/createDept.php?n=" + newName);
+        change.onreadystatechange = function () {
+            if (change.readyState == 4) {
+                try {
+                    var testVar = parseInt(change.responseText);
+                    console.log(change.responseText);
+                    grabDept(testVar);
+                } catch (e) { console.error("error with updating dept name"); console.log(e); }
+            }
+        }
+        change.send();
+    }
+}
+
+function deleteDept() {
+    var con = window.confirm("do you want to remove this department?");
+    if (con) {
+        var del = new XMLHttpRequest();
+        del.open("GET", "http://localhost:8080/crud/api/deleteDept.php?d=" + selected_D);
+        del.onreadystatechange = function () {
+            if (del.readyState == 4) {
+                try {
+                    var testVar = parseInt(del.responseText);
+                    console.log(del.responseText);
+                    // alert("removed");
+                    grabDept(1);
+                } catch (e) {
+
+                    console.error("error with updating dept name");
+                    console.log(e);
+                }
+            }
+        }
+        del.send();
+    }
+}
+
+function OffsiteItem(person) {
+    var OffsiteSatus = document.createElement("div");
+    OffsiteSatus.id = "OffsiteSatus";
+    OffsiteSatus.style.marginTop = "10px";
+
+    var OffsiteSatus_top = document.createElement("div");
+    OffsiteSatus_top.id = "OffsiteSatus_top";
+
+    var OffsiteSatus_bottom = document.createElement("div");
+    OffsiteSatus_bottom.id = "OffsiteSatus_bottom";
+
+    var br = document.createElement("BR");
+
+    var offImg = document.createElement("div");
+    offImg.style.paddingTop = "0%";
+    offImg.id = "offImg";
+    var img = document.createElement("img");
+    img.src = person.img;
+    img.id = "OffsiteImg";
+    offImg.appendChild(img);
+
+    var offInfo = document.createElement("div");
+    offInfo.id = "offInfo";
+    offInfo.style.fontSize = "15px";
+    offInfo.style.paddingLeft = "30px";
+    var first_name = document.createElement("label");
+    first_name.textContent = person.first_name + ", " + person.last_name;
+    var active = document.createElement("button");
+    active.id = "offsiteActivity";
+    active.textContent = person.employee_status;
+    offInfo.appendChild(first_name);
+    offInfo.appendChild(br);
+    offInfo.appendChild(active);
+
+    OffsiteSatus_top.appendChild(offImg);
+    OffsiteSatus_top.appendChild(offInfo);
+    OffsiteSatus.appendChild(OffsiteSatus_top);
+    return OffsiteSatus;
+}
+
 function deletePerson() {
     var id = document.getElementById("modify_action_delete").className;
     if (window.confirm("user is to be deleted?")) {
@@ -92,7 +306,6 @@ function deletePerson() {
             if (xhr.readyState == 4) {
                 try {
                     var data = parseInt(xhr.responseText);
-                   $("#modify_lookup").toggleFade();
                 } catch (e) {
                     document.getElementById("modify_action_approve").textContent = "Error occured :(";
                 }
@@ -119,17 +332,20 @@ function approvePerson() {
     }
     xhr.send();
 }
+
 function printLookupUser(person) {
     var lookupdata = new XMLHttpRequest();
     lookupdata.open("GET", "http://localhost:8080/crud/api/getperson.php?i=" + person);
     lookupdata.onreadystatechange = function () {
         if (lookupdata.readyState == 4) {
+            localStorage.setItem("prn", person);
             var data = JSON.parse(lookupdata.responseText);
             $("#modify_lookup").css("display", "block");
             if (data.Total != 0) {
                 $("#modify_lookup_name").text(data.employee.first_name + ", " + data.employee.last_name);
                 $("#modify_lookup_email").text(data.employee.email);
                 $("#modify_lookup_id").text(data.employee.employee_status);
+                $("#modify_lookup_dept").text(data.employee.dept);
                 data.employee.employee_status != "pending" ? $("#modify_action_approve").css("display", "none") : $("#modify_action_approve").css("display", "block");
                 document.getElementById("modify_action_delete").className = data.employee.googleId;
                 printPendingRequests(data.employee.googleId);
@@ -274,7 +490,6 @@ function printSomeone(person) {
     var active;
     var dept;
     var br;
-    var a;
     item = document.createElement("div");
     item.id = "modify_user_item";
 
@@ -311,10 +526,13 @@ function printSomeone(person) {
     active.id = "offsiteActivity";
     active.textContent = person.employee_status;
 
+    var isAssigned = person.dept;
     dept = document.createElement("label");
     dept.id = "modify_user_info_dept";
-    dept.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
-        person.employee_status;
+    if (isAssigned != 0) {
+        dept.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
+            person.dept;
+    } else { dept.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Not Assigned"; }
 
     info_bottom.appendChild(active);
     info_bottom.appendChild(dept);
@@ -328,9 +546,6 @@ function printSomeone(person) {
     return item;
 }
 
-function print(x) {
-    alert(x);
-}
 function Approved(person, x) {
     var xhr = new XMLHttpRequest();
     xhr.open("GET", "http://localhost:8080/crud/api/approveRequest.php?i=" + person.id + "&t=" + x);

@@ -6,7 +6,6 @@ export default class offsite extends React.Component {
 
     constructor(props) {
         super(props);
-        // this.componentDidMount = this.componentDidMount.bind(this);
     }
 
     componentDidMount() {
@@ -136,29 +135,48 @@ function OffsiteItem(person) {
     offInfo.appendChild(br);
     offInfo.appendChild(active);
 
-    var end = new Date(person.end);
-    var start = new Date(person.start);
-    var offsiteLeft = document.createElement("div");
-    offsiteLeft.id = "offsiteLeft";
-    offsiteLeft.style.backgroundColor = "#" + person.color;
-    var btn1 = document.createElement("button");
-    btn1.id = "requestActivity";
-    btn1.textContent = mon[start.getMonth()] + ", " + start.getDate() + " " + start.getFullYear();
-    var btn2 = document.createElement("button");
-    btn2.id = "requestActivity";
-    btn2.textContent = mon[end.getMonth()] + ", " + end.getDate() + " " + end.getFullYear();
-    offsiteLeft.appendChild(btn1);
-    offsiteLeft.innerHTML += "&nbsp;&nbsp;";
-    offsiteLeft.appendChild(btn2);
+    if (person.end != null && person.start != null) {
+        var end = new Date(person.end);
+        var start = new Date(person.start);
+        var offsiteLeft = document.createElement("div");
+        offsiteLeft.id = "offsiteLeft";
+        offsiteLeft.style.backgroundColor = "#" + person.color;
+        var btn1 = document.createElement("button");
+        btn1.id = "requestActivity";
+        btn1.textContent = mon[start.getMonth()] + ", " + start.getDate() + " " + start.getFullYear();
+        var btn2 = document.createElement("button");
+        btn2.id = "requestActivity";
+        btn2.textContent = mon[end.getMonth()] + ", " + end.getDate() + " " + end.getFullYear();
+        offsiteLeft.appendChild(btn1);
+        offsiteLeft.innerHTML += "&nbsp;&nbsp;";
+        offsiteLeft.appendChild(btn2);
 
 
-    var offsiteRight = document.createElement("div");
-    offsiteRight.id = "offsiteRight";
-    offsiteRight.style.backgroundColor = "#" + person.color;
-    offsiteRight.className = "offsite_Right";
-    var label = document.createElement("label")
-    label.textContent = person.category;
-    offsiteRight.appendChild(label);
+        var offsiteRight = document.createElement("div");
+        offsiteRight.id = "offsiteRight";
+        offsiteRight.style.backgroundColor = "#" + person.color;
+        offsiteRight.className = "offsite_Right";
+        var label = document.createElement("label")
+        label.textContent = person.category;
+        offsiteRight.appendChild(label);
+
+
+    }else{
+        var offsiteLeft = document.createElement("div");
+        offsiteLeft.id = "offsiteLeft";
+        offsiteLeft.innerHTML += "&nbsp;&nbsp;No active requests";
+        offsiteLeft.style.backgroundColor = "black";
+        offsiteLeft.style.color = "white";
+
+        var offsiteRight = document.createElement("div");
+        offsiteRight.id = "offsiteRight";
+        offsiteRight.style.backgroundColor = "black";
+        offsiteRight.style.color = "white";
+        offsiteRight.className = "offsite_Right";
+        var label = document.createElement("label")
+        label.textContent = "No requests";
+        offsiteRight.appendChild(label);
+    }
 
     OffsiteSatus_top.appendChild(offImg);
     OffsiteSatus_top.appendChild(offInfo);

@@ -22,41 +22,41 @@ export default class mainPage extends React.Component {
 
     const responseGoogle = (response) => {
       try {
+        // console.log(response);
         var xhr = new XMLHttpRequest();
         xhr.open("GET", "http://localhost:8080/crud/api/createPerson.php?" +
-          "fname=" + response.Qt.vW +
-          "&lname=" + response.Qt.wU +
-          "&email=" + response.Qt.zu +
-          "&dob=01/01/1998" +
+          "fname=" + response.profileObj.givenName +
+          "&lname=" + response.profileObj.familyName +
+          "&email=" + response.profileObj.email +
           "&eStatus=pending" +
-          "&deptID=1" +
-          "&gId=" + response.Qt.SU +
-          "&img=" + response.Qt.UK);
+          "&deptID=0" +
+          "&gId=" + response.googleId +
+          "&img=" + response.profileObj.imageUrl);
         xhr.onreadystatechange = function () {
           if (xhr.readyState == 4) {
             console.log(xhr.responseText);
             try {
               if (xhr.responseText == "already") {
                 var check = new XMLHttpRequest();
-                check.open("GET", "http://localhost:8080/crud/api/checkTeamlead.php?i=" + response.Qt.SU);
+                check.open("GET", "http://localhost:8080/crud/api/checkTeamlead.php?i=" + response.googleId);
                 check.onreadystatechange = function () {
                   if (check.readyState == 4) {
                     try {
                       var where = check.responseText;
                       var num = parseInt(where);
                       localStorage.setItem("teamlead", "_true_");
-                      localStorage.setItem("access", response.Qt.SU);
-                      window.location.href = "http://localhost:3000/dashboard/" + response.Qt.SU;
+                      localStorage.setItem("access", response.googleId);
+                      window.location.href = "http://localhost:3000/dashboard/" + response.googleId;
                     } catch (e) {
                       localStorage.setItem("teamlead", check.responseText);
-                      localStorage.setItem("access", response.Qt.SU);
-                      window.location.href = "http://localhost:3000/dashboard/2/" + response.Qt.SU;
+                      localStorage.setItem("access", response.googleId);
+                      window.location.href = "http://localhost:3000/dashboard/2/" + response.googleId;
                     }
                   }
                 }
                 check.send();
               } else {
-                window.location.href = "http://localhost:3000/login/pending/" + response.Qt.SU;
+                window.location.href = "http://localhost:3000/login/pending/" + response.googleId;
               }
             } catch (e) { console.log(e); }
           }

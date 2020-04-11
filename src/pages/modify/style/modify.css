@@ -2,7 +2,7 @@
     width: 500px;
 }
 
-#modify_container, #modify_lookup {
+#modify_container, #modify_lookup, #department_lookup {
     height: 93.5%;
     background-color: white;
     float: right;
@@ -36,8 +36,7 @@
     padding-right: 5%;
 }
 #modify_user_item{
-    border: 3px solid black;
-    background-color: grey;
+    background-color: lightgrey;
     display: grid;
     height: 120px;
     color: white;
@@ -54,7 +53,7 @@
     margin-top: 20%;
     background-color: black;
     object-fit: cover;
-    border: 4px solid white
+    border: 7px solid white;
 }
 #modify_user_info{
     display: grid;
@@ -66,7 +65,7 @@
 }
 
 #modify_user_info_dept{
-    color: lightgrey;
+    color: white;
 }
 #modify_user_item button {
     border: none;
@@ -76,7 +75,7 @@
 }
 #modify_user_info_email {
     text-decoration: none;
-    color: lightgrey;
+    color: white;
     font-size: 15px;
     height: 10px;
 }
@@ -94,7 +93,7 @@
 /* -------------------------------------------------------- */
 
 #modify_lookup{
-    width: 500px;
+    width: 430px;
     border-right: 1px solid;
 }
 
@@ -103,9 +102,6 @@
     padding-bottom: 5%;
     padding-left: 5%;
     border-bottom: 1px solid black;
-}
-
-#modify_lookup_display{
 }
 
 #modify_lookup_actions{
@@ -146,4 +142,120 @@
     background-color: salmon;
     color: white;
     font-size: 40px;
+}
+
+
+/* ----------------------------------------------------------- */
+#department_lookup{
+    width: 500px;
+    padding: 0px 10px 0px 10px;
+    background-color: white;
+    color: black;
+    border-right: 1px solid black;
+}
+
+#department_lookup_members_display{
+    height: 400px;
+    overflow-y: auto;
+    width: 100%;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+#department_details{
+    text-align: center;
+}
+
+#dept_num_message{
+    margin-top: 15%;
+    font-size: 20px;
+}
+#department_actions_cont{
+    display: grid;
+    padding-bottom: 30px;
+    padding-top: 30px;
+    grid-template-columns: 25% 25% 25% 25%;
+}
+#department_actions_cont button {
+    padding: 10px;
+    border: none;
+    background-color: lightgrey;
+    color: black;
+    border-right: 1px solid white;
+    margin-top: 5px;
+}
+#department_actions_cont button:hover {
+    background-color: gray;
+    cursor: pointer;
+}
+#department_top, #department_bottom{
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+#department_selection{
+    width: 100%;
+    font-size: 15px;
+    border-radius: 10px;
+    padding-left: 10px;
+    margin-top: 5px;
+    border: 1px solid black;
+}
+#dept_delection_cont {
+    padding-left: 10px;
+    padding-top: 5px;
+}
+
+/* -------------------------------------------------------- */
+.modify_popup{
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 94%;
+    animation: fadeIn 0.3s;
+    z-index: 4;
+}
+
+.modify_popup_bg{
+    background-color: black;
+    opacity: 0.4;
+    height: 100%;
+    width: 100%;
+}
+
+#modidy_body{
+    position: absolute;
+    margin: -33% 0% 0% 38%;
+    background-color: white;
+    width: 400px;
+    color: black;
+    padding: 15px;
+    border-radius: 10px;
+    animation: slideInBottom 0.5s;
+    padding-bottom: 20px;
+}
+.modify_pop_dis {
+    border: 1px solid black;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.modify_pop_assi {
+    padding: 10px;
+    border: none;
+    background-color: black;
+    color: white;
+    border-radius: 5px;
+    float: right;
+}
+.modify_pop_assi:hover{
+    background-color: #333333;
+    cursor: pointer;
+}
+
+#modify_bg2{
+    background-color: black;
+    opacity: 0.4;
+    height: 100%;
+    width: 100%;
 }
