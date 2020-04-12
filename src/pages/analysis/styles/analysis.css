@@ -1,20 +1,16 @@
 #Dashboard_cont{
     background-color: white;
 }
+
 #dashHeader{
     padding-bottom: 45px;
     padding-top: 50px;
     background-color: black;
     color: white;
 }
+
 #dashHeader h2{
     margin-left: 3%;
-
-}
-
-#stat__id{
-    height: 0%;
-    background-color: white;
 }
 
 #stat_bg:hover {
@@ -23,26 +19,24 @@
 
 #dash_display{
     display: grid;
-    grid-template-columns: 50% 50%;
-}
-
-
-#dash_display h3{
-    margin-left: 5%;
-    margin-top: 15%;
-    width: 90%;
-    padding-bottom: 5px;
-    border-bottom: 1px solid lightgrey;
+    grid-template-columns: 100%;
+    overflow-y: auto;
+    height: 500px;
 }
 
 .stat_displayer{
     display: grid;
-    grid-template-columns: 8.3% 8.3% 8.3% 8.3% 8.3% 8.3% 8.3% 8.3% 8.3% 8.3% 8.3% 8.3%;
-    padding: 10px;
-    height: 130px;
+    grid-template-columns: 8.333% 8.333% 8.333% 8.333% 8.333% 8.333% 8.333% 8.333% 8.333% 8.333% 8.333% 8.5%;
+    height: 100px;
 }
+
 .stat_displayer label{
     color: lightgrey;
+}
+
+#dash_cont_ {
+    margin-top: 40px;
+    padding-bottom: 10px;
 }
 
 /* ------------------------------------------------------------- */

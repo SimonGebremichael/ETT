@@ -13,16 +13,21 @@ export default class mainPage extends React.Component {
   componentDidMount = () => {
     localStorage.removeItem("access");
     localStorage.removeItem("teamlead");
+
+    var checkIfNewYear = new XMLHttpRequest();
+    checkIfNewYear.open("GET", "http://localhost:8080/crud/api/newYearReset.php");
+    checkIfNewYear.onreadystatechange = function () {
+      if (checkIfNewYear.readyState == 4) { } }
+    checkIfNewYear.send();
   }
 
   render() {
     const errr = (response) => {
-      alert("error");
+      console.log(response);
     }
 
     const responseGoogle = (response) => {
       try {
-        // console.log(response);
         var xhr = new XMLHttpRequest();
         xhr.open("GET", "http://localhost:8080/crud/api/createPerson.php?" +
           "fname=" + response.profileObj.givenName +
@@ -37,33 +42,16 @@ export default class mainPage extends React.Component {
             console.log(xhr.responseText);
             try {
               if (xhr.responseText == "already") {
-                var check = new XMLHttpRequest();
-                check.open("GET", "http://localhost:8080/crud/api/checkTeamlead.php?i=" + response.googleId);
-                check.onreadystatechange = function () {
-                  if (check.readyState == 4) {
-                    try {
-                      var where = check.responseText;
-                      var num = parseInt(where);
-                      localStorage.setItem("teamlead", "_true_");
-                      localStorage.setItem("access", response.googleId);
-                      window.location.href = "http://localhost:3000/dashboard/" + response.googleId;
-                    } catch (e) {
-                      localStorage.setItem("teamlead", check.responseText);
-                      localStorage.setItem("access", response.googleId);
-                      window.location.href = "http://localhost:3000/dashboard/2/" + response.googleId;
-                    }
-                  }
-                }
-                check.send();
+                checkIfTeamLead(response);
               } else {
                 window.location.href = "http://localhost:3000/login/pending/" + response.googleId;
               }
             } catch (e) { console.log(e); }
           }
         }
-
-
         xhr.send();
+
+
       } catch (e) { console.log(e); }
     }
 
@@ -129,3 +117,23 @@ const treeDisplay = {
   float: "right"
 }
 
+function checkIfTeamLead(response){
+  var check = new XMLHttpRequest();
+  check.open("GET", "http://localhost:8080/crud/api/checkTeamlead.php?i=" + response.googleId);
+  check.onreadystatechange = function () {
+    if (check.readyState == 4) {
+      try {
+        var where = check.responseText;
+        var num = parseInt(where);
+        localStorage.setItem("teamlead", "_true_");
+        localStorage.setItem("access", response.googleId);
+        window.location.href = "http://localhost:3000/dashboard/" + response.googleId;
+      } catch (e) {
+        localStorage.setItem("teamlead", check.responseText);
+        localStorage.setItem("access", response.googleId);
+        window.location.href = "http://localhost:3000/dashboard/2/" + response.googleId;
+      }
+    }
+  }
+  check.send();
+}

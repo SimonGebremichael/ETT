@@ -41,6 +41,13 @@ export default class Modify extends React.Component {
         });
 
 
+        $("#modify_action_pending").click(() => {
+        });
+
+        $("#modify_action_offsite").click(() => {
+        });
+
+
         $("#department_actions_cont").click((elem) => {
             if (elem.target.id == "d_action_name") {
                 changeDeptName(selected_D);
@@ -129,6 +136,8 @@ export default class Modify extends React.Component {
                             <button id="modify_action_delete">Delete person</button>
                             <button id="modify_action_approve">Approve pending</button>
                             <button id="modify_action_assign">Assign department</button>
+                            <button id="modify_action_pending">View Pending</button>
+                            <button id="modify_action_offsite">Modify offsites</button>
                         </div>
                         <div id="modify_lookup_details">
                             <center><h3>Pending requests</h3></center>

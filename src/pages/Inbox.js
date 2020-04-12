@@ -101,13 +101,14 @@ function removeItem(person) {
 function inboxitem(person) {
 
     var OffsiteSatus = document.createElement("div");
-    OffsiteSatus.id = "OffsiteSatus";
+    OffsiteSatus.className = "OffsiteSatus";
+    OffsiteSatus.id = "canc" + person.id;
 
     var OffsiteSatus_top = document.createElement("div");
-    OffsiteSatus_top.id = "OffsiteSatus_top_inbox";
+    OffsiteSatus_top.className = "OffsiteSatus_top_inbox";
     OffsiteSatus_top.style.gridTemplateColumns = "none";
     var OffsiteSatus_bottom = document.createElement("div");
-    OffsiteSatus_bottom.id = "OffsiteSatus_bottom";
+    OffsiteSatus_bottom.className = "OffsiteSatus_bottom";
 
     var offInfo = document.createElement("div");
     offInfo.id = "offInfo";
@@ -120,8 +121,8 @@ function inboxitem(person) {
     cancel.style.border = "none";
     cancel.style.marginTop = "10px";
     cancel.style.color = "white";
+    cancel.style.width = "100%";
     cancel.className = "inbox_cancel_btn";
-    cancel.id = "canc" + person.id;
     cancel.onclick = function () {
         removeItem(person);
     };
@@ -149,7 +150,7 @@ function inboxitem(person) {
     offsiteRight.style.backgroundColor = "#" + person.color;
     offsiteRight.className = "offsite_Right";
     var label = document.createElement("label")
-    label.textContent = "pending";
+    label.textContent = person.days + " day(s)";
     offsiteRight.appendChild(label);
 
     OffsiteSatus_top.appendChild(offInfo);

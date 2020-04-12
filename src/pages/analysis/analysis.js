@@ -1,7 +1,6 @@
 import Inbox from '../Inbox'
 import Reports from './reports'
 import css from './styles/analysis.css'
-import Numbers from './analysis_numbers'
 import Profile from '../Profile'
 import Dashboard from './dash'
 import React, { Component, createElement } from 'react'

@@ -92,25 +92,25 @@ table {
     margin-top: 30px;
 }
 
-#OffsiteSatus {
+.OffsiteSatus {
     background-color: lightgrey;
     margin-top: 30px;
     animation: fadeIn 1s;
     border-radius: 10px;
 }
-#OffsiteSatus_top_inbox {
+.OffsiteSatus_top_inbox {
     display: grid;
     grid-template-columns: 90% 10%;
 }
 
-#OffsiteSatus_top {
+.OffsiteSatus_top {
     display: grid;
     grid-template-columns: 30% 70%;
 }
 
-#OffsiteSatus_bottom {
+.OffsiteSatus_bottom {
     display: grid;
-    grid-template-columns: 55% 45%;
+    grid-template-columns: 60% 40%;
 }
 
 #OffsiteImg {
@@ -165,13 +165,13 @@ table {
 
 #offsiteRight {
     border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
     padding-right: 10px;
     padding-top: 10px;
     padding-bottom: 10px;
 }
 
 #offsiteLeft {
-    border-bottom-left-radius: 10px;
     padding-left: 10px;
     padding-top: 10px;
     padding-bottom: 10px;

@@ -24,6 +24,7 @@ export default class Pending extends React.Component {
                         document.getElementById("pending_message").innerHTML = "You will  be notified once approved, Thank you";
                         document.getElementById("pending_header_message").innerHTML = "Your Account is Currently Pending!";
                     } else {
+                        localStorage.setItem("access", this.user);
                         document.getElementById("pending_message").innerHTML = "your account has been aprroved";
                         document.getElementById("pending_header_message").innerHTML = "Your all set :)";
                     }

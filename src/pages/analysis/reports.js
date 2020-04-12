@@ -17,8 +17,7 @@ export default class reporter extends React.Component {
                 turn(false);
                 try {
                     var data = JSON.parse(xhr.responseText);
-                    document.getElementById("reportHeader_message").innerHTML += " " + data.report.first_name + ", " + data.report.last_name;
-                    console.log(data);
+                    document.getElementById("reportHeader_message").innerHTML += " " + data.report[0].first_name + ", " + data.report[0].last_name;
                     if (data.Total != 0) {
                         for (var i = 0; i < data.Total; i++) {
                             box.appendChild(printReport(data.report[i]));
