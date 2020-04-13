@@ -20,22 +20,6 @@ export default class side extends React.Component {
     }
     componentDidMount() {
         document.getElementById("sideDatePrint").innerHTML = dd + " " + mon[mm - 1] + ", " + yyyy;
-        // var mon = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-        //     weekday = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-        //     colours2 = ["lightblue", "lightgreen", "pink", "salmon"],
-        //     colours3 = ["Remote", "Vacation", "Bithday", "Sick"];
-
-        // var currentDate = new Date();
-        // document.getElementById("sideDatePrint").innerHTML = weekday[currentDate.getDay() - 1] + ", " + currentDate.getDate() + " of " + mon[currentDate.getMonth()];
-
-        // var elem = document.getElementsByClassName("cal_stat_details");
-        // var elem2 = document.getElementsByClassName("cal_stat_type_value");
-        // for (var i = 0; i < elem.length; i++) {
-        //     var rand = (Math.floor(Math.random() * 4) + 1) - 1;
-        //     elem[i].style.backgroundColor = colours2[rand];
-        //     elem2[i].innerHTML = colours3[rand];
-        // }
-
         // printSideCal();
         printOfftypes();
         $("#googleUpcommingRender").click(() => {
@@ -132,7 +116,7 @@ function getEvents() {
             }).then(function () {
                 console.log("success baby");
             }, function (error) {
-                console.log(JSON.stringify(error, null, 2));
+                // console.log(JSON.stringify(error, null, 2));
             });
         });
         ApiCalendar.gapi.auth2.getAuthInstance().signIn();
@@ -145,7 +129,7 @@ function getEvents() {
             'orderBy': 'startTime'
         }).then(function (sendBack) {
             events = sendBack.result.items;
-            console.log(events);
+            // console.log(events);
             var box = document.getElementById("cal_side_event_only_displayer");
             if (events.length != 0) {
                 for (var i = 0; i < events.length; i++) {
@@ -155,7 +139,7 @@ function getEvents() {
             } else {
                 $("#googleUpcommingRender").text("no upcomming events");
             }
-        });
+        }); 
     } else {
         events = null;
     }
@@ -169,7 +153,7 @@ function printOfftypes() {
             var data = JSON.parse(off.responseText);
             var box = document.getElementById("cal_side_organizer_displayer");
             box.innerHTML = "";
-            console.log(off.responseText);
+            // console.log(off.responseText);
             if (data.Total != 0) {
                 for (var i = 0; i < data.Total; i++) {
                     var div = document.createElement("div");

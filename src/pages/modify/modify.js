@@ -18,10 +18,10 @@ export default class Modify extends React.Component {
 
     componentDidMount() {
         turn(false);
+        turn_M(true);
+        printLookupUser(localStorage.getItem("access"));
         printAllEmployees("first_name");
         grabDept(1);
-        $("#modify_lookup").css("display", "block");
-        $("#modify_lookup").css("display", "none");
 
         $(".modify_sort_action").click((data) => {
             turn(false);
@@ -40,13 +40,13 @@ export default class Modify extends React.Component {
             grabDept(g[0]);
         });
 
-
         $("#modify_action_pending").click(() => {
+            turn_M(true);
         });
 
         $("#modify_action_offsite").click(() => {
+            turn_M(false);
         });
-
 
         $("#department_actions_cont").click((elem) => {
             if (elem.target.id == "d_action_name") {
@@ -75,77 +75,187 @@ export default class Modify extends React.Component {
         return (
             <>
                 <Popup />
-                <div id="modify_container">
-                    <div id="modify_header">
-                        <h2 id="modify_header_total"></h2>
-                    </div>
-                    <div id="modify_display_Sort">
-                        <h4>Sort By:</h4>
-                        <select id="offSiteSort" class="modify_sort_value">
-                            <option className="modify_sort_action" value="first_name">First Name</option>
-                            <option className="modify_sort_action" value="last_name">Last Name</option>
-                            <option className="modify_sort_action" value="employee_status DESC">status</option>
-                        </select>
-                    </div>
-                    <div id="modify_user_display">
-                    </div>
-                    <div id="modify_user_display2">
-                        <img id="pending_img" src={loading} style={imgProfile} />
-                    </div>
-                </div>
-                <div id="department_lookup">
-                    <div id="department_top">
-                        <div id="department_details">
-                            <h1 id="dept_num_message"></h1>
+                <div id="modify_page_holder">
+                    <div id="modify_lookup">
+                        <div id="modify_lookup_header">
+                            <h2 id="modify_lookup_name"></h2><br />
+                            <p id="modify_lookup_email"></p>
+                            <p id="modify_lookup_id"></p>
+                            <p id="modify_lookup_dept"></p>
                         </div>
-                        <div id="dept_delection_cont">
-                            <h3>Departments</h3>
-                            <select id="department_selection" multiple>
+                        <div id="modify_lookup_display">
+                            <div id="modify_lookup_actions">
+                                <button id="modify_action_delete">Delete person</button>
+                                <button id="modify_action_approve">Approve pending</button>
+                                <button id="modify_action_assign">Assign department</button>
+                                <button id="modify_action_pending">View Pending</button>
+                                <button id="modify_action_offsite">Modify offsites</button>
+                            </div>
+                            <div id="modify_lookup_details">
+                                <center><h3>Pending requests</h3></center>
+                            </div>
+                            <div id="modify__offsite_container">
+                                <center><h3>Entitled days</h3></center>
+                                <center><p id="modify__offsite_container_err"></p></center>
+                                <div id="modify__off_display">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="department_lookup">
+                        <div id="department_top">
+                            <div id="department_details">
+                                <h1 id="dept_num_message"></h1>
+                            </div>
+                            <div id="dept_delection_cont">
+                                <h3>Departments</h3>
+                                <select id="department_selection" multiple>
+                                </select>
+                            </div>
+                        </div>
+                        <div id="department_actions_cont">
+                            <button id="d_action_delete">Delete Dept</button>
+                            <button id="d_action_assign">Assign Dept head</button>
+                            <button id="d_action_name">Change name</button>
+                            <button id="d_action_add__">Add members</button>
+                            <button id="d_action_new">New Dept</button>
+                        </div>
+                        <div id="department_bottom">
+                            <div id="department_lookup_cont">
+                                <center><h4>department head</h4></center>
+                                <div id="department_lookup_head">
+                                </div>
+                            </div>
+                            <div id="department_lookup_members">
+                                <center><h4 id="department_lookup_members_total"></h4></center>
+                                <div id="department_lookup_members_display">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="modify_container">
+                        <div id="modify_header">
+                            <h2 id="modify_header_total"></h2>
+                        </div>
+                        <div id="modify_display_Sort">
+                            <h4>Sort By:</h4>
+                            <select id="offSiteSort" class="modify_sort_value">
+                                <option className="modify_sort_action" value="first_name">First Name</option>
+                                <option className="modify_sort_action" value="last_name">Last Name</option>
+                                <option className="modify_sort_action" value="employee_status DESC">Pending</option>
                             </select>
                         </div>
-                    </div>
-                    <div id="department_actions_cont">
-                        <button id="d_action_delete">Delete Dept</button>
-                        <button id="d_action_assign">Assign Dept head</button>
-                        <button id="d_action_name">Change name</button>
-                        <button id="d_action_add__">Add members</button>
-                        <button id="d_action_new">New Dept</button>
-                    </div>
-                    <div id="department_bottom">
-                        <div id="department_lookup_cont">
-                            <center><h4>department head</h4></center>
-                            <div id="department_lookup_head">
-                            </div>
+                        <div id="modify_user_display">
                         </div>
-                        <div id="department_lookup_members">
-                            <center><h4 id="department_lookup_members_total"></h4></center>
-                            <div id="department_lookup_members_display">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div id="modify_lookup">
-                    <div id="modify_lookup_header">
-                        <h2 id="modify_lookup_name"></h2><br />
-                        <p id="modify_lookup_email"></p>
-                        <p id="modify_lookup_id"></p>
-                        <p id="modify_lookup_dept"></p>
-                    </div>
-                    <div id="modify_lookup_display">
-                        <div id="modify_lookup_actions">
-                            <button id="modify_action_delete">Delete person</button>
-                            <button id="modify_action_approve">Approve pending</button>
-                            <button id="modify_action_assign">Assign department</button>
-                            <button id="modify_action_pending">View Pending</button>
-                            <button id="modify_action_offsite">Modify offsites</button>
-                        </div>
-                        <div id="modify_lookup_details">
-                            <center><h3>Pending requests</h3></center>
+                        <div id="modify_user_display2">
+                            <img id="pending_img" src={loading} style={imgProfile} />
                         </div>
                     </div>
                 </div>
             </>
         )
+    }
+}
+
+function getDeptslist(person) {
+    var x = localStorage.getItem("prn");
+    var site = new XMLHttpRequest();
+    site.open("GET", "http://localhost:8080/crud/api/getOffsites_list.php?i=" + person);
+    site.onreadystatechange = function () {
+        if (site.readyState == 4) {
+            try {
+                var data = JSON.parse(site.responseText);
+                var box = document.getElementById("modify__off_display");
+                box.innerHTML = "";
+                for (var i = 0; i < data.Total; i++) {
+                    box.appendChild(printD_list(data.off[i]));
+                }
+            } catch (e) { console.log(e); }
+        }
+    }
+    site.send();
+}
+
+function printD_list(data) {
+    var cont = document.createElement("div");
+    cont.className = "mod_off_feilds";
+    cont.style.border = "5px solid white";
+
+    var info = document.createElement("div");
+    info.style.backgroundColor = "#" + data.color;
+    info.style.width = "94%";
+    var lbl = document.createElement("h3");
+    lbl.textContent = data.name;
+    lbl.style.color = "white";
+    lbl.style.width = "50%";
+    info.style.height = "30px";
+    info.style.paddingLeft = "10px";
+    info.style.paddingTop = "5px";
+    info.appendChild(lbl);
+
+    var bottom = document.createElement("div");
+    bottom.className = "mod_off_bottom";
+
+    var input = document.createElement("input");
+    input.className = "mod_off_input";
+    input.type = "text";
+    input.value = data.value;
+    input.placeholder = "entitled amount";
+    input.id = "in_" + data.id;
+
+    var Update = document.createElement("div");
+    Update.className = "mod_off_inputBTn";
+    Update.textContent = "Update";
+    Update.onclick = () => {
+        updateDept(data);
+    }
+    var details = document.createElement("div");
+    details.style.display = "grid";
+    details.style.gridTemplateColumns = "65% 35%";
+    details.style.paddingTop = "5px";
+
+    var taken = document.createElement("label");
+    taken.textContent = "Taken: " + data.taken;
+    taken.style.fontSize = "10px";
+
+    var taken2 = document.createElement("label");
+    taken2.textContent = "Remaining: " + data.remaining;
+    taken2.style.fontSize = "10px";
+
+    details.appendChild(taken);
+    details.appendChild(taken2);
+    bottom.appendChild(input);
+    bottom.appendChild(Update);
+    cont.appendChild(info);
+    cont.appendChild(bottom);
+    cont.appendChild(details);
+    return cont;
+}
+
+function updateDept(data) {
+    var value = document.getElementById("in_" + data.id).value;
+    try {
+        var num = parseInt(value);
+        if (value.length > 0) {
+            var update = new XMLHttpRequest();
+            update.open("GET", "http://localhost:8080/crud/api/updateOfftypes.php?i=" + data.id + "&v=" + num + "&t=" + data.taken + "&t=" + data.taken);
+            update.onreadystatechange = function () {
+                if (update.readyState == 4) {
+                    try {
+                        getDeptslist(data.googleId);
+                        console.log(update.responseText);
+                    } catch (e) { console.log(e); }
+                }
+            }
+            update.send();
+        } else {
+            var err = document.getElementById("modify__offsite_container_err");
+            err.textContent = "no value";
+        }
+    } catch (e) {
+        console.log(e);
+        var err = document.getElementById("modify__offsite_container_err");
+        err.textContent = "not a number";
     }
 }
 
@@ -269,13 +379,21 @@ function deleteDept() {
 function OffsiteItem(person) {
     var OffsiteSatus = document.createElement("div");
     OffsiteSatus.id = "OffsiteSatus";
-    OffsiteSatus.style.marginTop = "10px";
+    OffsiteSatus.style.animation = "fadeIn 0.4s";
 
     var OffsiteSatus_top = document.createElement("div");
     OffsiteSatus_top.id = "OffsiteSatus_top";
+    OffsiteSatus_top.style.display = "grid";
+    OffsiteSatus_top.style.gridTemplateColumns = "30% 70%";
+    OffsiteSatus_top.style.borderRadius = "10px";
+    OffsiteSatus_top.style.marginTop = "30px";
+    OffsiteSatus_top.style.backgroundColor = "lightgrey";
 
     var OffsiteSatus_bottom = document.createElement("div");
     OffsiteSatus_bottom.id = "OffsiteSatus_bottom";
+    OffsiteSatus_bottom.style.borderRadius = "10px";
+    OffsiteSatus_bottom.style.display = "grid";
+    OffsiteSatus_bottom.style.gridTemplateColumns = "70% 30%";
 
     var br = document.createElement("BR");
 
@@ -343,6 +461,7 @@ function approvePerson() {
 }
 
 function printLookupUser(person) {
+    getDeptslist(person);
     var lookupdata = new XMLHttpRequest();
     lookupdata.open("GET", "http://localhost:8080/crud/api/getperson.php?i=" + person);
     lookupdata.onreadystatechange = function () {
@@ -390,17 +509,23 @@ function printPendingRequests(id) {
 function pendingRequestItem(person) {
 
     var OffsiteSatus = document.createElement("div");
-    OffsiteSatus.id = "OffsiteSatus";
-    OffsiteSatus.className = "item" + person.googleId;
+    OffsiteSatus.id = "req_" + person.id;
+    OffsiteSatus.className = "request_item_Satus";
+    OffsiteSatus.style.borderRadius = "10px";
+
+    OffsiteSatus.style.animation = "all 0.7s ease-in-out";
     OffsiteSatus.style.width = "70%";
-    OffsiteSatus.style.borderRadius = "5px";
     OffsiteSatus.style.marginLeft = "15%";
 
     var OffsiteSatus_top = document.createElement("div");
-    OffsiteSatus_top.id = "OffsiteSatus_top_inbox";
+    OffsiteSatus_top.id = "requestSatus_top";
+    OffsiteSatus_top.style.display = "grid";
     OffsiteSatus_top.style.gridTemplateColumns = "70% 30%";
+
     var OffsiteSatus_bottom = document.createElement("div");
-    OffsiteSatus_bottom.id = "OffsiteSatus_bottom";
+    OffsiteSatus_bottom.id = "requestSatus_bottom";
+    OffsiteSatus_bottom.style = "grid";
+    OffsiteSatus_bottom.gridTemplateColumns = "70% 30%";
 
     var offInfo = document.createElement("div");
     offInfo.id = "offInfo";
@@ -408,27 +533,42 @@ function pendingRequestItem(person) {
     type.textContent = person.category + " Days";
 
     var offInfo2 = document.createElement("div");
-
-    var aprv_btn = document.createElement("button");
-    aprv_btn.textContent = "approve";
-    aprv_btn.id = "aprv_btn";
-    aprv_btn.style.padding = "10px";
-    aprv_btn.onclick = function () {
-        Approved(person, "true");
-    };
-
-    var decl_btn = document.createElement("button");
-    decl_btn.textContent = "decline";
-    decl_btn.style.padding = "10px";
-    decl_btn.id = "decl_btn";
-    decl_btn.onclick = function () {
-        Approved(person, "false");
-    };
-
+    var cancel = document.createElement("button");
 
     offInfo.appendChild(type);
-    offInfo2.appendChild(aprv_btn);
-    offInfo2.appendChild(decl_btn);
+    var user = localStorage.getItem("access");
+    if (user != person.googleId) {
+        var aprv_btn = document.createElement("button");
+        aprv_btn.textContent = "approve";
+        aprv_btn.id = "aprv_btn";
+        aprv_btn.style.padding = "10px";
+        aprv_btn.onclick = function () {
+            Approved(person, "true");
+        };
+
+        var decl_btn = document.createElement("button");
+        decl_btn.textContent = "decline";
+        decl_btn.style.padding = "10px";
+        decl_btn.id = "decl_btn";
+        decl_btn.onclick = function () {
+            Approved(person, "false");
+        };
+        offInfo2.appendChild(aprv_btn);
+        offInfo2.appendChild(decl_btn);
+    }else{
+        cancel.textContent = "cancel";
+        cancel.style.padding = "5px";
+        cancel.style.border = "none";
+        cancel.style.marginTop = "10px";
+        cancel.style.color = "white";
+        cancel.style.width = "100%";
+        cancel.className = "inbox_cancel_btn";
+        cancel.onclick = function () {
+            removeItem(person);
+        };
+    }
+
+    
 
     var end = new Date(person.end);
     var start = new Date(person.start);
@@ -450,7 +590,7 @@ function pendingRequestItem(person) {
     offsiteRight.style.backgroundColor = "#" + person.color;
     offsiteRight.className = "offsite_Right";
     var label = document.createElement("label")
-    label.textContent = "pending";
+    label.textContent = person.days + " Day(s)";
     offsiteRight.appendChild(label);
 
     OffsiteSatus_top.appendChild(offInfo);
@@ -458,8 +598,33 @@ function pendingRequestItem(person) {
     OffsiteSatus_bottom.appendChild(offsiteLeft);
     OffsiteSatus_bottom.appendChild(offsiteRight);
     OffsiteSatus.appendChild(OffsiteSatus_top);
+    if (user == person.googleId) {
+    OffsiteSatus.append(cancel);
+    }
     OffsiteSatus.appendChild(OffsiteSatus_bottom);
     return OffsiteSatus;
+}
+
+function removeItem(person) {
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "http://localhost:8080/crud/api/deleteRequest.php?i=" + person.id);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4) {
+            try {
+                var data = Boolean(xhr.responseText);
+                console.log(xhr.responseText);
+                if (data) {
+                    $("#reg_" + person.id).fadeToggle();
+                } else {
+                    alert("there seems to be an issue");
+                }
+            } catch (e) {
+                console.log(e);
+                alert("there seems to be an issue");
+            }
+        }
+    }
+    xhr.send();
 }
 
 function printAllEmployees(x) {
@@ -586,3 +751,15 @@ function turn(x) {
         document.getElementById("modify_user_display").style.display = "none";
     }
 }
+
+function turn_M(x) {
+    if (x) {
+        document.getElementById("modify__offsite_container").style.display = "none";
+        document.getElementById("modify_lookup_details").style.display = "block";
+    }
+    else {
+        document.getElementById("modify__offsite_container").style.display = "block";
+        document.getElementById("modify_lookup_details").style.display = "none";
+    }
+}
+

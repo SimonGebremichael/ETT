@@ -1,11 +1,13 @@
-#modify_container{
-    width: 500px;
+#modify_page_holder {
+    display: grid;
+    grid-template-columns: 33.33% 33.33% 33.33%;
+    grid-template-rows: 94vh 1fr;
 }
 
+
 #modify_container, #modify_lookup, #department_lookup {
-    height: 93.5%;
+    height: 100%;
     background-color: white;
-    float: right;
 }
 
 
@@ -93,7 +95,6 @@
 /* -------------------------------------------------------- */
 
 #modify_lookup{
-    width: 430px;
     border-right: 1px solid;
 }
 
@@ -119,8 +120,9 @@
     cursor: pointer;
 }
 #modify_lookup_details{
-    padding-top: 4%;
-    height: 100%;
+    padding-top: 10%;
+    height: 340px;
+    overflow-y: auto;
 }
 
 #modify_action_delete {
@@ -147,7 +149,6 @@
 
 /* ----------------------------------------------------------- */
 #department_lookup{
-    width: 500px;
     padding: 0px 10px 0px 10px;
     background-color: white;
     color: black;
@@ -258,4 +259,53 @@
     opacity: 0.4;
     height: 100%;
     width: 100%;
+}
+
+/* ----------------------------------------------------------- */
+
+#modify__offsite_container{
+    padding-top: 30px;
+}
+#modify__off_display {
+    width: 90%;
+    margin-left: 5%;
+    padding-top: 10px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 300px;
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+.mod_off_feilds{
+    margin-top: 10px;
+    /* border-radius: 10px; */
+}
+.mod_off_feilds label {
+    font-size: 20px;
+}
+
+#mod_off_bottom{
+    width: 80%;
+}
+.mod_off_input{
+    padding: 8px;
+    background-color: lightgrey;
+    border-bottom: none;
+    width: 91.5%;
+    border: none;
+}
+
+.mod_off_inputBTn{
+    padding: 8px;
+    width: 91.5%;
+    background-color: lightgrey;
+    border: none;
+    border-top: none;
+    text-align: center;
+    height: 100%;
+    color: white;
+}
+.mod_off_inputBTn:hover{
+    cursor: pointer;
+    background-color: gray;
 }

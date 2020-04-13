@@ -9,7 +9,7 @@
     color: black;
     width: 90%;
     margin-left: 5%;
-    height: 630px;
+    height: 87.5vh;
 }
 
 #sideBar {
@@ -165,7 +165,6 @@ table {
 
 #offsiteRight {
     border-bottom-right-radius: 10px;
-    border-bottom-left-radius: 10px;
     padding-right: 10px;
     padding-top: 10px;
     padding-bottom: 10px;
@@ -175,6 +174,7 @@ table {
     padding-left: 10px;
     padding-top: 10px;
     padding-bottom: 10px;
+    border-bottom-left-radius: 10px;
 }
 
 #offsiteRight label {
@@ -203,7 +203,7 @@ table {
 #acctionButtons {
     border: none;
     background-color: black;
-    padding-top: 30px;
+    padding-top: 20px;
 }
 
 .acctionBtn {
@@ -263,7 +263,7 @@ table {
     background-color: black;
 }
 
-#request_item_Satus {
+#request_item_Satus, .request_item_Satus {
     background-color: lightgrey;
     margin-top: 30px;
     animation: fadeIn 1s;

@@ -59,6 +59,10 @@ export default class Profiler extends React.Component {
     }
 
     render() {
+        const Linker = {
+            color: "white",
+            textDecoration: "none"
+        }
         var offtypeEmployee = '/offtype/' + this.user;
         var modifyEmployees = '/profile/modify/' + this.user;
         return (
@@ -81,7 +85,7 @@ export default class Profiler extends React.Component {
                         </table>
                         <table id="profileOptions">
                             <tr>
-                                <td><Link to={modifyEmployees}>Modify people</Link></td>
+                                <td><Link style={Linker} to={modifyEmployees}><font color="white">Modify Settings</font></Link></td>
                                 <td id="Options_Items">
                                     <img src={modify} id="proimg" /></td>
                             </tr>
@@ -102,7 +106,7 @@ export default class Profiler extends React.Component {
                         <table id="profileOptions">
                             <tr>
                                 <td>
-                                    <Link to={offtypeEmployee}>Add new OffType</Link>
+                                    <Link style={Linker} to={offtypeEmployee}>Add a new OffType</Link>
                                 </td>
                             </tr>
                         </table>

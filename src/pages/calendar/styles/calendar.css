@@ -308,7 +308,10 @@ main p:hover {
 }
 
 #displayEvents {
-    height: 200px;
+    height: 150px;
     overflow-y: auto;
     width: 50%;
+
+    display: grid;
+    grid-template-columns: 50% 50%;
 }

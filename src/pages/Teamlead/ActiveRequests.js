@@ -135,11 +135,15 @@ function printRequest(person) {
     var active = document.createElement("button");
     active.id = "offsiteActivity";
     active.textContent = person.employee_status;
+    var days = document.createElement("label");
+    days.innerHTML = "<br />" + person.days + " day(s)";
+
     offInfo.appendChild(first_name);
     offInfo.appendChild(br);
     offInfo.appendChild(email);
     offInfo.appendChild(br);
     offInfo.appendChild(active);
+    offInfo.appendChild(days);
 
     var memo = document.createElement("label");
     memo.innerHTML = person.memo;
@@ -149,22 +153,25 @@ function printRequest(person) {
     var request_btn_cont = document.createElement("div");
     request_btn_cont.id = "request_btn_cont";
 
-    var aprv_btn = document.createElement("button");
-    aprv_btn.textContent = "approve";
-    aprv_btn.id = "aprv_btn";
-    aprv_btn.onclick = function () {
-        Approved(person, "true");
-    };
+    if (person.googleId != localStorage.getItem("access")) {
+        var aprv_btn = document.createElement("button");
+        aprv_btn.textContent = "approve";
+        aprv_btn.id = "aprv_btn";
+        aprv_btn.onclick = function () {
+            Approved(person, "true");
+        };
 
-    var decl_btn = document.createElement("button");
-    decl_btn.textContent = "decline";
-    decl_btn.id = "decl_btn";
-    decl_btn.onclick = function () {
-        Approved(person, "false");
-    };
+        var decl_btn = document.createElement("button");
+        decl_btn.textContent = "decline";
+        decl_btn.id = "decl_btn";
+        decl_btn.onclick = function () {
+            Approved(person, "false");
+        };
+        request_btn_cont.appendChild(aprv_btn);
+        request_btn_cont.appendChild(decl_btn);
+    }
 
-    request_btn_cont.appendChild(aprv_btn);
-    request_btn_cont.appendChild(decl_btn);
+
 
     var end = new Date(person.end);
     var start = new Date(person.start);

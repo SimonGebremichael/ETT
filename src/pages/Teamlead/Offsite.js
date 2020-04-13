@@ -107,9 +107,17 @@ function OffsiteItem(person) {
 
     var OffsiteSatus_top = document.createElement("div");
     OffsiteSatus_top.id = "OffsiteSatus_top";
+    OffsiteSatus_top.style.display = "grid";
+    OffsiteSatus_top.style.borderTopLeftRadius = "10px";
+    OffsiteSatus_top.style.borderTopRightRadius = "10px";
+    OffsiteSatus_top.style.gridTemplateColumns = "30% 70%";
+    OffsiteSatus_top.style.marginTop = "30px";
+    OffsiteSatus_top.style.backgroundColor = "lightgrey";
 
     var OffsiteSatus_bottom = document.createElement("div");
     OffsiteSatus_bottom.id = "OffsiteSatus_bottom";
+    OffsiteSatus_bottom.style.display = "grid";
+    OffsiteSatus_bottom.style.gridTemplateColumns = "70% 30%";
 
     var br = document.createElement("BR");
 
@@ -122,6 +130,7 @@ function OffsiteItem(person) {
 
     var offInfo = document.createElement("div");
     offInfo.id = "offInfo";
+    offInfo.style.width = "100%";
     var first_name = document.createElement("label");
     first_name.textContent = person.first_name + ", " + person.last_name;
     var email = document.createElement("label");
@@ -167,12 +176,15 @@ function OffsiteItem(person) {
         offsiteLeft.innerHTML += "&nbsp;&nbsp;No active requests";
         offsiteLeft.style.backgroundColor = "black";
         offsiteLeft.style.color = "white";
+        offsiteLeft.style.borderBottomLeftRadius = "10px";
 
         var offsiteRight = document.createElement("div");
         offsiteRight.id = "offsiteRight";
         offsiteRight.style.backgroundColor = "black";
         offsiteRight.style.color = "white";
         offsiteRight.className = "offsite_Right";
+        offsiteRight.style.borderBottomLeftRadius = "0px";
+
         var label = document.createElement("label")
         label.textContent = "No requests";
         offsiteRight.appendChild(label);
