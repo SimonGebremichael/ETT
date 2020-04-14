@@ -12,14 +12,14 @@ export default class exporter extends React.Component {
     }
 
     componentDidMount() {
-        var include = document.getElementById("include"),
-            list = document.getElementById("includeList");
-        include.checked = true;
-        list.disabled = true;
+        // var include = document.getElementById("include"),
+        //     list = document.getElementById("includeList");
+        // include.checked = true;
+        // list.disabled = true;
 
-        include.addEventListener("click", () => {
-            include.checked ? list.disabled = true : list.disabled = false;
-        });
+        // include.addEventListener("click", () => {
+        //     include.checked ? list.disabled = true : list.disabled = false;
+        // });
     }
 
     render() {

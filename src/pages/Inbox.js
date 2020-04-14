@@ -136,10 +136,10 @@ function inboxitem(person) {
     offsiteLeft.style.backgroundColor = "#" + person.color;
     var btn1 = document.createElement("button");
     btn1.id = "requestActivity";
-    btn1.textContent = mon[start.getMonth()] + ", " + start.getDate() + " " + start.getFullYear();
+    btn1.textContent = mon[start.getMonth()+1] + ", " + (start.getDate()+1) + " " + start.getFullYear();
     var btn2 = document.createElement("button");
     btn2.id = "requestActivity";
-    btn2.textContent = mon[end.getMonth()] + ", " + end.getDate() + " " + end.getFullYear();
+    btn2.textContent = mon[end.getMonth()+1] + ", " + (end.getDate()+1) + " " + end.getFullYear();
     offsiteLeft.appendChild(btn1);
     offsiteLeft.innerHTML += "&nbsp;&nbsp;";
     offsiteLeft.appendChild(btn2);

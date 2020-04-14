@@ -22,11 +22,13 @@ export default class Pending extends React.Component {
                     var data = JSON.parse(xhr.responseText);
                     turn(false);
                     if (data.employee.employee_status == "pending") {
-                        document.getElementById("pending_message").innerHTML = "You will  be notified once approved, Thank you";
+                        document.getElementById("pending_message").innerHTML = "Checked back in when your account is approved, Thank you";
                         document.getElementById("pending_header_message").innerHTML = "Your Account is Currently Pending!";
+                        document.getElementById("pending_btn_back").style.display = "block";
                     } else {
                         document.getElementById("pending_message").innerHTML = "your account has been aprroved";
                         document.getElementById("pending_header_message").innerHTML = "Your all set :)";
+                        document.getElementById("pending_btn_ok").style.display = "block";
                     }
                     document.getElementById("pending_username").innerHTML += data.employee.first_name + ", " + data.employee.last_name;
                     document.getElementById("pending_email").innerHTML += data.employee.email;
@@ -38,6 +40,7 @@ export default class Pending extends React.Component {
                     document.getElementById("pending_message").innerHTML = "account might have been delete";
                     document.getElementById("pending_header_message").innerHTML = "User not found";
                     document.getElementById("pending_header_message").style.display = "pending_bottom_info";
+                    document.getElementById("pending_btn_back").style.display = "block";
                 }
             }
         }
@@ -89,10 +92,10 @@ export default class Pending extends React.Component {
 
                         <div class="row">
                             <Link to={dashId}>
-                                <input type="submit" value="OK" />
+                                <input id="pending_btn_ok" type="submit" value="Go To Dashboard" />
                             </Link>
                             <Link to="/">
-                                <input type="submit" value="back" />
+                                <input id="pending_btn_back" type="submit" value="back" />
                             </Link>
                         </div>
                     </div>

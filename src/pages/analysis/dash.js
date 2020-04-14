@@ -53,7 +53,10 @@ function printAnalysis(data) {
     label.textContent = data.name;
     label.style.marginLeft = "2%";
 
-    var val = ["J", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"];
+    var val = [
+        "J", "F", "M", "A",
+        "M", "J", "J", "A",
+        "S", "O", "N", "D"];
 
     var chart = document.createElement("div");
     chart.className = "stat_displayer";
@@ -76,9 +79,7 @@ function printAnalysis(data) {
         range.style.width = "100%";
         if (data.value[i] > 10) {
             range.style.height = "100%";
-        } else {
-            range.style.height = (10 - data.value[i]) + "0%";
-        }
+        } else { range.style.height = (10 - data.value[i]) + "0%"; }
         range.style.backgroundColor = "#E6E6E6";
 
         var label1 = document.createElement("label");

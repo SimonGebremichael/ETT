@@ -3,12 +3,15 @@ import Status from './calendarStatus'
 import ApiCalendar from 'react-google-calendar-api';
 import ApiCalendar2 from 'react-google-calendar-api/ApiCalendar';
 import $ from 'jquery';
+import { GoogleLogin } from 'react-google-login';
+
 var CLIENT_ID = '1048871087214-t3ttoli7jpjv5ep62qr91ftsh4hf7010.apps.googleusercontent.com';
 var API_KEY = 'AIzaSyA0cfGXh6JoX0lXpYnjgTq09m62vO62TmM';
 var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
 var SCOPES = "https://www.googleapis.com/auth/calendar.readonly";
 var mon = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 var events;
+
 var today = new Date(),
     dd = String(today.getDate()).padStart(2),
     mm = String(today.getMonth() + 1).padStart(2),
@@ -19,12 +22,8 @@ export default class side extends React.Component {
         super(props);
     }
     componentDidMount() {
-        document.getElementById("sideDatePrint").innerHTML = dd + " " + mon[mm - 1] + ", " + yyyy;
-        // printSideCal();
-        printOfftypes();
-        $("#googleUpcommingRender").click(() => {
-            getEvents();
-        });
+        $("#sideDatePrint").text(dd + " " + mon[mm - 1] + ", " + yyyy);
+        $("#googleUpcommingRender").click(() => { getEvents();  });
     }
     render() {
         return (<CalenarSide />)
@@ -38,72 +37,46 @@ function CalenarSide() {
                 <dive id="sideDate">
                     <h4 id="sideDatePrint" title="today"></h4>
                 </dive>
-            </div>
-            <br />
-            <label id="displayFor"></label>
-            <br />
-            <br />
-            <div id="cal_side_btns">
-                <div class="cal_side_actions">
-                    <div style={left}>
-                        Remote Work:
-                        </div>
-                    <div style={right}>
-                        4
-                        </div>
-                </div>
-                <div class="cal_side_actions">
-                    <div style={left}>
-                        Vacation:
-                        </div>
-                    <div style={right}>
-                        2
-                        </div>
-                </div>
-                <div class="cal_side_actions">
-                    <div style={left}>
-                        Sick days:
-                        </div>
-                    <div style={right}>
-                        1
-                         </div>
-                </div>
-
-                <div class="cal_side_actions">
-                    <div style={left}>
-                        Bithdays:
-                        </div>
-                    <div style={right}>
-                        0
-                        </div>
-                </div>
-            </div>
-            <br />
-            <div id="cal_side_Display" >
             </div><br />
+            
+            <label id="displayFor"></label><br /><br />
+            <div id="cal_side_offtype_list"></div> <br />
+            
+            <div id="cal_side_Display" > </div><br />
 
             <div id="cal_side_organizer">
                 <h3>View</h3>
-                <div id="cal_side_organizer_displayer">
-                </div>
-            </div>
-            <br />
+                <div id="cal_side_organizer_displayer"></div>
+            </div><br />
+
             <div id="cal_side_event_container">
                 <h3>Upcomming events: <label>(Only me)</label></h3>
                 <div id="cal_side_event_only_displayer">
                 </div>
                 <button id="googleUpcommingRender">View upcomming google events</button>
+                <div id="cal_side_googleLogin">
+                    <GoogleLogin
+                        clientId="1048871087214-t3ttoli7jpjv5ep62qr91ftsh4hf7010.apps.googleusercontent.com"
+                        buttonText="Login with google"
+                        onSuccess={successLogin}
+                        onFailure={failLogin}
+                        isSignedIn={true}
+                        cookiePolicy={'single_host_origin'}
+                    />
+                </div>
             </div>
         </div>
     )
 }
 
-const left = {
-    float: "left"
+const successLogin = (response) => {
+    $("#cal_side_googleLogin").css("display", "none");
+    getEvents();
 }
-const right = {
-    float: "right"
+const failLogin = (response) => {
+    //nothing
 }
+
 function getEvents() {
     if (ApiCalendar.sign) {
         ApiCalendar.listUpcomingEvents(10)
@@ -139,42 +112,12 @@ function getEvents() {
             } else {
                 $("#googleUpcommingRender").text("no upcomming events");
             }
-        }); 
+        });
     } else {
+        $("#googleUpcommingRender").css("display", "none");
+        $("#cal_side_googleLogin").css("display", "block");
         events = null;
     }
-}
-
-function printOfftypes() {
-    var off = new XMLHttpRequest();
-    off.open("GET", "http://localhost:8080/crud/api/getofftype.php");
-    off.onreadystatechange = function () {
-        if (off.readyState == 4) {
-            var data = JSON.parse(off.responseText);
-            var box = document.getElementById("cal_side_organizer_displayer");
-            box.innerHTML = "";
-            // console.log(off.responseText);
-            if (data.Total != 0) {
-                for (var i = 0; i < data.Total; i++) {
-                    var div = document.createElement("div");
-                    div.id = "cal_side_organizer_item";
-
-                    var input = document.createElement("input");
-                    input.className = "cal_organizer_type";
-                    input.type = "checkbox";
-                    input.checked = "true";
-                    input.id = "offsite" + data.offtype[i].id;
-
-                    var lbl = document.createElement("label");
-                    lbl.textContent = data.offtype[i].name;
-                    div.appendChild(input);
-                    div.appendChild(lbl);
-                    box.appendChild(div);
-                }
-            }
-        }
-    }
-    off.send();
 }
 
 function printUpcomming(data) {

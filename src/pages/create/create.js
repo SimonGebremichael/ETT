@@ -114,8 +114,8 @@ function date_vali(from, to, type, memo, c_ERR) {
 
 function exporter_real(x, y, type, memo, c_ERR) {
     var resultDays = Math.round((new Date(y) - new Date(x)) / (1000 * 60 * 60 * 24));
-    var Start = new Date(x).getFullYear() + "-" + new Date(x).getMonth() + "-" + new Date(x).getDate();
-    var end = new Date(y).getFullYear() + "-" + new Date(y).getMonth() + "-" + new Date(y).getDate();
+    var Start = new Date(x).getFullYear() + "-" + new Date(x).getMonth() + "-" + (new Date(x).getDate() + 1);
+    var end = new Date(y).getFullYear() + "-" + new Date(y).getMonth() + "-" + (new Date(y).getDate() + 1);
     console.log(user);
     console.log(x);
     console.log(y);
@@ -136,13 +136,13 @@ function exporter_real(x, y, type, memo, c_ERR) {
         "&days=" + resultDays);
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4) {
-            if (xhr.responseText == "true") {
+            if (xhr.responseText.length == 4 || xhr.responseText.length == 5) {
                 document.getElementById("expo_img").src = check;
                 document.getElementById("sentInfo").innerHTML = " <br /><br />sent for: <br />" + x + " - " + y;
                 document.getElementById("sentInfo").innerHTML += "<br /><br />" + resultDays + " days";
                 c_ERR.innerHTML = xhr.responseText;
             } else {
-                alert(xhr.responseText);
+                console.log(xhr.responseText);
             }
         }
     }

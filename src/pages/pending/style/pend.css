@@ -70,6 +70,9 @@
   height: 70px;
 
 }
+#pending_btn_ok, #pending_btn_back{
+  display: none;
+}
 
 @media screen and (max-width: 600px) {
   .col-25, .col-75, input[type="submit"] {

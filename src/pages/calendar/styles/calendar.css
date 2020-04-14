@@ -72,7 +72,7 @@ main p:hover {
     opacity: 1;
 }
 
-#reserve {
+.reserve {
     height: 15px;
     width: 100%;
     margin-top: 10px;
@@ -163,7 +163,7 @@ main p:hover {
     color: black;
 }
 
-#cal_side_btns {
+#cal_side_offtype_list {
     display: grid;
     grid-template-columns: 50% 50%;
     width: 100%;
@@ -217,16 +217,16 @@ main p:hover {
     color: black;
 }
 
-#cal_side_organizer_item {
+.cal_side_organizer_item {
     margin-top: 10px;
     padding-left: 20px;
 }
 
-#cal_side_organizer_item label {
+.cal_side_organizer_item label {
     margin-left: 20px;
 }
 
-#cal_side_organizer_item input {
+.cal_side_organizer_item input {
     padding: 10px;
     transform: scale(1.6);
 }
@@ -272,7 +272,7 @@ main p:hover {
 
 #popupDisplay {
     width: 100%;
-    height: 93%;
+    height: 94%;
     display: none;
     animation: fadeIn 0.6s;
     position: absolute;
@@ -308,10 +308,13 @@ main p:hover {
 }
 
 #displayEvents {
-    height: 150px;
+    height: 180px;
     overflow-y: auto;
-    width: 50%;
-
+    overflow-x: hidden;
     display: grid;
-    grid-template-columns: 50% 50%;
+    grid-template-columns: 45% 50%;
+}
+
+#cal_side_googleLogin{
+    display: none;
 }

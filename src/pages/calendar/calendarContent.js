@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import $ from 'jquery';
-var mon = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+var mon = [
+    "January", "February", "March", "April",
+    "May", "June", "July", "August", "September",
+    "October", "November", "December"];
 var today = new Date(),
     dd = String(today.getDate()).padStart(2),
     mm = String(today.getMonth() + 1),
@@ -11,6 +14,8 @@ var today = new Date(),
     listened = false,
     d = document;
 var grab = "";
+var grab2 = "";
+var forToday;
 export default class Socki extends React.Component {
     constructor(props) {
         super(props);
@@ -22,17 +27,20 @@ export default class Socki extends React.Component {
             var box = document.getElementById("date-section2");
             box.innerHTML = "";
             document.getElementById("dateTitle").innerHTML = mon[mm - 1] + ", " + yyyy;
-
+            forToday = request;
             grab = "";
+            grab2 = "";
             listened = false;
 
             //adjust formating for events before or after month
             for (var i = 0; i < request.Total; i++) {
-                if (new Date(request.request[i].End).getMonth() == mm) {
-                    request.request[i].End = yyyy + "-" + mm + "-" + new Date(yyyy, mm, 0).getDate();
-                }
-                if (new Date(request.request[i].Start).getMonth() == mm - 2) {
-                    grab += "wq" + request.request[i].id + ",";
+                if (new Date(request.request[i].Start).getMonth() < new Date(request.request[i].End).getMonth()) {
+                    if (new Date(request.request[i].End).getMonth() == mm - 1) {
+                        grab2 += "fm" + request.request[i].id + ",";
+                    }
+                    if (new Date(request.request[i].End).getMonth() == mm - 2) {
+                        grab += "wq" + request.request[i].id + ",";
+                    }
                 }
             }
 
@@ -63,9 +71,6 @@ export default class Socki extends React.Component {
                     document.getElementById("r" + this.id).style.display = "block";
                     document.getElementById("h" + this.id).style.display = "none";
                 };
-                temp.onclick = function (elem) {
-                    pullUpDay(elem);
-                }
 
                 var dayText = document.createElement("label");
                 dayText.textContent = i + 1;
@@ -79,32 +84,38 @@ export default class Socki extends React.Component {
                 hoverText.id = "h" + temp.id;
                 hoverText.style.display = "none";
 
+                function appecndReserve(k) {
+                    var reserve = document.createElement("div");
+                    reserve.className = "reserve";
+                    reserve.id = "r_" + request.request[k].category;
+                    reserve.style.transition = "all 0.3s ease-in-out";
+
+                    if (!isTextAddForReserve[k]) {
+                        isTextAddForReserve[k] = !isTextAddForReserve[k];
+                        reserve.textContent = request.request[k].category + ":  " + request.request[k].first_name + ", " + request.request[k].last_name.substr(0, 1);
+                    }
+                    reserve.setAttribute('style', "background-color: " + "#" + request.request[k].color);
+                    return reserve;
+                }
 
                 if (request.Total > 0) {
                     var ids = grab.substr(0, grab.length - 1).split(",");
+                    var fm = grab2.substr(0, grab2.length - 1).split(",");
                     for (var k = 0; k < request.Total; k++) {
+
+                        //render dates from request object
                         if (i >= new Date(request.request[k].Start).getDate() && i <= new Date(request.request[k].End).getDate()) {
-                            var reserve = document.createElement("div");
-                            reserve.id = "reserve";
-                            reserve.className = "r" + temp.id;
-                            if (!isTextAddForReserve[k]) {
-                                isTextAddForReserve[k] = !isTextAddForReserve[k];
-                                reserve.textContent = request.request[k].category + ":  " + request.request[k].first_name + ", " + request.request[k].last_name.substr(0, 1);
-                            }
-                            reserve.setAttribute('style', "background-color: " + "#" + request.request[k].color);
-                            reserveCont.appendChild(reserve);
+                            reserveCont.appendChild(appecndReserve(k));
                         }
 
-                        if (ids[k] == "wq" + request.request[k].id && i <= new Date(request.request[k].End).getDate() && new Date(request.request[k].End).getMonth() == mm - 1) {
-                            var reserve = document.createElement("div");
-                            reserve.id = "reserve";
-                            reserve.className = "r" + temp.id;
-                            if (!isTextAddForReserve[k]) {
-                                isTextAddForReserve[k] = !isTextAddForReserve[k];
-                                reserve.textContent = request.request[k].category + ":  " + request.request[k].first_name + ", " + request.request[k].last_name.substr(0, 1);
-                            }
-                            reserve.setAttribute('style', "background-color: " + "#" + request.request[k].color);
-                            reserveCont.appendChild(reserve);
+                        //render dates that start from the month before
+                        if (ids[k] == "wq" + request.request[k].id && i <= new Date(request.request[k].End).getDate()) {
+                            reserveCont.appendChild(appecndReserve(k));
+                        }
+
+                        //render dates that continue to next month
+                        if (fm[k] == "fm" + request.request[k].id && i >= new Date(request.request[k].Start).getDate()) {
+                            reserveCont.appendChild(appecndReserve(k));
                         }
                     }
                 } else { console.log('No upcoming events found.'); }
@@ -120,41 +131,51 @@ export default class Socki extends React.Component {
                         temp.style.opacity = "0.4";
                     } else if (i == currentDate.getDate()) {
                         dayText.style.backgroundColor = "#2F93F2";
-                        dayText.style.padding = "5px 10px 5px 10px";
+                        dayText.style.padding = "7px 4px 5px 5px";
                         dayText.style.color = "white";
-                        dayText.style.borderRadius = "10px";
+                        dayText.style.marginLeft = "-5px";
+                        dayText.style.width = "100px";
+                        dayText.style.borderBottomRightRadius = "10px";
                     }
                 }
             }
 
-            if (window.location.href.search("calendar") != -1) {
-                $("#displayFor").text(mon[mm - 1]);
+            //listener for each box of the day
+            var temp = document.getElementsByClassName("day");
+            for (var i = 0; i < temp.length; i++) {
+                temp[i].addEventListener("click", function (elem) {
+                var slected_date = (elem.srcElement.id + 1) + " " + mon[mm-1] + ", " + yyyy;
+                pullUpDay((mm - 1), (parseInt(this.id) + 1), slected_date);
+                })
             }
         }
 
+        //grabs events from db through XHR requests than it is parsed as JSON
         function getRequestList() {
+            $("#displayFor").text(mon[mm - 1]);
+
             var all = new XMLHttpRequest();
-            all.open("GET", "http://localhost:8080/crud/api/getCalendarRequest.php?y=" + yyyy + "&m=" + mm);
+            all.open("GET", "http://localhost:8080/crud/api/getCalendarRequest.php?y=" + yyyy + "&m=" + (mm - 1));
             all.onreadystatechange = function () {
                 if (all.readyState == 4) {
                     try {
                         var data = JSON.parse(all.responseText);
-                        var box = document.getElementById("cal_side_Display");
-                        box.innerHTML = "";
                         if (data.Total != 0) {
-                            if (data.Total != 0) {
-                                for (var i = 0; i < data.Total; i++) {
-                                    box.appendChild(printSideCal_items(data.request[i]));
-                                }
-                            }
                             prntCal(data);
+                            if (window.location.href.search("calendar") != -1) {
+                                displayStatusOfMonth(data);
+                                printAmountofoffTypes();
+                            }
                         } else {
+                            if (window.location.href.search("calendar") != -1) {
+                                document.getElementById("cal_side_Display").innerHTML = "";
+                            }
                             console.log("no events to show");
                             printEmpty();
                         }
                     } catch (e) {
                         console.log(e);
-                        console.log("there seems to be an issue :(");
+                        printEmpty();
                     }
                 }
             }
@@ -280,10 +301,10 @@ function printSideCal_items(person) {
 
     var btn1 = document.createElement("button");
     btn1.id = "requestActivity";
-    btn1.textContent = mon[start.getMonth()] + ", " + start.getDate() + " " + start.getFullYear();
+    btn1.textContent = mon[start.getMonth() + 1] + ", " + (start.getDate() + 1) + " " + start.getFullYear();
     var btn2 = document.createElement("button");
     btn2.id = "requestActivity";
-    btn2.textContent = mon[end.getMonth()] + ", " + end.getDate() + " " + end.getFullYear();
+    btn2.textContent = mon[end.getMonth() + 1] + ", " + (end.getDate() + 1) + " " + end.getFullYear();
     offsiteLeft.appendChild(btn1);
     offsiteLeft.innerHTML += "&nbsp;&nbsp;";
     offsiteLeft.appendChild(btn2);
@@ -365,20 +386,22 @@ function printEmpty() {
     }
 }
 
-function pullUpDay(day) {
-    console.log(day);
+function pullUpDay(month, day, slected_date) {
     document.getElementById("popupDisplay").style.display = "block";
+    document.getElementById("popDate").innerHTML = slected_date;
     var all = new XMLHttpRequest();
-    all.open("GET", "http://localhost:8080/crud/api/getCalendarDay.php?y=" + yyyy + "&m=" + mm + "&d=" + day);
+    all.open("GET", "http://localhost:8080/crud/api/getCalendarDay.php?y=" + yyyy + "&m=" + month + "&d=" + day);
     all.onreadystatechange = function () {
         if (all.readyState == 4) {
             try {
                 var data = JSON.parse(all.responseText);
                 console.log(data);
+                document.getElementById("cal_pop_amt_").textContent = data.Total + " For this day";
                 var box = document.getElementById("displayEvents");
                 box.innerHTML = "";
                 if (data.Total != 0) {
                     for (var i = 0; i < data.Total; i++) {
+                        // box.innerHTML += "<br /> name:" + data.request[i].first_name + ", " + data.request[i].last_name;
                         box.appendChild(printSideCal_items(data.request[i]));
                     }
                 }
@@ -388,9 +411,94 @@ function pullUpDay(day) {
             }
         }
     }
-    // all.send();
+    all.send();
 }
 
-function pullUpItem(data) {
+function displayStatusOfMonth(data) {
+    var box = document.getElementById("cal_side_Display");
+    box.innerHTML = "";
+    if (data.Total != 0) {
+        for (var i = 0; i < data.Total; i++) {
+            box.appendChild(printSideCal_items(data.request[i]));
+        }
+    }
+}
 
+function printAmountofoffTypes() {
+    var offTypes_List = new XMLHttpRequest();
+    offTypes_List.open("GET", "http://localhost:8080/crud/api/getRequestType_cal.php?y=" + yyyy + "&m=" + (mm - 1));
+    offTypes_List.onreadystatechange = function () {
+        if (offTypes_List.readyState == 4) {
+            try {
+
+                //print both total offtypes and offtype controls
+                var data = JSON.parse(offTypes_List.responseText);
+                var box = document.getElementById("cal_side_offtype_list");
+                var box2 = document.getElementById("cal_side_organizer_displayer");
+                box.innerHTML = "";
+                box2.innerHTML = "";
+                console.log(data);
+                for (var i = 0; i < data.Total; i++) {
+                    box.appendChild(renderOffType_Item(data.off[i]));
+                    box2.appendChild(renderOffType_controls(data.off[i]));
+                }
+
+
+                 //listeners for reserve elements for control checkboxes
+                var controls = document.getElementsByClassName("cal_side_organizer_item");
+                for (var i = 0; i < controls.length; i++) {
+                    controls[i].addEventListener("click", (elem) => {
+                        var res = document.getElementsByClassName("reserve");
+                        for (var k = 0; k < res.length; k++) {
+                            if (res[k].id == elem.srcElement.id) {
+                                if (!elem.explicitOriginalTarget.checked) {
+                                    res[k].style.opacity = "0";
+                                } else {
+                                    res[k].style.opacity = "1";
+                                }
+                            }
+                        }
+                    });
+                }
+            } catch (e) { console.log(e); }
+        }
+    }
+    offTypes_List.send();
+}
+
+function renderOffType_Item(data) {
+    var item = document.createElement("div");
+    item.className = "cal_side_actions";
+
+    var left = document.createElement("div");
+    left.style.float = "left";
+    left.textContent = data.name;
+
+    var right = document.createElement("div");
+    right.style.float = "right";
+    right.textContent = data.value;
+
+    item.appendChild(left);
+    item.appendChild(right);
+    return item;
+}
+
+function renderOffType_controls(data) {
+    var item = document.createElement("div");
+    item.className = "cal_side_organizer_item";
+
+    var left = document.createElement("input");
+    left.type = "checkbox";
+    left.className = "cal_organizer_type";
+    left.id = "r_" + data.name;
+
+    if (data.value > 0) {
+        left.checked = "checked";
+    }
+    var right = document.createElement("label");
+    right.textContent = data.name;
+
+    item.appendChild(left);
+    item.appendChild(right);
+    return item;
 }
