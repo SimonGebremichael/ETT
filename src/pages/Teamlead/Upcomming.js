@@ -126,10 +126,15 @@ function OffsiteItem(person) {
     var active = document.createElement("button");
     active.id = "offsiteActivity";
     active.textContent = person.employee_status;
+
+    var dept = document.createElement("p");
+    dept.innerHTML = person.dept;
+
     offInfo.appendChild(first_name);
     offInfo.appendChild(br);
     offInfo.appendChild(email);
     offInfo.appendChild(br);
+    offInfo.appendChild(dept);
     offInfo.appendChild(active);
 
     var end = new Date(person.end);

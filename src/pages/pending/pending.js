@@ -27,7 +27,7 @@ export default class Pending extends React.Component {
                         document.getElementById("pending_btn_back").style.display = "block";
                     } else {
                         document.getElementById("pending_message").innerHTML = "your account has been aprroved";
-                        document.getElementById("pending_header_message").innerHTML = "Your all set :)";
+                        document.getElementById("pending_header_message").innerHTML = "You're all set :)";
                         document.getElementById("pending_btn_ok").style.display = "block";
                     }
                     document.getElementById("pending_username").innerHTML += data.employee.first_name + ", " + data.employee.last_name;

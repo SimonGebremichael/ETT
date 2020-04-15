@@ -134,14 +134,19 @@ function OffsiteItem(person) {
     var first_name = document.createElement("label");
     first_name.textContent = person.first_name + ", " + person.last_name;
     var email = document.createElement("label");
-    email.innerHTML = "<br /> " + person.email;
+    email.innerHTML = "<br /> " + person.email + "<br /> ";
     var active = document.createElement("button");
     active.id = "offsiteActivity";
     active.textContent = person.employee_status;
+
+    var dept = document.createElement("p");
+    dept.innerHTML = person.dept;
+
     offInfo.appendChild(first_name);
     offInfo.appendChild(br);
     offInfo.appendChild(email);
     offInfo.appendChild(br);
+    offInfo.appendChild(dept);
     offInfo.appendChild(active);
 
     if (person.end != null && person.start != null) {
@@ -152,10 +157,10 @@ function OffsiteItem(person) {
         offsiteLeft.style.backgroundColor = "#" + person.color;
         var btn1 = document.createElement("button");
         btn1.id = "requestActivity";
-        btn1.textContent = mon[start.getMonth()] + ", " + start.getDate() + " " + start.getFullYear();
+        btn1.textContent = mon[start.getMonth() + 1] + ", " + (start.getDate() + 1) + " " + start.getFullYear();
         var btn2 = document.createElement("button");
         btn2.id = "requestActivity";
-        btn2.textContent = mon[end.getMonth()] + ", " + end.getDate() + " " + end.getFullYear();
+        btn2.textContent = mon[end.getMonth() + 1] + ", " + (end.getDate() + 1) + " " + end.getFullYear();
         offsiteLeft.appendChild(btn1);
         offsiteLeft.innerHTML += "&nbsp;&nbsp;";
         offsiteLeft.appendChild(btn2);

@@ -127,11 +127,11 @@ function checkIfTeamLead(response){
         var num = parseInt(where);
         localStorage.setItem("teamlead", "_true_");
         localStorage.setItem("access", response.googleId);
-        window.location.href = "http://localhost:3000/dashboard/" + response.googleId;
+        window.location.href = "http://localhost:3000/login/pending/" + response.googleId;
       } catch (e) {
         localStorage.setItem("teamlead", check.responseText);
         localStorage.setItem("access", response.googleId);
-        window.location.href = "http://localhost:3000/dashboard/2/" + response.googleId;
+        window.location.href = "http://localhost:3000/login/pending/" + response.googleId;
       }
     }
   }

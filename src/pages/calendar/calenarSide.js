@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Status from './calendarStatus'
+import empty from '../item/empty.png'
 import ApiCalendar from 'react-google-calendar-api';
 import ApiCalendar2 from 'react-google-calendar-api/ApiCalendar';
 import $ from 'jquery';
@@ -26,13 +27,8 @@ export default class side extends React.Component {
         $("#googleUpcommingRender").click(() => { getEvents();  });
     }
     render() {
-        return (<CalenarSide />)
-    }
-}
-
-function CalenarSide() {
-    return (
-        <div id="sideCal" >
+        return (
+            <div id="sideCal" >
             <div id='sideInfo' >
                 <dive id="sideDate">
                     <h4 id="sideDatePrint" title="today"></h4>
@@ -57,7 +53,7 @@ function CalenarSide() {
                 <div id="cal_side_googleLogin">
                     <GoogleLogin
                         clientId="1048871087214-t3ttoli7jpjv5ep62qr91ftsh4hf7010.apps.googleusercontent.com"
-                        buttonText="Login with google"
+                        buttonText="View upcomming google events"
                         onSuccess={successLogin}
                         onFailure={failLogin}
                         isSignedIn={true}
@@ -65,8 +61,26 @@ function CalenarSide() {
                     />
                 </div>
             </div>
+            <div id="cal_side_empty">
+                <img src={empty} style={emptyImg} id="cal_side_empty_img" /><br /><br /><br />
+                <center><p style={empty_P}>No events founds</p></center>
+            </div>
         </div>
-    )
+        )
+    }
+}
+
+const emptyImg = {
+    marginLeft: "40%",
+    width: "100px",
+    marginTop: "20%",
+    opacity: "0.6",
+    animation: "slideInDown 0.6s"
+}
+const empty_P = {
+    marginTop: "20px",
+    opacity: "0.6",
+    animation: "slideInDown 0.6s"
 }
 
 const successLogin = (response) => {
@@ -89,7 +103,7 @@ function getEvents() {
             }).then(function () {
                 console.log("success baby");
             }, function (error) {
-                // console.log(JSON.stringify(error, null, 2));
+                console.log(error);
             });
         });
         ApiCalendar.gapi.auth2.getAuthInstance().signIn();
@@ -123,25 +137,27 @@ function getEvents() {
 function printUpcomming(data) {
     var item = document.createElement("div")
     item.id = "cal_side_event_only_item";
+    item.style.animation = "bounceIn 0.5s";
 
-    var title = document.createElement("h3")
+    var title = document.createElement("h3");
     title.textContent = data.summary;
 
     var from = document.createElement("p")
     from.id = "requestActivity";
-    from.style.color = "black";
+    from.style.color = "white";
     from.style.border = "1px solid black";
     from.style.fontSize = "15px";
+    from.style.background = "none";
     var da = new Date(data.start.dateTime);
     var dat = da.getFullYear() + "." + da.getMonth() + "." + da.getDate();
     from.textContent = dat;
 
     var to = document.createElement("p")
     to.id = "requestActivity";
-    to.style.color = "black";
+    to.style.color = "white";
     to.style.border = "1px solid black";
     to.style.fontSize = "15px";
-    to.style.marginLeft = "5px";
+    to.style.background = "none";
     var daa = new Date(data.end.dateTime);
     var datt = daa.getFullYear() + "." + daa.getMonth() + "." + daa.getDate();
     to.textContent = datt;
@@ -149,6 +165,8 @@ function printUpcomming(data) {
     var a = document.createElement("a")
     a.href = data.htmlLink;
     a.target = "_blank";
+    a.style.color = "white";
+    a.style.textDecoration = "none";
 
     var view = document.createElement("p")
     view.textContent = "view on calendar";
@@ -157,7 +175,9 @@ function printUpcomming(data) {
     var br = document.createElement("BR")
 
     item.appendChild(title);
+    item.appendChild(br);
     item.appendChild(from);
+    item.innerHTML += "&nbsp;&nbsp;"
     item.appendChild(to);
     item.appendChild(br);
     item.appendChild(br);

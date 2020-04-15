@@ -9,7 +9,6 @@ export default class team extends React.Component {
     componentDidMount() {
         document.getElementById("popBg").addEventListener("click", function () {
             document.getElementById("popupDisplay").style.display = "none";
-            document.getElementById("container_" + window.location.href.split("/")[3]).style.filter = "blur(0)";
         });
     }
     render() {

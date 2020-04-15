@@ -242,6 +242,7 @@ main p:hover {
 #cal_side_event_only_displayer {
     display: grid;
     grid-template-columns: 100%;
+
 }
 
 #googleUpcommingRender{
@@ -257,12 +258,13 @@ main p:hover {
     cursor: pointer;
     background-color: #333333;
 }
+
 #cal_side_event_only_item {
     border: 1px solid black;
     margin-top: 20px;
     padding: 10px;
-    color: black;
-    background-color: white;
+    background-color: gray;
+    color: white;
 }
 
 #cal_side_event_dates{
@@ -316,5 +318,11 @@ main p:hover {
 }
 
 #cal_side_googleLogin{
+    display: none;
+    margin-top: 20px;
+    width: 100%;
+}
+
+#cal_side_empty{
     display: none;
 }

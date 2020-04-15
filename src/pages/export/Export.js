@@ -38,9 +38,9 @@ export default class exporter extends React.Component {
                             <input type="date" id="expo_to" /><br /><br />
                             <h3>Include:</h3><br />
                             <input type="radio" id="expo_include_dept" name="include" value="demp" checked />
-                            <label for="male">My Dept</label><br />
+                            <label for="male">My Dept</label><br /><br /><br />
                             <input type="radio" id="expo_include_all" name="include" value="all" />
-                            <label for="male">All depts</label><br />
+                            <label for="male">All Depts</label><br />
                         </div>
                     </div>
                     <div id="expo_load" style={expo_load}>
@@ -60,35 +60,31 @@ export default class exporter extends React.Component {
 function expo_vali() {
     var from = document.getElementById("expo_from").value,
         to = document.getElementById("expo_to").value,
-        All = document.getElementById("expo_include_all").checked,
-        My = document.getElementById("expo_include_dept").checked,
+        All = document.getElementById("expo_include_dept").checked,
         ERR = document.getElementById("expo_err");
     ERR.innerHTML = "";
 
-    from != "" && to != "" ? expo_vali2(from, to, All, My, ERR) : ERR.innerHTML = "<br />Empty dates";
+    from != "" && to != "" ? expo_vali2(from, to, All, ERR) : ERR.innerHTML = "<br />Empty dates";
 
 }
 
-function expo_vali2(f, t, all, my, ERR) {
+function expo_vali2(f, t, all, ERR) {
 
     if (new Date(f) < new Date(t)) {
-
-        if (all || my) {
-            exporter_real(f, t);
-        }
-
+        exporter_real(f, t, all);
     } else {
         ERR.innerHTML += "<br />from date can't be ahead of to date";
     }
 }
 
-function exporter_real(x, y) {
+function exporter_real(x, y, getDepartment) {
+    var user = localStorage.getItem("access");
     var Start = new Date(x).getFullYear() + "-" + new Date(x).getMonth() + "-" + new Date(x).getDate();
     var end = new Date(y).getFullYear() + "-" + new Date(y).getMonth() + "-" + new Date(y).getDate();
     document.getElementById("expo_img").src = loading;
     $("#expo_container2").css("display", "none");
     $("#expo_load").css("display", "block");
-    window.open("http://localhost:8080/crud/api/dataExport.php?f=" + Start + "&t=" + end, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=200,height=200");
+    window.open("http://localhost:8080/crud/api/dataExport.php?f=" + Start + "&t=" + end + "&d=" + getDepartment + "&i="+user, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=100,height=100");
     $("#expo_container2").css("display", "block");
     $("#expo_load").css("display", "none");
 }

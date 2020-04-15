@@ -144,8 +144,8 @@ export default class Socki extends React.Component {
             var temp = document.getElementsByClassName("day");
             for (var i = 0; i < temp.length; i++) {
                 temp[i].addEventListener("click", function (elem) {
-                var slected_date = (elem.srcElement.id + 1) + " " + mon[mm-1] + ", " + yyyy;
-                pullUpDay((mm - 1), (parseInt(this.id) + 1), slected_date);
+                    var slected_date = (elem.srcElement.id + 1) + " " + mon[mm - 1] + ", " + yyyy;
+                    pullUpDay((mm - 1), (parseInt(this.id) + 1), slected_date);
                 })
             }
         }
@@ -165,17 +165,18 @@ export default class Socki extends React.Component {
                             if (window.location.href.search("calendar") != -1) {
                                 displayStatusOfMonth(data);
                                 printAmountofoffTypes();
+                                showIfOrNotEmpty(true);
                             }
                         } else {
                             if (window.location.href.search("calendar") != -1) {
-                                document.getElementById("cal_side_Display").innerHTML = "";
+                                showIfOrNotEmpty(false);
                             }
                             console.log("no events to show");
                             printEmpty();
                         }
                     } catch (e) {
                         console.log(e);
-                        printEmpty();
+                        // printEmpty();
                     }
                 }
             }
@@ -246,9 +247,26 @@ export default class Socki extends React.Component {
     }
 }
 
+function showIfOrNotEmpty(isNot) {
+    if (isNot) {
+        document.getElementById("cal_side_offtype_list").style.display = "grid";
+        document.getElementById("cal_side_Display").style.display = "grid";
+        document.getElementById("cal_side_organizer").style.display = "grid";
+        document.getElementById("cal_side_event_container").style.display = "grid";
+        document.getElementById("cal_side_empty").style.display = "none";
+    } else {
+        document.getElementById("cal_side_offtype_list").style.display = "none";
+        document.getElementById("cal_side_Display").style.display = "none";
+        document.getElementById("cal_side_organizer").style.display = "none";
+        document.getElementById("cal_side_event_container").style.display = "none";
+        document.getElementById("cal_side_empty").style.display = "grid";
+    }
+}
+
 function printSideCal_items(person) {
     var OffsiteSatus = document.createElement("div");
     OffsiteSatus.id = "OffsiteSatus";
+    OffsiteSatus.style.animation = "slideInLeft 0.5s";
 
     var OffsiteSatus_top = document.createElement("div");
     OffsiteSatus_top.id = "OffsiteSatus_top";
@@ -401,7 +419,6 @@ function pullUpDay(month, day, slected_date) {
                 box.innerHTML = "";
                 if (data.Total != 0) {
                     for (var i = 0; i < data.Total; i++) {
-                        // box.innerHTML += "<br /> name:" + data.request[i].first_name + ", " + data.request[i].last_name;
                         box.appendChild(printSideCal_items(data.request[i]));
                     }
                 }
@@ -437,14 +454,13 @@ function printAmountofoffTypes() {
                 var box2 = document.getElementById("cal_side_organizer_displayer");
                 box.innerHTML = "";
                 box2.innerHTML = "";
-                console.log(data);
                 for (var i = 0; i < data.Total; i++) {
                     box.appendChild(renderOffType_Item(data.off[i]));
                     box2.appendChild(renderOffType_controls(data.off[i]));
                 }
 
 
-                 //listeners for reserve elements for control checkboxes
+                //listeners for reserve elements for control checkboxes
                 var controls = document.getElementsByClassName("cal_side_organizer_item");
                 for (var i = 0; i < controls.length; i++) {
                     controls[i].addEventListener("click", (elem) => {
@@ -469,6 +485,7 @@ function printAmountofoffTypes() {
 function renderOffType_Item(data) {
     var item = document.createElement("div");
     item.className = "cal_side_actions";
+    item.style.animation = "fadeIn 0.8s";
 
     var left = document.createElement("div");
     left.style.float = "left";
