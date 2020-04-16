@@ -220,8 +220,7 @@ function Approved(person, x) {
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4) {
             try {
-                var data = Boolean(xhr.responseText);
-                if (data) {
+                if (xhr.responseText.length == 0) {
                     $(".item" + person.googleId).fadeToggle();
                 } else {
                     alert("there seems to be an issue");

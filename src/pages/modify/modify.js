@@ -509,7 +509,7 @@ function printPendingRequests(id) {
 function pendingRequestItem(person) {
 
     var OffsiteSatus = document.createElement("div");
-    OffsiteSatus.id = "req_" + person.id;
+    OffsiteSatus.id = "pend" + person.id;
     OffsiteSatus.className = "request_item_Satus";
     OffsiteSatus.style.borderRadius = "10px";
 
@@ -555,7 +555,7 @@ function pendingRequestItem(person) {
         };
         offInfo2.appendChild(aprv_btn);
         offInfo2.appendChild(decl_btn);
-    }else{
+    } else {
         cancel.textContent = "cancel";
         cancel.style.padding = "5px";
         cancel.style.border = "none";
@@ -568,7 +568,7 @@ function pendingRequestItem(person) {
         };
     }
 
-    
+
 
     var end = new Date(person.end);
     var start = new Date(person.start);
@@ -599,7 +599,7 @@ function pendingRequestItem(person) {
     OffsiteSatus_bottom.appendChild(offsiteRight);
     OffsiteSatus.appendChild(OffsiteSatus_top);
     if (user == person.googleId) {
-    OffsiteSatus.append(cancel);
+        OffsiteSatus.append(cancel);
     }
     OffsiteSatus.appendChild(OffsiteSatus_bottom);
     return OffsiteSatus;
@@ -614,7 +614,7 @@ function removeItem(person) {
                 var data = Boolean(xhr.responseText);
                 console.log(xhr.responseText);
                 if (data) {
-                    $("#reg_" + person.id).fadeToggle();
+                    $("#pend" + person.id).fadeToggle();
                 } else {
                     alert("there seems to be an issue");
                 }
@@ -641,15 +641,15 @@ function printAllEmployees(x) {
                 Everyone.appendChild(printSomeone(data.employee[i]));
             }
 
-            var emp = document.getElementsByClassName("employee");
-            for (var i = 0; i < emp.length - 1; i++) {
-                $("#" + emp[i].id).click((eleme) => {
-                    printLookupUser(eleme.currentTarget.id.substr(1, eleme.currentTarget.id.length - 1));
+            var num = document.getElementsByClassName("employee");
+            for (var i = 0; i < num.length - 1; i++) {
+                document.getElementsByClassName("employee")[i].addEventListener("click", (eleme) => {
+                    printLookupUser(eleme.srcElement.id.substr(1, eleme.srcElement.id.length - 1));
                 });
-            }
         }
-    };
-    xhr.send();
+    }
+};
+xhr.send();
 }
 
 function printSomeone(person) {
@@ -662,7 +662,7 @@ function printSomeone(person) {
     var info_bottom;
     var email;
     var active;
-    var dept;
+    var department;
     var br;
     item = document.createElement("div");
     item.id = "modify_user_item";
@@ -701,15 +701,15 @@ function printSomeone(person) {
     active.textContent = person.employee_status;
 
     var isAssigned = person.dept;
-    dept = document.createElement("label");
-    dept.id = "modify_user_info_dept";
-    if (isAssigned != 0) {
-        dept.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
-            person.dept;
-    } else { dept.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Not Assigned"; }
+    department = document.createElement("label");
+    department.id = "modify_user_info_dept";
+
+    // if (isAssigned != 0) {
+    //     department.innerHTML = "&nbsp;" + person.dept;
+    // } else { department.innerHTML = "&nbsp;Not Assigned"; }
 
     info_bottom.appendChild(active);
-    info_bottom.appendChild(dept);
+    info_bottom.appendChild(department);
     info.appendChild(emptyDiv);
     info.appendChild(name);
     info.appendChild(email);
@@ -726,9 +726,8 @@ function Approved(person, x) {
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4) {
             try {
-                var data = Boolean(xhr.responseText);
-                if (data) {
-                    $(".item" + person.googleId).fadeToggle();
+                if (xhr.responseText.length == 0) {
+                    $("#pend" + person.id).fadeToggle();
                 } else {
                     alert("there seems to be an issue");
                 }
@@ -762,4 +761,3 @@ function turn_M(x) {
         document.getElementById("modify_lookup_details").style.display = "none";
     }
 }
-

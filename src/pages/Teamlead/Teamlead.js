@@ -13,7 +13,9 @@ export default class team extends React.Component {
         this.type = localStorage.getItem("teamlead")
     }
     componentDidMount() {
-
+        if(localStorage.getItem("access") == null){
+            window.location.href = "http://localhost:8080/login";
+        }
     }
 
     render() {

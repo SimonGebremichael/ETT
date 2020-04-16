@@ -11,6 +11,8 @@ export default class mainPage extends React.Component {
     super(props);
   }
   componentDidMount = () => {
+    setOffsiteStatus();
+    
     localStorage.removeItem("access");
     localStorage.removeItem("teamlead");
 
@@ -136,4 +138,18 @@ function checkIfTeamLead(response){
     }
   }
   check.send();
+}
+
+function setOffsiteStatus(){
+  var offsite = new XMLHttpRequest();
+  offsite.open("GET", "http://localhost:8080/crud/api/checkTeamlead.php?i=" + response.googleId);
+  offsite.onreadystatechange = function () {
+    if (offsite.readyState == 4) {
+        if(offsite.responseText.length.length != 0){
+          console.log(offsite.responseText);
+        }
+      }
+    }
+  }
+  offsite.send();
 }

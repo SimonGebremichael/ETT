@@ -30,7 +30,10 @@ export default class creator extends React.Component {
                         o.value = data.offtype[i].id;
                         o.innerHTML = data.offtype[i].name;
                         box.appendChild(o);
-                    } } } }
+                    }
+                }
+            }
+        }
         off.send();
     }
 
@@ -86,9 +89,9 @@ function CreateForm() {
                 </div>
                 <div id="create_btns">
                     <input type="button" onClick={expo_vali} id="create_request" value="Create" />
+                    <label id="create_err" style={create_err}></label>
                 </div>
             </div>
-            <label id="create_err" style={create_err}></label>
         </>
     )
 }
@@ -114,14 +117,21 @@ function date_vali(from, to, type, memo, c_ERR) {
 
 function exporter_real(x, y, type, memo, c_ERR) {
     var resultDays = Math.round((new Date(y) - new Date(x)) / (1000 * 60 * 60 * 24));
-    var Start = new Date(x).getFullYear() + "-" + new Date(x).getMonth() + "-" + (new Date(x).getDate() + 1);
-    var end = new Date(y).getFullYear() + "-" + new Date(y).getMonth() + "-" + (new Date(y).getDate() + 1);
-    console.log(user);
-    console.log(x);
-    console.log(y);
-    console.log(type);
-    console.log(memo);
-    console.log(resultDays);
+    var Start;
+    var end;
+    if (new Date(x).getMonth() < 10) {
+        Start = new Date(x).getFullYear() + "-0" + new Date(x).getMonth() + "-" + (new Date(x).getDate() + 1);
+    } else {
+        Start = new Date(x).getFullYear() + "-" + new Date(x).getMonth() + "-" + (new Date(x).getDate() + 1);
+    }
+
+    if (new Date(y).getMonth() < 10) {
+        end = new Date(y).getFullYear() + "-0" + new Date(y).getMonth() + "-" + (new Date(y).getDate() + 1);
+    } else {
+        end = new Date(y).getFullYear() + "-" + new Date(y).getMonth() + "-" + (new Date(y).getDate() + 1);
+    }
+
+    end = new Date(y).getFullYear() + "-" + new Date(y).getMonth() + "-" + (new Date(y).getDate() + 1);
     document.getElementById("expo_img").src = loading;
     document.getElementById("createSide2").style.display = "none";
     document.getElementById("expo_load").style.display = "block";
@@ -136,13 +146,16 @@ function exporter_real(x, y, type, memo, c_ERR) {
         "&days=" + resultDays);
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4) {
-            if (xhr.responseText.length == 4 || xhr.responseText.length == 5) {
+            if (xhr.responseText.length == 0) {
                 document.getElementById("expo_img").src = check;
                 document.getElementById("sentInfo").innerHTML = " <br /><br />sent for: <br />" + x + " - " + y;
                 document.getElementById("sentInfo").innerHTML += "<br /><br />" + resultDays + " days";
-                c_ERR.innerHTML = xhr.responseText;
             } else {
+                document.getElementById("expo_img").src = loading;
+                document.getElementById("createSide2").style.display = "block";
+                document.getElementById("expo_load").style.display = "none";
                 console.log(xhr.responseText);
+                c_ERR.innerHTML = xhr.responseText;
             }
         }
     }
@@ -165,7 +178,9 @@ const createMemo = {
 }
 const create_err = {
     marginTop: "10px",
-    marginLeft: "50px"
+    marginLeft: "10px",
+    float: "left",
+    color: "white"
 }
 
 const expo_img = {

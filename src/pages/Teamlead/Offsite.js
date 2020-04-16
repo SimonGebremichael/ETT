@@ -18,6 +18,7 @@ export default class offsite extends React.Component {
                     var data = JSON.parse(xhr.responseText);
                     document.getElementById("dash_side_name").innerHTML = data.employee.first_name + ", " + data.employee.last_name;
                     document.getElementById("dash_side_email").innerHTML = data.employee.email;
+                    document.getElementById("dash_side_dept").innerHTML = data.employee.dept;
                     document.getElementById("offsiteActivity_Main").innerHTML = data.employee.employee_status;
                     document.getElementsByClassName("offsite_acc_img")[0].src = data.employee.img;
                 } catch (e) {
@@ -64,6 +65,7 @@ export default class offsite extends React.Component {
                             <td id="accInfo">
                                 <label id="dash_side_name"></label><br />
                                 <label id="dash_side_email"></label><br />
+                                <label id="dash_side_dept"></label><br />
                                 <button id="offsiteActivity_Main"></button>
                             </td>
                         </tr>
@@ -145,7 +147,6 @@ function OffsiteItem(person) {
     offInfo.appendChild(first_name);
     offInfo.appendChild(br);
     offInfo.appendChild(email);
-    offInfo.appendChild(br);
     offInfo.appendChild(dept);
     offInfo.appendChild(active);
 

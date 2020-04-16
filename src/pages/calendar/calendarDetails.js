@@ -13,13 +13,7 @@ export default class team extends React.Component {
     }
     render() {
         return (
-            <CalendarDetail />
-        )
-    }
-}
-function CalendarDetail() {
-    return (
-        <div id="popupDisplay">
+            <div id="popupDisplay">
             <div id="popBg"></div>
             <div id="calDetails">
                 <h1 id="popDate"></h1><br /><br />
@@ -30,5 +24,6 @@ function CalendarDetail() {
                 </div>
             </div>
         </div>
-    )
+        )
+    }
 }
