@@ -182,7 +182,6 @@ const create_err = {
     float: "left",
     color: "white"
 }
-
 const expo_img = {
     width: "50px",
     marginTop: "60%",

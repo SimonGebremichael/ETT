@@ -12,27 +12,8 @@ export default class AcctiveRequests extends React.Component {
     }
     componentDidMount = () => {
         turn(true);
+        printControlBtns();
         getData("all");
-        $("#remoteBtn").on("click", () => {
-            turn(true);
-            getData("remote");
-        });
-        $("#vacationBtn").on("click", () => {
-            turn(true);
-            getData("vacation");
-        });
-        $("#birthdayBtn").on("click", () => {
-            turn(true);
-            getData("birthday");
-        });
-        $("#sickBtn").on("click", () => {
-            turn(true);
-            getData("sick");
-        });
-        $("#allBtn").on("click", () => {
-            turn(true);
-            getData("all");
-        });
     }
 
     render() {
@@ -40,12 +21,7 @@ export default class AcctiveRequests extends React.Component {
             <div id="mainFeed">
                 <div id="mainAcctions"><br /><br /><br />
                     <h2>Active Requests:</h2>
-                    <div id="acctionButtons">
-                        <input type="button" id="remoteBtn" class="acctionBtn" value="Remote" />
-                        <input type="button" id="vacationBtn" class="acctionBtn" value="Vacation" />
-                        <input type="button" id="birthdayBtn" class="acctionBtn" value="Birthdays" />
-                        <input type="button" id="sickBtn" class="acctionBtn" value="Sick" />
-                        <input type="button" id="allBtn" class="acctionBtn" value="All" />
+                    <div id="dash_acctionButtons">
                     </div>
                 </div><br />
                 <h3 id="PendingAmt"></h3><br />
@@ -62,7 +38,7 @@ export default class AcctiveRequests extends React.Component {
 
 const loadingImg = {
     width: "100px",
-    marginLeft: "35%",
+    marginLeft: "45%",
     marginTop: "10%",
     opacity: "0.6"
 }
@@ -77,6 +53,7 @@ function turn(x) {
         document.getElementById("displayRequests_loader").style.display = "none";
     }
 }
+
 function getData(x) {
     var user = localStorage.getItem("access");
     var xhr = new XMLHttpRequest();
@@ -103,6 +80,58 @@ function getData(x) {
         }
     }
     xhr.send();
+}
+
+function printControlBtns() {
+    var user = localStorage.getItem("access");
+    var offsitesBtns = new XMLHttpRequest();
+    offsitesBtns.open("GET", "http://localhost:8080/crud/api/getofftype.php");
+    offsitesBtns.onreadystatechange = function () {
+        if (offsitesBtns.readyState == 4) {
+            var box = document.getElementById("displayRequests");
+            box.innerHTML = "";
+            turn(false);
+            try {
+                var data = JSON.parse(offsitesBtns.responseText);
+                var box = document.getElementById("dash_acctionButtons");
+                console.log(offsitesBtns.responseText);
+                if (data.Total != 0) {
+                    for (var i = 0; i < data.Total; i++) {
+                        var o = document.createElement("button");
+                        o.id = data.offtype[i].name;
+                        o.className = "acctionBtn";
+                        o.innerHTML = data.offtype[i].name;
+                        box.appendChild(o);
+                    }
+                    var o = document.createElement("button");
+                    o.id = "all";
+                    o.className = "acctionBtn";
+                    o.innerHTML = "all";
+                    box.appendChild(o);
+                }
+
+                //controls for which type of requests to show
+                var controls = document.getElementsByClassName("acctionBtn");
+                for (var i = 0; i < controls.length; i++) {
+                    controls[i].addEventListener("click", (elem) => {
+                        for (var i = 0; i < controls.length; i++) {
+                            controls[i].style.backgroundColor = "black";
+                        }
+
+                        turn(true);
+                        getData(elem.srcElement.id);
+                        document.getElementById(elem.srcElement.id).style.backgroundColor = "#333";
+                        document.getElementById(elem.srcElement.id).blur();
+                    });
+                }
+
+            } catch (e) {
+                console.log(e);
+                box.innerHTML = "there seems to be an issue :(";
+            }
+        }
+    }
+    offsitesBtns.send();
 }
 
 function printRequest(person) {
@@ -159,7 +188,7 @@ function printRequest(person) {
     var request_btn_cont = document.createElement("div");
     request_btn_cont.id = "request_btn_cont";
 
-    if (person.googleId != localStorage.getItem("access")) {
+    if (person.googleId == localStorage.getItem("access")) {
         var aprv_btn = document.createElement("button");
         aprv_btn.textContent = "approve";
         aprv_btn.id = "aprv_btn";

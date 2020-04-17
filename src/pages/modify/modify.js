@@ -363,7 +363,6 @@ function deleteDept() {
                 try {
                     var testVar = parseInt(del.responseText);
                     console.log(del.responseText);
-                    // alert("removed");
                     grabDept(1);
                 } catch (e) {
 
@@ -433,6 +432,7 @@ function deletePerson() {
             if (xhr.readyState == 4) {
                 try {
                     var data = parseInt(xhr.responseText);
+                    printLookupUser(localStorage.getItem("access"));
                 } catch (e) {
                     document.getElementById("modify_action_approve").textContent = "Error occured :(";
                 }

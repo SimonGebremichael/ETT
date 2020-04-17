@@ -200,32 +200,26 @@ table {
     margin-left: 5%;
 }
 
-#acctionButtons {
+#dash_acctionButtons {
     border: none;
     background-color: black;
     padding-top: 20px;
+    display: grid;
+    grid-template-columns: 20% 20% 20% 20% 20%;
 }
 
 .acctionBtn {
-    width: 20%;
     padding: 5px;
+    color: white;
     text-align: center;
     display: inline-block;
     background: none;
     border: none;
+    display: block;
 }
-
-#remoteBtn, #vacationBtn, #birthdayBtn, #sickBtn, #allBtn {
-    animation: fadeIn 1s 1;
-    background: none;
-    border: none;
-    color: white;
-    transition: background-color .5s ease-in-out;
-}
-
-#remoteBtn:hover, #vacationBtn:hover, #birthdayBtn:hover, #sickBtn:hover, #allBtn:hover {
-    cursor: pointer;
+.acctionBtn:hover {
     background-color: #222222;
+    cursor: pointer;
 }
 
 #PendingAmt {

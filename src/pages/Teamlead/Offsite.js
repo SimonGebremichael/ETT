@@ -145,7 +145,6 @@ function OffsiteItem(person) {
     dept.innerHTML = person.dept;
 
     offInfo.appendChild(first_name);
-    offInfo.appendChild(br);
     offInfo.appendChild(email);
     offInfo.appendChild(dept);
     offInfo.appendChild(active);

@@ -3,11 +3,10 @@ body{
     height: 100vh;
     background: #2F93F2;
     scrollbar-color: black white;
-    scrollbar-arrow-color: red;
 }
 
 html{
-    background-color: red;
+    background-color: #2F93F2;
 }
 
 *{

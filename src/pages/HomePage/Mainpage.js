@@ -1,10 +1,6 @@
 import React from "react";
 import Tree from "./pics/fullTree.png";
-import { Link } from 'react-router-dom';
-import $ from 'jquery';
 import { GoogleLogin } from 'react-google-login';
-import ApiCalendar from 'react-google-calendar-api';
-import ApiCalendar2 from 'react-google-calendar-api/ApiCalendar';
 
 export default class mainPage extends React.Component {
   constructor(props) {
@@ -142,14 +138,13 @@ function checkIfTeamLead(response){
 
 function setOffsiteStatus(){
   var offsite = new XMLHttpRequest();
-  offsite.open("GET", "http://localhost:8080/crud/api/checkTeamlead.php?i=" + response.googleId);
+  offsite.open("GET", "http://localhost:8080/crud/api/UpdatePersonStatus.php");
   offsite.onreadystatechange = function () {
     if (offsite.readyState == 4) {
         if(offsite.responseText.length.length != 0){
           console.log(offsite.responseText);
         }
       }
-    }
   }
   offsite.send();
 }

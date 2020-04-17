@@ -12,10 +12,10 @@ var today = new Date(),
     change = false,
     change2 = false,
     listened = false,
-    d = document;
-var grab = "";
-var grab2 = "";
-var forToday;
+    grab1 = "",
+    grab2 = "",
+    forToday;
+
 export default class Socki extends React.Component {
     constructor(props) {
         super(props);
@@ -28,18 +28,18 @@ export default class Socki extends React.Component {
             box.innerHTML = "";
             document.getElementById("dateTitle").innerHTML = mon[mm - 1] + ", " + yyyy;
             forToday = request;
-            grab = "";
-            grab2 = "";
+            grab1 = [null, null, null, null, null, null, null, null, null, null, null, null];
+            grab2 = [null, null, null, null, null, null, null, null, null, null, null, null];
             listened = false;
 
             //adjust formating for events before or after month
             for (var i = 0; i < request.Total; i++) {
-                if (new Date(request.request[i].Start).getMonth() < new Date(request.request[i].End).getMonth()) {
-                    if (new Date(request.request[i].End).getMonth() == mm - 1) {
-                        grab2 += "fm" + request.request[i].id + ",";
+                if (new Date(request.request[i].Start).getMonth() != new Date(request.request[i].End).getMonth()) {
+                    if (parseInt(new Date(request.request[i].End).getMonth()) === parseInt(mm - 1)) {
+                        grab2[i] = request.request[i].id;
                     }
                     if (new Date(request.request[i].End).getMonth() == mm - 2) {
-                        grab += "wq" + request.request[i].id + ",";
+                        grab1[i] = request.request[i].id;
                     }
                 }
             }
@@ -99,8 +99,6 @@ export default class Socki extends React.Component {
                 }
 
                 if (request.Total > 0) {
-                    var ids = grab.substr(0, grab.length - 1).split(",");
-                    var fm = grab2.substr(0, grab2.length - 1).split(",");
                     for (var k = 0; k < request.Total; k++) {
 
                         //render dates from request object
@@ -109,12 +107,11 @@ export default class Socki extends React.Component {
                         }
 
                         //render dates that start from the month before
-                        if (ids[k] == "wq" + request.request[k].id && i <= new Date(request.request[k].End).getDate()) {
+                        if (grab1[k] == request.request[k].id && i <= new Date(request.request[k].End).getDate()) {
                             reserveCont.appendChild(appecndReserve(k));
                         }
-
-                        //render dates that continue to next month
-                        if (fm[k] == "fm" + request.request[k].id && i >= new Date(request.request[k].Start).getDate()) {
+                        //render dates that continue till next month
+                        if (grab2[k] === request.request[k].id && i >= new Date(request.request[k].Start).getDate()) {
                             reserveCont.appendChild(appecndReserve(k));
                         }
                     }
@@ -141,13 +138,13 @@ export default class Socki extends React.Component {
             }
 
             //listener for each box of the day
-            var temp = document.getElementsByClassName("day");
-            for (var i = 0; i < temp.length; i++) {
-                temp[i].addEventListener("click", function (elem) {
-                    var slected_date = (elem.srcElement.id + 1) + " " + mon[mm - 1] + ", " + yyyy;
-                    pullUpDay((mm - 1), (parseInt(this.id) + 1), slected_date);
+            var tempper = document.getElementsByClassName("day");
+            for (var i = 0; i < tempper.length; i++) {
+                tempper[i].addEventListener("click", function () {
+                    pullUpDay((mm - 1), (parseInt(this.id) + 1)); //pulling up that day
                 })
             }
+
         }
 
         //grabs events from db through XHR requests than it is parsed as JSON
@@ -176,7 +173,7 @@ export default class Socki extends React.Component {
                         }
                     } catch (e) {
                         console.log(e);
-                        // printEmpty();
+                        printEmpty();
                     }
                 }
             }
@@ -302,10 +299,13 @@ function printSideCal_items(person) {
     var active = document.createElement("button");
     active.id = "offsiteActivity";
     active.textContent = person.employee_status;
+
+    var dept = document.createElement("p");
+    dept.innerHTML = person.dept;
+
     offInfo.appendChild(first_name);
-    offInfo.appendChild(br);
     offInfo.appendChild(email);
-    offInfo.appendChild(br);
+    offInfo.appendChild(dept);
     offInfo.appendChild(active);
 
     var end = new Date(person.End);
@@ -404,9 +404,9 @@ function printEmpty() {
     }
 }
 
-function pullUpDay(month, day, slected_date) {
+function pullUpDay(month, day) {
     document.getElementById("popupDisplay").style.display = "block";
-    document.getElementById("popDate").innerHTML = slected_date;
+    document.getElementById("popDate").innerHTML = day + " " + mon[month - 1] + ", " + yyyy;
     var all = new XMLHttpRequest();
     all.open("GET", "http://localhost:8080/crud/api/getCalendarDay.php?y=" + yyyy + "&m=" + month + "&d=" + day);
     all.onreadystatechange = function () {

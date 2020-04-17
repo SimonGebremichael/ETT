@@ -55,6 +55,18 @@
   float: right;
 }
 
+.offtype_acctions {
+  padding: 0px;
+  text-align: center;
+  border: none;
+  color: white;
+  background-color: gray;
+}
+.offtype_acctions:hover {
+  background-color: lightgrey;
+  cursor: pointer;
+}
+
 @media screen and (max-width: 600px) {
   .col-25, .col-75, input[type="submit"] {
     width: 100%;
