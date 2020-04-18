@@ -21,14 +21,14 @@ export default class Modify extends React.Component {
                 box2.innerHTML = "";
                 if (data.Total != 0) {
                     for (var i = 0; i < data.Total; i++) {
-                        var elem = document.createElement("Option");
+                        var elem = document.createElement("option");
                         elem.value = data.employee[i].googleId;
                         elem.textContent = data.employee[i].first_name + ", " + data.employee[i].last_name;
                         box.appendChild(elem);
-                    }
+                    } 
 
                     for (var i = 0; i < data.Total; i++) {
-                        var elem = document.createElement("Option");
+                        var elem = document.createElement("option");
                         elem.value = data.employee[i].googleId;
                         elem.textContent = data.employee[i].first_name + ", " + data.employee[i].last_name;
                         box2.appendChild(elem);
@@ -73,14 +73,14 @@ export default class Modify extends React.Component {
         $("#modify_pop_assign").click(() => {
             var member = document.getElementById("modify_pop_display").value;
             var dept = localStorage.getItem("dept");
-
-            xhr.open("GET", "http://localhost:8080/crud/api/assignDeptHead.php?i=" + member + "&d=" + dept);
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState == 4) {
+            var dd = new XMLHttpRequest();
+            dd.open("GET", "http://localhost:8080/crud/api/assignDeptHead.php?i=" + member + "&d=" + dept);
+            dd.onreadystatechange = function () {
+                if (dd.readyState == 4) {
                     $("#modify_pop").hide();
                 };
             }
-            xhr.send();
+            dd.send();
         });
 
 
@@ -131,7 +131,7 @@ export default class Modify extends React.Component {
                         <h2>Add a person</h2> <br /><hr /> <br /><br />
                         <select className="modify_pop_dis" id="modify_pop_display2">
                         </select><br />
-                        <button  className="modify_pop_assi" id="modify_pop_assign2">Add</button>
+                        <button className="modify_pop_assi" id="modify_pop_assign2">Add</button>
                     </div>
                 </div>
                 <div className="modify_popup" id="modify_pop3">
@@ -140,7 +140,7 @@ export default class Modify extends React.Component {
                         <h2>Add to a department</h2> <br /><hr /> <br /><br />
                         <select className="modify_pop_dis" id="modify_pop_display3">
                         </select><br />
-                        <button  className="modify_pop_assi" id="modify_pop_assign3">Add</button>
+                        <button className="modify_pop_assi" id="modify_pop_assign3">Add</button>
                     </div>
                 </div>
             </>
