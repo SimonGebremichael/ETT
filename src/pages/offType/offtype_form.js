@@ -41,7 +41,7 @@ export default class offTypes extends React.Component {
             try {
                 var par = parseInt(limit);
                 if (name.length != 0 && limit.length != 0) {
-                    // turn(true);
+                    turn(true);
                     var xhr = new XMLHttpRequest();
                     xhr.open("GET", "http://localhost:8080/crud/api/createOffType.php?n=" + name + "&l=" + limit + "&c=" + color);
                     xhr.onreadystatechange = function () {
@@ -59,7 +59,7 @@ export default class offTypes extends React.Component {
                             }
                         }
                     }
-                    // xhr.send();
+                    xhr.send();
                 } else {
                     document.getElementById("offtype_errors").innerHTML += "\nsome feilds empty";
                     document.getElementById("offtype_errors").style.color = "red";
