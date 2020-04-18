@@ -35,23 +35,31 @@ export default class offTypes extends React.Component {
             color = color.substr(1, color.length - 1);
             document.getElementById("offtype_errors").innerHTML = "";
 
+            console.log(name);
+            console.log(limit);
+            console.log(color);
             try {
                 var par = parseInt(limit);
                 if (name.length != 0 && limit.length != 0) {
-                    turn(true);
+                    // turn(true);
                     var xhr = new XMLHttpRequest();
                     xhr.open("GET", "http://localhost:8080/crud/api/createOffType.php?n=" + name + "&l=" + limit + "&c=" + color);
                     xhr.onreadystatechange = function () {
                         if (xhr.readyState == 4) {
+                            turn(false);
                             if (xhr.responseText == "true") {
                                 document.getElementsByClassName("offtypeLoadingImg")[0].src = check;
-                            } else if (xhr.responseText == "already") {
+                            } else if (xhr.responseText.length == 0) {
                                 alert("offtype already exists");
-                                turn(false);
+                                document.getElementById("offtype_errors").innerHTML += "\nofftype already exists";
+                                document.getElementById("offtype_errors").style.color = "red";
+                            } else {
+                                document.getElementById("offtype_errors").innerHTML += "\n" + xhr.responseText;
+                                document.getElementById("offtype_errors").style.color = "red";
                             }
                         }
                     }
-                    xhr.send();
+                    // xhr.send();
                 } else {
                     document.getElementById("offtype_errors").innerHTML += "\nsome feilds empty";
                     document.getElementById("offtype_errors").style.color = "red";
@@ -65,6 +73,7 @@ export default class offTypes extends React.Component {
         });
     }
     render() {
+
         return (
             <div class="offtype_container">
                 <div id="offtype_container_1">
@@ -75,7 +84,7 @@ export default class offTypes extends React.Component {
                         <label for="offtype_name">Offtype Name:</label>
                         <input type="text" id="offtype_name" name="offtypename" placeholder="The offtype name.." />
                         <label for="colour">Colour:</label>
-                        <input type="color" id="offtype_colour" value="#190707" />
+                        <input type="color" id="offtype_colour" style={color} />
                         <label for="offtype_limit">Default Limit:</label>
                         <input type="text" id="offtype_limit" name="defaultlimit" placeholder="The default number of days" />
                     </div>
@@ -93,6 +102,8 @@ export default class offTypes extends React.Component {
         )
     }
 }
+const color = { width: "100%", height: "50%", padding: "0px" }
+
 function turn(x) {
     if (x) {
         document.getElementById("offtype_container_1").style.display = "none";

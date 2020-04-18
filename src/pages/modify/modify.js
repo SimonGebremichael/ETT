@@ -5,7 +5,10 @@ import Popup from './modify_popup';
 import $ from 'jquery';
 import loading from '../item/loading.gif'
 
-var mon = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Novr", "Dec"];
+var mon = [
+    "Jan", "Feb", "Mar", "Apr",
+    "May", "Jun", "Jul", "Aug", 
+    "Sept", "Oct", "Novr", "Dec"];
 var id;
 var selected_D;
 export default class Modify extends React.Component {
@@ -36,7 +39,6 @@ export default class Modify extends React.Component {
 
         $("#department_selection").click((elem) => {
             var g = $("#department_selection").val();
-            console.log(g[0]);
             grabDept(g[0]);
         });
 
@@ -207,7 +209,7 @@ function printD_list(data) {
     Update.className = "mod_off_inputBTn";
     Update.textContent = "Update";
     Update.onclick = () => {
-        updateDept(data);
+        updateOfftype(data);
     }
     var details = document.createElement("div");
     details.style.display = "grid";
@@ -232,7 +234,7 @@ function printD_list(data) {
     return cont;
 }
 
-function updateDept(data) {
+function updateOfftype(data) {
     var value = document.getElementById("in_" + data.id).value;
     try {
         var num = parseInt(value);
@@ -704,9 +706,9 @@ function printSomeone(person) {
     department = document.createElement("label");
     department.id = "modify_user_info_dept";
 
-    // if (isAssigned != 0) {
-    //     department.innerHTML = "&nbsp;" + person.dept;
-    // } else { department.innerHTML = "&nbsp;Not Assigned"; }
+    if (isAssigned != 0) {
+        department.innerHTML = "&nbsp;" + person.dept;
+    } else { department.innerHTML = "&nbsp;Not Assigned"; }
 
     info_bottom.appendChild(active);
     info_bottom.appendChild(department);

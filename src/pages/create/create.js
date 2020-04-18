@@ -116,6 +116,34 @@ function date_vali(from, to, type, memo, c_ERR) {
 }
 
 function exporter_real(x, y, type, memo, c_ERR) {
+    var weekend = 0;
+    var date1 = new Date(x);
+    var date2 = new Date(y);
+    if (date1.getMonth() == date2.getMonth()) {
+        for (var i = date1.getDate(); i < date2.getDate(); i++) {
+            var day = new Date(date1.getFullYear(), date1.getMonth(), i).getDay();
+            if (day == 5 || day == 6) {
+                weekend++;
+            }
+        }
+    } else if (date1.getMonth() != date2.getMonth()) {
+        for (var i = date1.getDate(); i < new Date(date1.getFullYear(), date1.getMonth(), 0).getDate(); i++) {
+            var day = new Date(date1.getFullYear(), date1.getMonth(), i).getDay();
+            if (day == 5 || day == 6) {
+                weekend++;
+            }
+        }
+
+        for (var i = 1; i < date2.getDate(); i++) {
+            var day = new Date(date2.getFullYear(), date2.getMonth(), i).getDay();
+            if (day == 5 || day == 6) {
+                weekend++;
+            }
+        }
+
+    }
+
+    alert("weekend: " + weekend);
     var resultDays = Math.round((new Date(y) - new Date(x)) / (1000 * 60 * 60 * 24));
     var Start;
     var end;
@@ -131,35 +159,35 @@ function exporter_real(x, y, type, memo, c_ERR) {
         end = new Date(y).getFullYear() + "-" + new Date(y).getMonth() + "-" + (new Date(y).getDate() + 1);
     }
 
-    end = new Date(y).getFullYear() + "-" + new Date(y).getMonth() + "-" + (new Date(y).getDate() + 1);
-    document.getElementById("expo_img").src = loading;
-    document.getElementById("createSide2").style.display = "none";
-    document.getElementById("expo_load").style.display = "block";
+    // end = new Date(y).getFullYear() + "-" + new Date(y).getMonth() + "-" + (new Date(y).getDate() + 1);
+    // document.getElementById("expo_img").src = loading;
+    // document.getElementById("createSide2").style.display = "none";
+    // document.getElementById("expo_load").style.display = "block";
 
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", "http://localhost:8080/crud/api/createRequest.php?" +
-        "g=" + user +
-        "&t=" + type +
-        "&s=" + Start +
-        "&e=" + end +
-        "&m=" + memo +
-        "&days=" + resultDays);
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState == 4) {
-            if (xhr.responseText.length == 0) {
-                document.getElementById("expo_img").src = check;
-                document.getElementById("sentInfo").innerHTML = " <br /><br />sent for: <br />" + x + " - " + y;
-                document.getElementById("sentInfo").innerHTML += "<br /><br />" + resultDays + " days";
-            } else {
-                document.getElementById("expo_img").src = loading;
-                document.getElementById("createSide2").style.display = "block";
-                document.getElementById("expo_load").style.display = "none";
-                console.log(xhr.responseText);
-                c_ERR.innerHTML = xhr.responseText;
-            }
-        }
-    }
-    xhr.send();
+    // var xhr = new XMLHttpRequest();
+    // xhr.open("GET", "http://localhost:8080/crud/api/createRequest.php?" +
+    //     "g=" + user +
+    //     "&t=" + type +
+    //     "&s=" + Start +
+    //     "&e=" + end +
+    //     "&m=" + memo +
+    //     "&days=" + resultDays);
+    // xhr.onreadystatechange = function () {
+    //     if (xhr.readyState == 4) {
+    //         if (xhr.responseText.length == 0) {
+    //             document.getElementById("expo_img").src = check;
+    //             document.getElementById("sentInfo").innerHTML = " <br /><br />sent for: <br />" + x + " - " + y;
+    //             document.getElementById("sentInfo").innerHTML += "<br /><br />" + resultDays + " days";
+    //         } else {
+    //             document.getElementById("expo_img").src = loading;
+    //             document.getElementById("createSide2").style.display = "block";
+    //             document.getElementById("expo_load").style.display = "none";
+    //             console.log(xhr.responseText);
+    //             c_ERR.innerHTML = xhr.responseText;
+    //         }
+    //     }
+    // }
+    // xhr.send();
 }
 
 const createBottom = {

@@ -19,8 +19,8 @@ export default class Pending extends React.Component {
         xhr.onreadystatechange = function () {
             if (xhr.readyState == 4) {
                 try {
-                    var data = JSON.parse(xhr.responseText);
                     turn(false);
+                    var data = JSON.parse(xhr.responseText);
                     if (data.employee.employee_status == "pending") {
                         document.getElementById("pending_message").innerHTML = "Checked back in when your account is approved, Thank you";
                         document.getElementById("pending_header_message").innerHTML = "Your Account is Currently Pending!";

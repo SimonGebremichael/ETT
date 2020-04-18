@@ -90,7 +90,6 @@ export default class Modify extends React.Component {
             xhr.open("GET", "http://localhost:8080/crud/api/addToDept.php?i=" + member + "&d=" + dept);
             xhr.onreadystatechange = function () {
                 if (xhr.readyState == 4) {
-                    console.log(xhr.responseText);
                     $("#modify_pop2").hide();
                 };
             }

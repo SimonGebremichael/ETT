@@ -1,7 +1,9 @@
 import React, { component } from 'react';
 import $ from 'jquery'
 import loading from '../item/loading.gif';
-var mon = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Novr", "Dec"];
+var mon = ["Jan", "Feb", "Mar", "Apr",
+           "May", "Jun", "Jul", "Aug",
+           "Sept", "Oct", "Novr", "Dec"];
 
 export default class AcctiveRequests extends React.Component {
     constructor(props) {
@@ -94,7 +96,6 @@ function printControlBtns() {
             try {
                 var data = JSON.parse(offsitesBtns.responseText);
                 var box = document.getElementById("dash_acctionButtons");
-                console.log(offsitesBtns.responseText);
                 if (data.Total != 0) {
                     for (var i = 0; i < data.Total; i++) {
                         var o = document.createElement("button");
@@ -176,9 +177,9 @@ function printRequest(person) {
     offInfo.appendChild(br);
     offInfo.appendChild(dept);
     offInfo.appendChild(br);
-    offInfo.appendChild(active);
-    offInfo.appendChild(br);
     offInfo.appendChild(days);
+    offInfo.appendChild(br);
+    offInfo.appendChild(active);
 
     var memo = document.createElement("label");
     memo.innerHTML = person.memo;
@@ -188,7 +189,7 @@ function printRequest(person) {
     var request_btn_cont = document.createElement("div");
     request_btn_cont.id = "request_btn_cont";
 
-    if (person.googleId == localStorage.getItem("access")) {
+    if (person.googleId != localStorage.getItem("access")) {
         var aprv_btn = document.createElement("button");
         aprv_btn.textContent = "approve";
         aprv_btn.id = "aprv_btn";
@@ -251,6 +252,7 @@ function Approved(person, x) {
             try {
                 if (xhr.responseText.length == 0) {
                     $(".item" + person.googleId).fadeToggle();
+                    setOffsiteStatus();
                 } else {
                     alert("there seems to be an issue");
                 }
@@ -261,4 +263,17 @@ function Approved(person, x) {
         }
     }
     xhr.send();
+}
+
+function setOffsiteStatus(){
+  var offsite = new XMLHttpRequest();
+  offsite.open("GET", "http://localhost:8080/crud/api/UpdatePersonStatus.php");
+  offsite.onreadystatechange = function () {
+    if (offsite.readyState == 4) {
+        if(offsite.responseText.length.length != 0){
+          console.log(offsite.responseText);
+        }
+      }
+  }
+  offsite.send();
 }
