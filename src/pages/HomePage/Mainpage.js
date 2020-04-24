@@ -1,5 +1,5 @@
 import React from "react";
-import Tree from "./pics/fulltree.png";
+import Tree from "./pics/fullTree.png";
 import { GoogleLogin } from 'react-google-login';
 
 export default class mainPage extends React.Component {

@@ -124,7 +124,7 @@ export default class Socki extends React.Component {
                 temp.appendChild(hoverText);
                 box.appendChild(temp);
                 if (currentDate.getMonth() == mm - 1 && currentDate.getFullYear() == yyyy) {
-                    if (i < currentDate.getDate()) {
+                    if (i < currentDate.getDate() - 1) {
                         temp.style.opacity = "0.4";
                     } else if (i == (currentDate.getDate() - 1)) {
                         dayText.style.backgroundColor = "#2F93F2";

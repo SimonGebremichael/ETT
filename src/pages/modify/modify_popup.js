@@ -29,6 +29,7 @@ export default class Modify extends React.Component {
 
                     for (var i = 0; i < data.Total; i++) {
                         var elem = document.createElement("option");
+
                         elem.value = data.employee[i].googleId;
                         elem.textContent = data.employee[i].first_name + ", " + data.employee[i].last_name;
                         box2.appendChild(elem);
@@ -71,7 +72,7 @@ export default class Modify extends React.Component {
         });
 
         $("#modify_pop_assign").click(() => {
-            var member = document.getElementById("modify_pop_display").value;
+            var member = document.getElementById("addTo_dept").id;
             var dept = localStorage.getItem("dept");
             var dd = new XMLHttpRequest();
             dd.open("GET", "http://localhost:8080/crud/api/assignDeptHead.php?i=" + member + "&d=" + dept);
@@ -85,7 +86,7 @@ export default class Modify extends React.Component {
 
 
         $("#modify_pop_assign2").click(() => {
-            var member = document.getElementById("modify_pop_display2").value;
+            var member = document.getElementById("addTo_dept2").value;
             var dept = localStorage.getItem("dept");
             xhr.open("GET", "http://localhost:8080/crud/api/addToDept.php?i=" + member + "&d=" + dept);
             xhr.onreadystatechange = function () {
@@ -118,10 +119,11 @@ export default class Modify extends React.Component {
                     <div id="modidy_body">
                         <h2>Assign a department head</h2>
                         <br /><hr /><br /><br />
-                        <p><i>Previouse holder will be set to unassigned</i></p>
+                        <p><i>Previouse holder will be set to unassigned. Lookup their IDs</i></p>
                         <br /><br />
-                        <select className="modify_pop_dis" id="modify_pop_display">
-                        </select><br />
+                        <input type="text" className="modify_pop_dis" placeholder="search" id="addTo_dept" list="modify_pop_display" />
+                        <datalist id="modify_pop_display">
+                        </datalist ><br />
                         <button className="modify_pop_assi" id="modify_pop_assign">Assign</button>
                     </div>
                 </div>
@@ -129,8 +131,9 @@ export default class Modify extends React.Component {
                     <div className="modify_popup_bg" id="modify_bg2"></div>
                     <div id="modidy_body">
                         <h2>Add a person</h2> <br /><hr /> <br /><br />
-                        <select className="modify_pop_dis" id="modify_pop_display2">
-                        </select><br />
+                        <input type="text" className="modify_pop_dis" placeholder="search their IDs" id="addTo_dept2" list="modify_pop_display2" />
+                        <datalist  id="modify_pop_display2">
+                        </datalist ><br />
                         <button className="modify_pop_assi" id="modify_pop_assign2">Add</button>
                     </div>
                 </div>
